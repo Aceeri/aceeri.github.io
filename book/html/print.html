@@ -4,16 +4,18 @@
         <meta charset="UTF-8">
         <title>Amethyst Documentation</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="{% block description %}{% endblock %}">
+        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <base href="">
 
         <link rel="stylesheet" href="book.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
@@ -22,7 +24,7 @@
         <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script>
             if (typeof jQuery == 'undefined') {
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
@@ -78,9 +80,9 @@ and sports a clean and modern design. More correctly, though, Amethyst is
 actually a suite of separate libraries and tools that collectively make up a
 game engine.</p>
 <p>Amethyst is free and open source software, distributed under the
-<a href="https://github.com/ebkalderon/amethyst/blob/master/COPYING">MIT License</a>. This means that the engine is given to you at no cost and its
+<a href="https://github.com/amethyst/amethyst/blob/master/COPYING">MIT License</a>. This means that the engine is given to you at no cost and its
 source code is completely yours to tinker with. The code is available on
-<a href="https://github.com/ebkalderon/amethyst">GitHub</a>. Contributions and feature requests are welcome!</p>
+<a href="https://github.com/amethyst/amethyst">GitHub</a>. Contributions and feature requests are welcome!</p>
 <p>This book is split into seven sections. This page is the first. The others are:</p>
 <ul>
 <li><a href="./getting_started.html">Getting Started</a> – Prepare your computer for Amethyst development.</li>
@@ -90,7 +92,7 @@ source code is completely yours to tinker with. The code is available on
 <li><a href="./glossary.html">Glossary</a> - Defines special terms used throughout the book.</li>
 <li>Bibliography – Read the works that influenced the design.</li>
 </ul>
-<p>Read the crate-level <a href="http://ebkalderon.github.io/amethyst/doc/amethyst/">API documentation</a> for more details.</p>
+<p>Read the crate-level <a href="https://www.amethyst.rs/doc/amethyst/">API documentation</a> for more details.</p>
 <h2>Why are you building this?</h2>
 <p>I've worked with a few game engines over the years, namely <a href="http://unity3d.com/">Unity</a> and the
 <a href="https://www.unrealengine.com/">Unreal Development Kit</a>, and both are pretty solid solutions if you want to
@@ -115,7 +117,7 @@ rapid prototyping that demands (a little) less boilerplate from the user.</li>
 </ol>
 <h2>Contributing</h2>
 <p>The Markdown source files from which this book is generated can be found
-<a href="https://github.com/ebkalderon/amethyst/tree/master/book/src">on GitHub</a>. Pull requests are welcome!</p>
+<a href="https://github.com/amethyst/amethyst/tree/master/book/src">on GitHub</a>. Pull requests are welcome!</p>
 <h1>Getting Started</h1>
 <p>These instructions will help you set up a working Amethyst game development
 environment. Then we'll test this environment by compiling a simple &quot;Hello,
@@ -150,11 +152,11 @@ first before proceeding.</p>
 <li><a href="./getting_started/manual_cargo_setup.html">Create the Cargo crate and the &quot;resources&quot; folder structure yourself</a>.</li>
 </ol>
 <p>Since we're just getting started, it's fastest and highly recommended to use
-<a href="https://github.com/ebkalderon/amethyst_tools/tree/master/src/cli">Amethyst CLI</a>, which is included in the <a href="https://github.com/ebkalderon/amethyst_tools">amethyst_tools</a> crate. If
+<a href="https://github.com/amethyst/tools/tree/master/src/cli">Amethyst CLI</a>, which is included in the <a href="https://github.com/amethyst/tools">amethyst_tools</a> crate. If
 you're of the intrepid type, you may go the vanilla Cargo route if you wish.</p>
 <h1>Automatic Setup Using The CLI Tool</h1>
 <p>An easy way to set up Amethyst and manage your project is with the
-<a href="https://github.com/ebkalderon/amethyst_tools">amethyst_tools</a> crate. If you want to set up a game project in Cargo by
+<a href="https://github.com/amethyst/tools">amethyst_tools</a> crate. If you want to set up a game project in Cargo by
 hand, follow along with <a href="./getting_started/manual_cargo_setup.html">the next section</a> instead.</p>
 <p>To install the toolchain and generate a new project with the CLI tool, follow
 along in your terminal:</p>

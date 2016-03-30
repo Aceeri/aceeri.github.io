@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Amethyst | Data-oriented and Data-driven Game Engine</title>
+      <link rel="icon" type="image/x-icon" href="/assets/amethyst.ico" />
+
+	<!-- Latest compiled and minified CSS -->
+     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+      	<!-- Optional theme -->
+     	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">-->
+      <link rel="stylesheet" href="/css/main.css" />
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      	<!-- Latest compiled and minified JavaScript -->
+     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+      <link
+        href="https://amethyst.rs/rss.xml"
+        rel="alternate"
+        type="application/rss+xml"
+        title="Amethyst"
+        />
+    </head>
+    <body>
+
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <a href="/">
+              <h3 class="masthead-brand"><img src="/assets/amethyst.svg">Amethyst</h3>
+            </a>
+
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="/">Home<hr /></a></li>
+                <li><a href="/book">Book<hr /></a></li>
+                <li><a href="/doc/amethyst/index.html">Docs<hr /></a></li>
+                <li><a href="https://github.com/amethyst">GitHub<hr /></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="container blog-post-container">
+          <h2>This Week in Amethyst 4</h2>
+          <div class="blog-post-body">
+            <p>
+              <blockquote>
+<p>News for Feb 01, 2016 – Feb 08, 2016</p>
+</blockquote>
+<p>Hello and welcome to the fourth issue of <em>This Week in Amethyst</em>, a blog
+bringing you the latest changes and updates regarding the Amethyst game engine
+every week. If you have any suggestions or ideas, feel free to call me out on
+<a href="https://gitter.im/ebkalderon/amethyst">Gitter</a>.</p>
+<p><a href="https://github.com/ebkalderon/amethyst/pulls?q=is:pr+created:2016-02-01..2016-02-08">One pull request</a> for the engine was proposed this week, but hasn't landed
+yet.</p>
+<h2>What's cooking on master?</h2>
+<h3>Notable additions</h3>
+<ul>
+<li>Work on fast and efficient component storage has begun on the <a href="https://github.com/ebkalderon/amethyst/tree/ecs">ecs branch</a>
+(thanks to <a href="https://github.com/lschmierer">@lschmierer</a> for the initial [<code>AnyVec</code>]<a href="https://github.com/lschmierer/anyvec">av</a> implementation).
+<a href="https://github.com/Oflor">@Oflor</a> is proposing another, possibly faster approach with
+<a href="https://github.com/ebkalderon/amethyst/pull/21">pull request #21</a>.</li>
+</ul>
+<ul>
+<li><a href="http://ebkalderon.github.io/amethyst/glossary.html#Entity-component-system%20(ECS)%20model">A clear definition of the entity-component-system (ECS) model</a> has been
+added to the Amethyst book's glossary.</li>
+</ul>
+<ul>
+<li>The &quot;Hello World&quot; chapter's example code
+<a href="https://github.com/ebkalderon/amethyst/commit/2c9ab7f62add3880ec5159c517cc737c0eee14d5">has been updated to use the 0.2.1 API</a>.</li>
+</ul>
+<h2>New issues</h2>
+<ul>
+<li>Engine
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/20"><code>Entities</code> struct doesn't properly recycle IDs (issue #20)</a></li>
+</ul>
+</li>
+</ul>
+<h2>New contributors</h2>
+<ul>
+<li><a href="https://github.com/lschmierer">Lukas Schmierer (lschmierer)</a></li>
+</ul>
+<h2>Other announcements</h2>
+<p>As the changes above suggest, we have settled on rolling our own
+entity-component-system library for Amethyst, rather than using existing
+solutions. This was done for reasons of efficiency and thread-safety. Join the
+discussion on <a href="https://github.com/ebkalderon/amethyst/issues/10">engine issue #10</a> and on <a href="https://gitter.im/ebkalderon/amethyst">the public Gitter chat</a>.</p>
+<p>The drafted <a href="https://camo.githubusercontent.com/ac83c4ffa8cef072f6027efab57a7dcd74bbe04a/687474703a2f2f65626b616c6465726f6e2e6769746875622e696f2f616d6574687973742f696d616765732f64657369676e2f72656e64657265725f312e352e706e67">parallel renderer design diagram</a> is still open for public
+feedback. Please see [engine issue #19] if you have any suggestions or comments
+before implementation begins.</p>
+<p>It's been a busy week for all of us. Thanks for the good work everyone!</p>
+
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mastfoot">
+      <!-- privacy stuff, back to top? -->
+      <p class="license">
+        This website and the Amethyst logo are licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 License.</a>
+        <br />
+        <div class="footer-list container">
+          <a class="pull-left" href="https://github.com/amethyst/website">Source</a>
+          <a class="pull-right" href="https://amethyst.rs/rss.xml">RSS</a>
+        </div>
+      </p>
+    </div>
+
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+        room: 'amethyst/general'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+  </body>
+</html>

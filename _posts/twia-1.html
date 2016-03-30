@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Amethyst | Data-oriented and Data-driven Game Engine</title>
+      <link rel="icon" type="image/x-icon" href="/assets/amethyst.ico" />
+
+	<!-- Latest compiled and minified CSS -->
+     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+      	<!-- Optional theme -->
+     	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">-->
+      <link rel="stylesheet" href="/css/main.css" />
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      	<!-- Latest compiled and minified JavaScript -->
+     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+      <link
+        href="https://amethyst.rs/rss.xml"
+        rel="alternate"
+        type="application/rss+xml"
+        title="Amethyst"
+        />
+    </head>
+    <body>
+
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <a href="/">
+              <h3 class="masthead-brand"><img src="/assets/amethyst.svg">Amethyst</h3>
+            </a>
+
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="/">Home<hr /></a></li>
+                <li><a href="/book">Book<hr /></a></li>
+                <li><a href="/doc/amethyst/index.html">Docs<hr /></a></li>
+                <li><a href="https://github.com/amethyst">GitHub<hr /></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="container blog-post-container">
+          <h2>This Week in Amethyst 1</h2>
+          <div class="blog-post-body">
+            <p>
+              <blockquote>
+<p>News from Jan 11, 2016 – Jan 18, 2016</p>
+</blockquote>
+<p>Hello and welcome to the first official issue of <em>This Week in Amethyst</em>, a blog
+bringing you the latest changes and updates regarding the Amethyst game engine
+every week. If you have any suggestions or ideas, feel free to call me out on
+<a href="https://gitter.im/ebkalderon/amethyst">Gitter</a>.</p>
+<p><a href="https://github.com/ebkalderon/amethyst/pulls?q=is:pr+closed:2016-01-11..2016-01-18">One major pull request</a> landed this week.</p>
+<h2>What's cooking on master?</h2>
+<h3>Notable additions</h3>
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/pull/6">State transitions are finished</a> in the pushdown automaton code!</li>
+<li><a href="https://github.com/ebkalderon/amethyst#vision">Official vision for the Amethyst project</a> has been codified in the
+<code>README.md</code> file, along with a multitude of links.</li>
+<li><a href="https://github.com/ebkalderon/amethyst/blob/master/CONTRIBUTING.md#submitting-issues">Issue labeling has been codified</a> for all issue trackers in the
+Contribution Guidelines.</li>
+<li><a href="https://github.com/ebkalderon/amethyst_cli/issues/1">Issue #1 for Amethyst-CLI has been resolved.</a> Cargo output now prints in
+real-time.</li>
+</ul>
+<h2>New issues</h2>
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/7">Redesign GPU state management (issue #7)</a></li>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/8">Code name for 1.0 release (issue #8)</a></li>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/9">Write unit tests for state machine (issue #9)</a></li>
+</ul>
+<h2>New contributors</h2>
+<p>No new people have joined this week!</p>
+<h2>Other announcements</h2>
+<p>Right now, there are some experiments being done on the <a href="https://github.com/ebkalderon/amethyst/tree/ecs">ecs branch</a>
+combining the traditional entity-component-system with
+<a href="https://www.reddit.com/r/rust/comments/415a1x/github_ebkalderonamethyst_dataoriented_game/cz0dgf1">tomaka's suggested MVC-with-parallelism design.</a>.</p>
+<p>Clearly, the <code>World</code> struct containing our entities and components is
+analogous to the <em>model</em> in MVC. But systems typically require mutable state for
+strictly read-only operations, so they don't fit into either <em>views</em> or
+<em>controllers</em>, nor are they easy to parallelize.</p>
+<p>However, there are two possible ways to remedy this issue.</p>
+<ol>
+<li>Systems are split into separate traits: Updaters and Viewers. The Viewers
+only require read access to the <code>World</code>, so they can run in parallel.
+Updaters request mutable access to the <code>World</code> and submit a list of changes
+they want to make to the content. These changes are applied serially
+according to a predetermined priority.</li>
+<li>Systems are kept as one unit (perhaps renamed to &quot;Processors&quot; for clarity),
+and they all read the <code>World</code> struct in parallel but can optionally submit
+changes to the <code>World</code> which are applied serially once everyone has finished
+reading.</li>
+</ol>
+<p>What do you think about these approaches? Leave your thoughts in the
+<a href="https://gitter.im/ebkalderon/amethyst">Gitter chat</a>.</p>
+
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mastfoot">
+      <!-- privacy stuff, back to top? -->
+      <p class="license">
+        This website and the Amethyst logo are licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 License.</a>
+        <br />
+        <div class="footer-list container">
+          <a class="pull-left" href="https://github.com/amethyst/website">Source</a>
+          <a class="pull-right" href="https://amethyst.rs/rss.xml">RSS</a>
+        </div>
+      </p>
+    </div>
+
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+        room: 'amethyst/general'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+  </body>
+</html>

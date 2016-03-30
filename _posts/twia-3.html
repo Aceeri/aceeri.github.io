@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <title>Amethyst | Data-oriented and Data-driven Game Engine</title>
+      <link rel="icon" type="image/x-icon" href="/assets/amethyst.ico" />
+
+	<!-- Latest compiled and minified CSS -->
+     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+      	<!-- Optional theme -->
+     	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">-->
+      <link rel="stylesheet" href="/css/main.css" />
+      <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      	<!-- Latest compiled and minified JavaScript -->
+     	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+      <link
+        href="https://amethyst.rs/rss.xml"
+        rel="alternate"
+        type="application/rss+xml"
+        title="Amethyst"
+        />
+    </head>
+    <body>
+
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+
+        <div class="masthead clearfix">
+          <div class="inner">
+            <a href="/">
+              <h3 class="masthead-brand"><img src="/assets/amethyst.svg">Amethyst</h3>
+            </a>
+
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="/">Home<hr /></a></li>
+                <li><a href="/book">Book<hr /></a></li>
+                <li><a href="/doc/amethyst/index.html">Docs<hr /></a></li>
+                <li><a href="https://github.com/amethyst">GitHub<hr /></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="container blog-post-container">
+          <h2>This Week in Amethyst 3</h2>
+          <div class="blog-post-body">
+            <p>
+              <blockquote>
+<p>News from Jan 18, 2016 – Jan 25, 2016</p>
+</blockquote>
+<p>Hello and welcome to the third issue of <em>This Week in Amethyst</em>, a blog
+bringing you the latest changes and updates regarding the Amethyst game engine
+every week. If you have any suggestions or ideas, feel free to call me out on
+[Gitter][gc].</p>
+<p>Three pull requests, <a href="http://github.com/ebkalderon/amethyst/pulls?q=is:pr+closed:2016-01-25..2016-02-01">two in the engine</a> and <a href="http://github.com/ebkalderon/amethyst_tools/pulls?q=is:pr+closed:2016-01-25..2016-02-01">one in the tools</a>
+landed this week.</p>
+<h2>What's cooking on master?</h2>
+<h3>Notable additions</h3>
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/pull/18">Version 0.2.1 of Amethyst has been successfully rolled out!</a> Both the
+engine and the CLI tool repositories have seen some major internal
+restructuring to increase modularity, fixing <a href="https://github.com/ebkalderon/amethyst/issues/13">engine issue #13</a>.</li>
+</ul>
+<ul>
+<li>The <code>amethyst</code> crate now re-exports two sub-crates: <code>amethyst_engine</code> (the
+core game engine), and <code>amethyst_renderer</code> (the rendering system). More crates
+are forthcoming.</li>
+<li><a href="https://github.com/ebkalderon/amethyst_tools">The <code>amethyst_cli</code> repository has been renamed to <code>amethyst_tools</code>.</a> This
+will host the entirety of Amethyst's future tool suite.</li>
+</ul>
+<ul>
+<li>We have adopted a leaner, meaner change log format (<a href="https://github.com/ebkalderon/amethyst/issues/17">engine issue #17</a>,
+<a href="https://github.com/ebkalderon/amethyst_tools/issues/5">tools issue #5</a>).</li>
+</ul>
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/7#issuecomment-175896493">All of the renderer code has been removed</a> and its backend will be
+rewritten over <a href="https://github.com/gfx-rs/gfx">GFX</a>. Thanks to <a href="https://github.com/kvark">@kvark</a> of the GFX project for the
+collaboration!</li>
+</ul>
+<h3>Breaking changes</h3>
+<ul>
+<li>Due to engine restructuring, use statements must be updated to
+<code>amethyst::engine</code>.</li>
+<li>[<code>amethyst_cli</code>]<a href="https://crates.io/crates/amethyst_cli/">ac</a> has been discontinued. Please install
+[<code>amethyst_tools</code>]<a href="https://github.com/ebkalderon/amethyst_tools">at</a> instead!</li>
+</ul>
+<h2>New issues</h2>
+<ul>
+<li>Engine
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/16">Use GFX for rendering (issue #16)</a></li>
+<li><a href="https://github.com/ebkalderon/amethyst/issues/19">Finalize renderer design (issue #19)</a></li>
+</ul>
+</li>
+<li>Tools
+<ul>
+<li><a href="https://github.com/ebkalderon/amethyst_tools/issues/4">Reorganize project infrastructure (issue #4)</a></li>
+<li><a href="https://github.com/ebkalderon/amethyst_tools/issues/5">Adopt new change log format (issue #5)</a></li>
+</ul>
+</li>
+</ul>
+<h2>New contributors</h2>
+<ul>
+<li><a href="https://github.com/kvark">Dzimitry Malyshau (kvark)</a></li>
+</ul>
+<h2>Other announcements</h2>
+<p><a href="https://camo.githubusercontent.com/ac83c4ffa8cef072f6027efab57a7dcd74bbe04a/687474703a2f2f65626b616c6465726f6e2e6769746875622e696f2f616d6574687973742f696d616765732f64657369676e2f72656e64657265725f312e352e706e67">A revamped parallel renderer design diagram</a> has been drafted and is in
+need of public feedback before any implementation can begin. Please see
+<a href="https://github.com/ebkalderon/amethyst/issues/19">engine issue #19</a> for details.</p>
+<p>More feedback is still needed on the thread-safe ECS design tracked by
+[engine issue #10][e10]. Should we use existing ECS solutions, or should we
+write our own? Leave your input there.</p>
+<p>In other news, there has been a recent explosion of activity
+[on the Gitter chat][gc], which is wonderful to see. Have any questions,
+suggestions, or comments? Come join the conversation!</p>
+
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mastfoot">
+      <!-- privacy stuff, back to top? -->
+      <p class="license">
+        This website and the Amethyst logo are licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 License.</a>
+        <br />
+        <div class="footer-list container">
+          <a class="pull-left" href="https://github.com/amethyst/website">Source</a>
+          <a class="pull-right" href="https://amethyst.rs/rss.xml">RSS</a>
+        </div>
+      </p>
+    </div>
+
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+        room: 'amethyst/general'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
+  </body>
+</html>
