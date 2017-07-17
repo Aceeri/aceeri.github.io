@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ProjectError","Error related to anything that manages/creates configurations as well as \"workspace\"-related things."]],"mod":[["config","Configuration macros."]]});

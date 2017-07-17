@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `InputHandler` struct in crate `amethyst`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, InputHandler">
+
+    <title>amethyst::ecs::resources::InputHandler - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <a href='../../../amethyst/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a>
+        <p class='location'>Struct InputHandler</p><div class="block items"><ul><li><a href="#methods">Methods</a></li><li><a href="#implementations">Trait Implementations</a></li></ul></div><p class='location'><a href='../../index.html'>amethyst</a>::<wbr><a href='../index.html'>ecs</a>::<wbr><a href='index.html'>resources</a></p><script>window.sidebarCurrent = {name: 'InputHandler', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>amethyst</a>::<wbr><a href='../index.html'>ecs</a>::<wbr><a href='index.html'>resources</a>::<wbr><a class="struct" href=''>InputHandler</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../../src/amethyst/ecs/resources/input.rs.html#64-67' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct InputHandler { /* fields omitted */ }</pre><div class='docblock'><p>This struct holds state information about input devices.</p>
+
+<p>For example, if a key is pressed on the keyboard, this struct will record
+that the key is pressed until it is released again. Usage requires pumping input events through
+this struct, using the following code in the <a href="../../../engine/trait.State.html#method.handle_events">handle_events</a> method of <a href="../../../engine/trait.State.html">State</a>.</p>
+
+<pre class="rust rust-example-rendered">
+<span class="kw">fn</span> <span class="ident">handle_events</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+                 <span class="ident">events</span>: <span class="kw-2">&amp;</span>[<span class="ident">WindowEvent</span>],
+                 _: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">World</span>,
+                 _: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">AssetManager</span>,
+                 _: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Pipeline</span>)
+                 <span class="op">-&gt;</span> <span class="ident">Trans</span> {
+    <span class="comment">// ...</span>
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input_handler</span> <span class="op">=</span> <span class="ident">world</span>.<span class="ident">write_resource</span>::<span class="op">&lt;</span><span class="ident">InputHandler</span><span class="op">&gt;</span>();
+    <span class="ident">input_handler</span>.<span class="ident">update</span>(<span class="ident">events</span>);
+    <span class="comment">// ...</span>
+}</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class="struct" href="../../../amethyst/ecs/resources/struct.InputHandler.html" title="struct amethyst::ecs::resources::InputHandler">InputHandler</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/amethyst/ecs/resources/input.rs.html#69-190' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class="struct" href="../../../amethyst/ecs/resources/struct.InputHandler.html" title="struct amethyst::ecs::resources::InputHandler">InputHandler</a></code></span></h4>
+<div class='docblock'><p>Creates a new input handler.</p>
+</div><h4 id='method.update' class="method"><span id='update.v' class='invisible'><code>fn <a href='#method.update' class='fnname'>update</a>(&amp;mut self, events: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="struct" href="../../../amethyst/struct.WindowEvent.html" title="struct amethyst::WindowEvent">WindowEvent</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>)</code></span></h4>
+<div class='docblock'><p>Updates the input handler with new engine events.</p>
+</div><h4 id='method.pressed_keys' class="method"><span id='pressed_keys.v' class='invisible'><code>fn <a href='#method.pressed_keys' class='fnname'>pressed_keys</a>(&amp;self) -&gt; PressedKeys</code></span></h4>
+<div class='docblock'><p>Returns an iterator for all the pressed down keys.</p>
+</div><h4 id='method.key_down' class="method"><span id='key_down.v' class='invisible'><code>fn <a href='#method.key_down' class='fnname'>key_down</a>(&amp;self, key: <a class="enum" href="../../../amethyst/enum.VirtualKeyCode.html" title="enum amethyst::VirtualKeyCode">VirtualKeyCode</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the given key is being pressed.</p>
+</div><h4 id='method.keys_down' class="method"><span id='keys_down.v' class='invisible'><code>fn <a href='#method.keys_down' class='fnname'>keys_down</a>(&amp;self, keys: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="enum" href="../../../amethyst/enum.VirtualKeyCode.html" title="enum amethyst::VirtualKeyCode">VirtualKeyCode</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if all the given keys are being pressed.</p>
+</div><h4 id='method.key_once' class="method"><span id='key_once.v' class='invisible'><code>fn <a href='#method.key_once' class='fnname'>key_once</a>(&amp;mut self, key: <a class="enum" href="../../../amethyst/enum.VirtualKeyCode.html" title="enum amethyst::VirtualKeyCode">VirtualKeyCode</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the given key is being pressed and held down.</p>
+
+<p>If <code>key</code> hasn&#39;t been released since the last <code>key_once()</code> query, this
+function will return false.</p>
+</div><h4 id='method.keys_once' class="method"><span id='keys_once.v' class='invisible'><code>fn <a href='#method.keys_once' class='fnname'>keys_once</a>(&amp;mut self, keys: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="enum" href="../../../amethyst/enum.VirtualKeyCode.html" title="enum amethyst::VirtualKeyCode">VirtualKeyCode</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the all the given keys are being pressed and held down.</p>
+
+<p>If the <code>keys</code> haven&#39;t been released since the last <code>key_once()</code> query,
+this function will return false.</p>
+</div><h4 id='method.pressed_mouse_buttons' class="method"><span id='pressed_mouse_buttons.v' class='invisible'><code>fn <a href='#method.pressed_mouse_buttons' class='fnname'>pressed_mouse_buttons</a>(&amp;self) -&gt; PressedMouseButtons</code></span></h4>
+<div class='docblock'><p>Returns an iterator for all the pressed down mouse buttons.</p>
+</div><h4 id='method.mouse_button_down' class="method"><span id='mouse_button_down.v' class='invisible'><code>fn <a href='#method.mouse_button_down' class='fnname'>mouse_button_down</a>(&amp;self, button: <a class="enum" href="../../../amethyst/enum.MouseButton.html" title="enum amethyst::MouseButton">MouseButton</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the given mouse button is being pressed.</p>
+</div><h4 id='method.mouse_buttons_down' class="method"><span id='mouse_buttons_down.v' class='invisible'><code>fn <a href='#method.mouse_buttons_down' class='fnname'>mouse_buttons_down</a>(&amp;self, buttons: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="enum" href="../../../amethyst/enum.MouseButton.html" title="enum amethyst::MouseButton">MouseButton</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if all the given mouse buttons are being pressed.</p>
+</div><h4 id='method.mouse_button_once' class="method"><span id='mouse_button_once.v' class='invisible'><code>fn <a href='#method.mouse_button_once' class='fnname'>mouse_button_once</a>(&amp;mut self, button: <a class="enum" href="../../../amethyst/enum.MouseButton.html" title="enum amethyst::MouseButton">MouseButton</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the given mouse button is being pressed and held down.</p>
+
+<p>If <code>button</code> hasn&#39;t been released since the last <code>mouse_button_once()</code> query, this
+function will return false.</p>
+</div><h4 id='method.mouse_buttons_once' class="method"><span id='mouse_buttons_once.v' class='invisible'><code>fn <a href='#method.mouse_buttons_once' class='fnname'>mouse_buttons_once</a>(&amp;mut self, buttons: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="enum" href="../../../amethyst/enum.MouseButton.html" title="enum amethyst::MouseButton">MouseButton</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+<div class='docblock'><p>Checks if the all the given mouse buttons are being pressed and held down.</p>
+
+<p>If the <code>buttons</code> haven&#39;t been released since the last <code>mouse_button_once()</code> query,
+this function will return false.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../../../amethyst/ecs/resources/struct.InputHandler.html" title="struct amethyst::ecs::resources::InputHandler">InputHandler</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/amethyst/ecs/resources/input.rs.html#63' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class="struct" href="../../../amethyst/ecs/resources/struct.InputHandler.html" title="struct amethyst::ecs::resources::InputHandler">InputHandler</a></code></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "amethyst";
+    </script>
+    <script src="../../../main.js"></script>
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

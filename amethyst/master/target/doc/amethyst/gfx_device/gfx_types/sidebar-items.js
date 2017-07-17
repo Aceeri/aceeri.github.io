@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["CommandBuffer","A sequence of GPU commands."],["Device","Handles drawing output."],["Factory","Creates new GPU resources."],["Resources","A handle to a GPU resource, e.g. a buffer, shader, texture, etc."],["Window","An application window."]]});

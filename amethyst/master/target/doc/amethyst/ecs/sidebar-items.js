@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["components","Standard library of useful components."],["resources","Resources that can be added to `ecs::World`."],["systems","Built-in `specs` `System`s."]]});
