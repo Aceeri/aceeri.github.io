@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Social Site Meta Properties -->
+        <meta property="og:title" content="Amethyst">
+        <meta property="og:image" content="https://www.amethyst.rs/assets/amethyst.png">
+        <meta property="og:site_name" content="Amethyst">
+        <meta property="og:description" content="A data-oriented, data-driven game engine.">
+        <meta property="og:url" content="https://www.amethyst.rs/">
+        <meta property="og:type" content="website">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="A data-oriented, data-driven game engine.">
+        <meta name="keywords" content="game,engine,data-oriented,data-driven,rust,amethyst">
+
+        <title>These Months in Amethyst 9</title>
+
+        <link rel="icon" type="image/x-icon" href="/assets/amethyst.ico" />
+
+        <!-- Semantic UI -->
+        <link rel="stylesheet" type="text/css" href="/semantic/semantic.min.css">
+        <!--<script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+        <script src="/semantic/semantic.min.js"></script>-->
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+        <!-- Scripts -->
+        <!-- <script src="/main.js"></script> -->
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet"> 
+    </head>
+
+    <body class="site">
+        <div class="ui following bar light fixed">
+            <div class="ui container">
+                <div class="ui large secondary left menu">
+                    <!-- Header logo -->
+                    <a class="item" href="/">
+                        <h3 class="ui header">
+                            <img class="ui mini image" src="/assets/logo.png" />
+                            <div class="content">
+                                Amethyst
+                            </div> 
+                        </h3> 
+                    </a>
+
+                    <a class="item" href="/doc/">Documentation</a>
+
+                    <!--<a class="item" href="/community/">Community</a>-->
+
+                    <!-- Github link -->
+                    <div class="ui right item">
+                        <a class="item" href="https://github.com/amethyst/amethyst">
+                            <img class="ui mini image noselect" src="/assets/mark-github.svg" />
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ui main container">
+            <div class="ui post push container">
+    <h2 class="ui header">These Months in Amethyst 9</h2>
+    <div class="ui post container">
+        <blockquote>
+  <p>News from Mar 27, 2016 – Sep 11, 2016</p>
+</blockquote>
+
+<p>Hello and welcome to the ninth issue of <em>This Week in Amethyst</em> (or more
+accurately, <em>These Months in Amethyst</em>), a blog bringing you the latest changes
+and updates regarding the Amethyst game engine every week (or a few months). If
+you have any suggestions or ideas, feel free to voice them <a href="https://github.com/amethyst/website">on GitHub</a> or
+<a href="https://gitter.im/orgs/amethyst/rooms">the Gitter chat</a>.</p>
+
+<p>Fifty-two pull requests, <a href="https://github.com/amethyst/amethyst/pulls?q=is:pr+closed:2016-03-27..2016-09-11">forty-six in the engine</a> and
+<a href="https://github.com/amethyst/tools/pulls?q=is:pr+closed:2016-03-27..2016-09-11">six in the tools</a>, landed these past few months.</p>
+
+<h2 id="announcements">Announcements</h2>
+
+<p>From this edition onward <em>This Week in Amethyst</em> will be changed to <em>This Month
+in Amethyst</em>. Lately, progress has been coming in sporadic bursts with long
+periods of silence, so we thought a monthly format might suit us better.</p>
+
+<p>With that out of the way, what have we been up to in the past few months? Well,
+a lot, actually! We’ve seen versions 0.3.0 and 0.3.1 come and go. Rendering,
+event handling, and the entity-component-system (ECS) libraries have stabilized
+to the point where we can finally ship some real working examples starting with
+the upcoming 0.4.0, including a simple version of <a href="https://github.com/amethyst/amethyst/tree/develop/examples/04_pong">pong</a>! This means that
+the long-awaited <a href="https://www.amethyst.rs/book/simple_application.html">“pong clone” chapter</a> will be added soon to the book!</p>
+
+<p><a href="https://github.com/lschmierer">Lukas Schmierer</a> has created a set of performance benchmarks for popular
+ECS libraries in Rust. See the <a href="https://github.com/ebkalderon">ecs_bench</a> repo for more details.</p>
+
+<h2 id="whats-cooking-on-develop">What’s cooking on develop?</h2>
+
+<h3 id="notable-additions">Notable additions</h3>
+
+<ul>
+  <li>Both <a href="https://github.com/slide-rs/specs">Specs</a> and <a href="https://github.com/gfx-rs/gfx">GFX</a> have been fully integrated into Amethyst,
+starting with version 0.4.0.</li>
+  <li>We have first light! A flexible <a href="https://github.com/amethyst/amethyst/pull/49">GFX-based renderer</a> has been
+implemented. Great job, <a href="https://github.com/csherratt">@csherratt</a>!</li>
+  <li>Basic <a href="https://github.com/amethyst/amethyst/pull/61">YAML configuration</a> loading has been written, courtesy of
+<a href="https://github.com/Aceeri">@Aceeri</a>.</li>
+  <li>The <a href="https://github.com/amethyst/amethyst/pull/63">amethyst_context</a> crate has been introduced, which holds a
+collection of common resources that can be passed around different parts of
+the engine. Credit goes to <a href="https://github.com/nchashch">@nchashch</a>.</li>
+  <li><a href="https://github.com/amethyst/amethyst/pull/67">Event handling</a> for keyboard input and window events is now supported
+via <a href="https://github.com/tomaka/glutin">Glutin</a>, with support for more windowing systems to come. Thanks
+again to <a href="https://github.com/nchashch">@nchashch</a> for the addition!</li>
+  <li>We now have a default <a href="https://github.com/amethyst/amethyst/issues/89">renderer processor</a> included with the ECS, which
+enables us to write the new <a href="https://github.com/amethyst/amethyst/tree/develop/examples/04_pong">pong example</a>. Thanks again to the powerhouse
+<a href="https://github.com/nchashch">@nchashch</a> for the brilliant work!</li>
+  <li><a href="https://github.com/amethyst/tools/pull/23">The build tool gained the <code class="highlighter-rouge">deploy</code> subcommand</a>. This builds your project
+in release mode, runs all your unit and integration tests, compresses your
+game assets, and outputs everything to a directory called <code class="highlighter-rouge">deploy</code>.</li>
+  <li>The build tool is also capable of <a href="https://github.com/amethyst/tools/pull/25">checking for malformed game projects</a>
+and also <a href="https://github.com/amethyst/tools/pull/28">tweaking Cargo features</a> in preparation for the proposed
+“shards” extension system (issue <a href="https://github.com/amethyst/amethyst/issues/34">#34</a>).</li>
+</ul>
+
+<h3 id="breaking-changes">Breaking changes</h3>
+
+<ul>
+  <li>The <code class="highlighter-rouge">amethyst_engine</code> crate has been deprecated and moved to the <code class="highlighter-rouge">amethyst</code>
+crate.</li>
+</ul>
+
+<h2 id="calls-for-participation">Calls for participation</h2>
+
+<p>All of these issues have mentors available. Just comment on the issue to let us
+know that you are working on it!</p>
+
+<ul>
+  <li>[Easy] <a href="https://github.com/amethyst/amethyst/issues/50">Add more content to the book</a></li>
+  <li>[Moderate] <a href="https://github.com/amethyst/amethyst/issues/53">Transform Processor</a></li>
+  <li>[Moderate] <a href="https://github.com/amethyst/amethyst/issues/60">Audio Processor</a></li>
+</ul>
+
+<h2 id="new-issues">New issues</h2>
+
+<ul>
+  <li>Engine
+    <ul>
+      <li><a href="https://github.com/amethyst/amethyst/issues/43">Feature: Hot-Reloading (issue #43)</a></li>
+      <li><a href="https://github.com/amethyst/amethyst/issues/79">Need a simple 3D rendering example (issue #79)</a></li>
+      <li><a href="https://github.com/amethyst/amethyst/issues/88">Remove usage of String in the asset manager (issue #88)</a></li>
+      <li><a href="https://github.com/amethyst/amethyst/issues/89">Split out backend code into separate modules (issue #89)</a></li>
+      <li><a href="https://github.com/amethyst/amethyst/issues/104">Input Handling - State tracking (issue #104)</a></li>
+    </ul>
+  </li>
+  <li>Tools
+    <ul>
+      <li><a href="https://github.com/amethyst/tools/issues/30">Print errors to stderr (issue #30)</a></li>
+      <li><a href="https://github.com/amethyst/tools/issues/34">Move useful code out of CLI tool and into shared library (issue #34)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="new-contributors">New contributors</h2>
+
+<ul>
+  <li><a href="https://github.com/bjadamson">bjadamson</a></li>
+  <li><a href="https://github.com/Emilgardis">Emilgardis</a></li>
+  <li><a href="https://github.com/nchashch">nchashch</a></li>
+  <li><a href="https://github.com/palodequeso">palodequeso</a></li>
+  <li><a href="https://github.com/serprex">serprex</a></li>
+</ul>
+
+<p>This edition was written and edited by <a href="https://github.com/LucioFranco">@LucioFranco</a> and <a href="https://github.com/ebkalderon">@ebkalderon</a>.</p>
+
+
+    </div>
+</div>
+
+        </div>
+
+        <div class="ui black inverted vertical footer segment">
+            <div class="ui center aligned container">
+                <div class="ui stackable center aligned inverted grid">
+                    <div class="six wide center aligned column">
+                        <h4 class="ui inverted header">Project</h4>
+                        <div class="ui inverted link list">
+                            <a class="item" href="https://github.com/amethyst/amethyst">Github</a>
+                            <a class="item" href="/doc/">Documentation</a>
+                        </div>
+                    </div>
+                    <div class="six wide center aligned column">
+                        <h4 class="ui inverted header">Community</h4>
+                        <div class="ui inverted link list">
+                            <a class="item" href="/feed.xml">RSS Feed</a>
+                            <a class="item" href="https://gitter.im/amethyst/general">Gitter Chat</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui inverted section divider"></div>
+                <div clas="ui center aligned container">
+                    This website and the Amethyst logo are licensed under a Creative Commons Attribution-ShareAlike 4.0 License.
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
