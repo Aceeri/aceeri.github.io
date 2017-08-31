@@ -1,5 +1,5 @@
 # Change Log
-All notable changes to this project will be documented in this file. 
+All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][kc], and this project adheres to
 [Semantic Versioning][sv].
@@ -8,6 +8,30 @@ The format is based on [Keep a Changelog][kc], and this project adheres to
 [sv]: http://semver.org/
 
 ## [Unreleased]
+
+## [0.5.1] - 2017-08-30
+
+* Fix syntax highlighting in documentation.
+
+## [0.5.0] - 2017-08-29
+### Added
+* Add audio support ([#265])
+
+### Changed
+* Asset management rewrite (pull request [#244]).
+* Use RON as config format ([#269])
+* Overhaul input system ([#247]), ([#261]), and ([#274])
+* Total overhaul of the game renderer ([#285])
+
+[#244]: https://github.com/amethyst/amethyst/pull/244
+[#247]: https://github.com/amethyst/amethyst/pull/247
+[#261]: https://github.com/amethyst/amethyst/pull/261
+[#265]: https://github.com/amethyst/amethyst/pull/265
+[#269]: https://github.com/amethyst/amethyst/pull/269
+[#274]: https://github.com/amethyst/amethyst/pull/274
+[#285]: https://github.com/amethyst/amethyst/pull/285
+
+
 
 ## [0.4.3] - 2017-06-03
 ### Added
@@ -233,7 +257,9 @@ The format is based on [Keep a Changelog][kc], and this project adheres to
 ## 0.1.0 - 2016-01-03
 * Initial release
 
-[Unreleased]: https://github.com/amethyst/amethyst/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/amethyst/amethyst/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/amethyst/amethyst/compare/v0.5.0...v0.5.1
+[0.5.0]: https://github.com/amethyst/amethyst/compare/v0.4.3...v0.5.0
 [0.4.3]: https://github.com/amethyst/amethyst/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/amethyst/amethyst/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/amethyst/amethyst/compare/v0.4...v0.4.1

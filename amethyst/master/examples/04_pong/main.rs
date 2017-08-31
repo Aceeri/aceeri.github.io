@@ -1,12 +1,29 @@
-extern crate amethyst;
+//! TODO: Rewrite for new renderer.
 
-use amethyst::{Application, Event, State, Trans, VirtualKeyCode, WindowEvent};
-use amethyst::asset_manager::AssetManager;
-use amethyst::config::Element;
-use amethyst::ecs::{World, Join, VecStorage, Component, RunArg, System};
-use amethyst::ecs::components::{Mesh, LocalTransform, Texture, Transform};
-use amethyst::gfx_device::DisplayConfig;
-use amethyst::renderer::{Pipeline, VertexPosNormal};
+extern crate amethyst;
+extern crate amethyst_renderer;
+extern crate cgmath;
+extern crate futures;
+extern crate rayon;
+
+use std::sync::Arc;
+
+use amethyst::assets::{AssetFuture, BoxedErr};
+use amethyst::assets::Loader;
+use amethyst::assets::formats::audio::OggFormat;
+use amethyst::audio::{Dj, AudioContext, Source};
+use amethyst::audio::output::{default_output, Output};
+use amethyst::audio::play::play_once;
+use amethyst::ecs::{Component, Fetch, FetchMut, Join, System, VecStorage, WriteStorage};
+use amethyst::ecs::audio::DjSystem;
+use amethyst::ecs::input::{Bindings, InputHandler};
+use amethyst::ecs::rendering::{Factory, MeshComponent, MaterialComponent};
+use amethyst::ecs::transform::{Transform, LocalTransform, Child, Init, TransformSystem};
+use amethyst::prelude::*;
+use amethyst::timing::Time;
+use amethyst_renderer::Config as DisplayConfig;
+use amethyst_renderer::prelude::*;
+use futures::{Future, IntoFuture};
 
 struct Pong;
 
@@ -57,9 +74,11 @@ impl Component for Plank {
     type Storage = VecStorage<Plank>;
 }
 
-struct PongSystem;
-
-unsafe impl Sync for PongSystem {}
+struct PongSystem {
+    score_sfx: Source,
+    bounce_sfx: Source,
+    audio_output: Option<Output>,
+}
 
 struct Score {
     score_left: i32,
@@ -76,28 +95,19 @@ impl Score {
 }
 
 // Pong game system
-impl System<()> for PongSystem {
-    fn run(&mut self, arg: RunArg, _: ()) {
-        use amethyst::ecs::Gate;
-        use amethyst::ecs::resources::{Camera, InputHandler, Projection, Time};
+impl<'a> System<'a> for PongSystem {
+    type SystemData = (WriteStorage<'a, Ball>,
+     WriteStorage<'a, Plank>,
+     WriteStorage<'a, LocalTransform>,
+     Fetch<'a, Camera>,
+     Fetch<'a, Time>,
+     Fetch<'a, InputHandler>,
+     FetchMut<'a, Score>);
 
-        // Get all needed component storages and resources
-        let (mut balls, planks, locals, camera, time, input, mut score) = arg.fetch(|w| {
-                (w.write::<Ball>(),
-                 w.write::<Plank>(),
-                 w.write::<LocalTransform>(),
-                 w.read_resource::<Camera>(),
-                 w.read_resource::<Time>(),
-                 w.read_resource::<InputHandler>(),
-                 w.write_resource::<Score>())
-            });
-
-        // Get left and right boundaries of the screen
-        let (left_bound, right_bound, top_bound, bottom_bound) = match camera.proj {
-            Projection::Orthographic { left, right, top, bottom, .. } => (left, right, top, bottom),
-            _ => (1.0, 1.0, 1.0, 1.0),
-        };
-
+    fn run(
+        &mut self,
+        (mut balls, mut planks, mut locals, _, time, input, mut score): Self::SystemData,
+    ) {
         // Properties of left paddle.
         let mut left_dimensions = [0.0, 0.0];
         let mut left_position = 0.0;
@@ -108,10 +118,8 @@ impl System<()> for PongSystem {
 
         let delta_time = time.delta_time.subsec_nanos() as f32 / 1.0e9;
 
-        let mut locals = locals.pass();
-
         // Process all planks
-        for (plank, local) in (&mut planks.pass(), &mut locals).join() {
+        for (plank, local) in (&mut planks, &mut locals).join() {
             match plank.side {
                 // If it is a left plank
                 Side::Left => {
@@ -119,20 +127,18 @@ impl System<()> for PongSystem {
                     left_position = plank.position;
                     // Store left plank dimensions for later use in ball processing
                     left_dimensions = plank.dimensions;
-                    // If `W` is pressed and plank is in screen boundaries then move up
-                    if input.key_down(VirtualKeyCode::W) {
-                        if plank.position + plank.dimensions[1] / 2. < 1. {
-                            plank.position += plank.velocity * delta_time;
+                    // Move plank according to axis input.
+                    if let Some(value) = input.axis_value("P1") {
+                        plank.position += plank.velocity * delta_time * value as f32;
+                        if plank.position + plank.dimensions[1] / 2. > 1. {
+                            plank.position = 1. - plank.dimensions[1] / 2.
                         }
-                    }
-                    // If `S` is pressed and plank is in screen boundaries then move down
-                    if input.key_down(VirtualKeyCode::S) {
-                        if plank.position - plank.dimensions[1] / 2. > -1. {
-                            plank.position -= plank.velocity * delta_time;
+                        if plank.position - plank.dimensions[1] / 2. < 0. {
+                            plank.position = plank.dimensions[1] / 2.;
                         }
                     }
                     // Set translation[0] of renderable corresponding to this plank
-                    local.translation[0] = left_bound + plank.dimensions[0] / 2.0
+                    local.translation[0] = plank.dimensions[0] / 2.0
                 }
                 // If it is a right plank
                 Side::Right => {
@@ -140,20 +146,18 @@ impl System<()> for PongSystem {
                     right_position = plank.position;
                     // Store right plank dimensions for later use in ball processing
                     right_dimensions = plank.dimensions;
-                    // If `Up` is pressed and plank is in screen boundaries then move down
-                    if input.key_down(VirtualKeyCode::Up) {
-                        if plank.position + plank.dimensions[1] / 2. < top_bound {
-                            plank.position += plank.velocity * delta_time;
+                    // Move plank according to axis input.
+                    if let Some(value) = input.axis_value("P2") {
+                        plank.position += plank.velocity * delta_time * value as f32;
+                        if plank.position + plank.dimensions[1] / 2. > 1. {
+                            plank.position = 1. - plank.dimensions[1] / 2.
                         }
-                    }
-                    // If `Down` is pressed and plank is in screen boundaries then move down
-                    if input.key_down(VirtualKeyCode::Down) {
-                        if plank.position - plank.dimensions[1] / 2. > bottom_bound {
-                            plank.position -= plank.velocity * delta_time;
+                        if plank.position - plank.dimensions[1] / 2. < 0. {
+                            plank.position = plank.dimensions[1] / 2.;
                         }
                     }
                     // Set translation[0] of renderable corresponding to this plank
-                    local.translation[0] = right_bound - plank.dimensions[0] / 2.0
+                    local.translation[0] = 1.0 - plank.dimensions[0] / 2.0
                 }
             };
             // Set translation[1] of renderable corresponding to this plank
@@ -169,53 +173,81 @@ impl System<()> for PongSystem {
             ball.position[1] += ball.velocity[1] * delta_time;
 
             // Check if the ball has collided with the right plank
-            if ball.position[0] + ball.size / 2. > right_bound - left_dimensions[0] &&
-               ball.position[0] + ball.size / 2. < right_bound {
+            if ball.position[0] + ball.size / 2. > 1.0 - left_dimensions[0] &&
+                ball.position[0] + ball.size / 2. < 1.0
+            {
                 if ball.position[1] - ball.size / 2. < right_position + right_dimensions[1] / 2. &&
-                   ball.position[1] + ball.size / 2. > right_position - right_dimensions[1] / 2. {
-                    ball.position[0] = right_bound - right_dimensions[0] - ball.size / 2.;
+                    ball.position[1] + ball.size / 2. > right_position - right_dimensions[1] / 2.
+                {
+                    ball.position[0] = 1.0 - right_dimensions[0] - ball.size / 2.;
                     ball.velocity[0] = -ball.velocity[0];
+                    if let Some(ref output) = self.audio_output {
+                        play_once(&self.bounce_sfx, &output);
+                    }
                 }
             }
 
-            // Check if the ball is to the left of the right boundary, if it is not reset it's position and score the left player
-            if ball.position[0] - ball.size / 2. > right_bound {
-                ball.position[0] = 0.;
+            // Check if the ball is to the left of the right boundary
+            // if it is not reset it's position and score the left player
+            if ball.position[0] - ball.size / 2. > 1.0 {
+                ball.position[0] = 0.5;
                 score.score_left += 1;
-                println!("Left player score: {0}, Right player score {1}",
-                         score.score_left,
-                         score.score_right);
+                println!(
+                    "Left player score: {0}, Right player score {1}",
+                    score.score_left,
+                    score.score_right
+                );
+                if let Some(ref output) = self.audio_output {
+                    play_once(&self.score_sfx, &output);
+                }
             }
 
             // Check if the ball has collided with the left plank
-            if ball.position[0] - ball.size / 2. < left_bound + left_dimensions[0] &&
-               ball.position[0] + ball.size / 2. > left_bound {
+            if ball.position[0] - ball.size / 2. < left_dimensions[0] &&
+                ball.position[0] + ball.size / 2. > 0.0
+            {
                 if ball.position[1] - ball.size / 2. < left_position + left_dimensions[1] / 2. &&
-                   ball.position[1] + ball.size / 2. > left_position - left_dimensions[1] / 2. {
-                    ball.position[0] = left_bound + left_dimensions[0] + ball.size / 2.;
+                    ball.position[1] + ball.size / 2. > left_position - left_dimensions[1] / 2.
+                {
+                    ball.position[0] = left_dimensions[0] + ball.size / 2.;
                     ball.velocity[0] = -ball.velocity[0];
+                    if let Some(ref output) = self.audio_output {
+                        play_once(&self.bounce_sfx, &output);
+                    }
                 }
             }
 
-            // Check if the ball is to the right of the left boundary, if it is not reset it's position and score the right player
-            if ball.position[0] + ball.size / 2. < left_bound {
-                ball.position[0] = 0.;
+            // Check if the ball is to the right of the left boundary
+            // if it is not reset it's position and score the right player
+            if ball.position[0] + ball.size / 2. < 0.0 {
+                ball.position[0] = 0.5;
                 score.score_right += 1;
-                println!("Left player score: {0}, Right player score {1}",
-                         score.score_left,
-                         score.score_right);
+                println!(
+                    "Left player score: {0}, Right player score {1}",
+                    score.score_left,
+                    score.score_right
+                );
+                if let Some(ref output) = self.audio_output {
+                    play_once(&self.score_sfx, &output);
+                }
             }
 
             // Check if the ball is below the top boundary, if it is not deflect it
-            if ball.position[1] + ball.size / 2. > top_bound {
-                ball.position[1] = top_bound - ball.size / 2.;
+            if ball.position[1] + ball.size / 2. > 1.0 {
+                ball.position[1] = 1.0 - ball.size / 2.;
                 ball.velocity[1] = -ball.velocity[1];
+                if let Some(ref output) = self.audio_output {
+                    play_once(&self.bounce_sfx, &output);
+                }
             }
 
             // Check if the ball is above the bottom boundary, if it is not deflect it
-            if ball.position[1] - ball.size / 2. < bottom_bound {
-                ball.position[1] = bottom_bound + ball.size / 2.;
+            if ball.position[1] - ball.size / 2. < 0.0 {
+                ball.position[1] = ball.size / 2.;
                 ball.velocity[1] = -ball.velocity[1];
+                if let Some(ref output) = self.audio_output {
+                    play_once(&self.bounce_sfx, &output);
+                }
             }
 
             // Update the renderable corresponding to this ball
@@ -227,61 +259,76 @@ impl System<()> for PongSystem {
     }
 }
 
+fn load_proc_asset<T, F>(engine: &mut Engine, f: F) -> AssetFuture<T::Item>
+where
+    T: IntoFuture<Error = BoxedErr>,
+    T::Future: 'static,
+    F: FnOnce(&mut Engine) -> T,
+{
+    let future = f(engine).into_future();
+    let future: Box<Future<Item = T::Item, Error = BoxedErr>> = Box::new(future);
+    AssetFuture(future.shared())
+}
+
 impl State for Pong {
-    fn on_start(&mut self, world: &mut World, assets: &mut AssetManager, pipe: &mut Pipeline) {
-        use amethyst::ecs::Gate;
-        use amethyst::ecs::resources::{Camera, InputHandler, Projection, ScreenDimensions};
-        use amethyst::renderer::Layer;
-        use amethyst::renderer::pass::{Clear, DrawFlat};
-
-        let layer = Layer::new("main",
-                               vec![Clear::new([0.0, 0.0, 0.0, 1.0]),
-                                    DrawFlat::new("main", "main")]);
-
-        pipe.layers.push(layer);
-
-        {
-            let dim = world.read_resource::<ScreenDimensions>().pass();
-            let mut camera = world.write_resource::<Camera>().pass();
-            let aspect_ratio = dim.aspect_ratio;
-            let eye = [0., 0., 0.1];
-            let target = [0., 0., 0.];
-            let up = [0., 1., 0.];
-
-            // Get an Orthographic projection
-            let proj = Projection::Orthographic {
-                left: -1.0 * aspect_ratio,
-                right: 1.0 * aspect_ratio,
-                bottom: -1.0,
-                top: 1.0,
-                near: 0.0,
-                far: 1.0,
-            };
-
-            camera.proj = proj;
-            camera.eye = eye;
-            camera.target = target;
-            camera.up = up;
-        }
-
-        // Add all resources
-        world.add_resource::<Score>(Score::new());
-        world.add_resource::<InputHandler>(InputHandler::new());
+    fn on_start(&mut self, engine: &mut Engine) {
 
         // Generate a square mesh
-        assets.register_asset::<Mesh>();
-        assets.register_asset::<Texture>();
-        assets.load_asset_from_data::<Texture, [f32; 4]>("white", [1.0, 1.0, 1.0, 1.0]);
+        let tex = Texture::from_color_val([1.0, 1.0, 1.0, 1.0]);
+        let mtl = MaterialBuilder::new().with_albedo(tex);
+
         let square_verts = gen_rectangle(1.0, 1.0);
-        assets.load_asset_from_data::<Mesh, Vec<VertexPosNormal>>("square", square_verts);
-        let square = assets.create_renderable("square", "white", "white", "white", 1.0).unwrap();
+        let mesh = Mesh::build(square_verts);
+
+        let mesh = load_proc_asset(engine, move |engine| {
+            let factory = engine.world.read_resource::<Factory>();
+            factory.create_mesh(mesh).map(MeshComponent::new).map_err(
+                BoxedErr::new,
+            )
+        });
+
+        let mtl = load_proc_asset(engine, move |engine| {
+            let factory = engine.world.read_resource::<Factory>();
+            factory
+                .create_material(mtl)
+                .map(MaterialComponent)
+                .map_err(BoxedErr::new)
+        });
+
+
+        let world = &mut engine.world;
+
+        world.add_resource(Camera {
+            eye: [0., 0., 1.0].into(),
+            proj: Projection::orthographic(0.0, 1.0, 1.0, 0.0).into(),
+            forward: [0., 0., -1.0].into(),
+            right: [1.0, 0.0, 0.0].into(),
+            up: [0., 1.0, 0.].into(),
+        });
+
+        // Add all resources
+        world.add_resource(Score::new());
+        let mut input = InputHandler::new();
+        input.bindings = Bindings::load(format!(
+            "{}/examples/04_pong/resources/input.ron",
+            env!("CARGO_MANIFEST_DIR")
+        ));
+
+        world.add_resource(input);
+        world.add_resource(Time::default());
+
+        world.register::<Child>();
+        world.register::<Init>();
+        world.register::<LocalTransform>();
 
         // Create a ball entity
         let mut ball = Ball::new();
         ball.size = 0.02;
         ball.velocity = [0.5, 0.5];
-        world.create_now()
-            .with(square.clone())
+        world
+            .create_entity()
+            .with(mesh.clone())
+            .with(mtl.clone())
             .with(ball)
             .with(LocalTransform::default())
             .with(Transform::default())
@@ -292,8 +339,10 @@ impl State for Pong {
         plank.dimensions[0] = 0.01;
         plank.dimensions[1] = 0.1;
         plank.velocity = 1.;
-        world.create_now()
-            .with(square.clone())
+        world
+            .create_entity()
+            .with(mesh.clone())
+            .with(mtl.clone())
             .with(plank)
             .with(LocalTransform::default())
             .with(Transform::default())
@@ -304,79 +353,152 @@ impl State for Pong {
         plank.dimensions[0] = 0.01;
         plank.dimensions[1] = 0.1;
         plank.velocity = 1.;
-        world.create_now()
-            .with(square.clone())
+        world
+            .create_entity()
+            .with(mesh)
+            .with(mtl)
             .with(plank)
             .with(LocalTransform::default())
             .with(Transform::default())
             .build();
     }
 
-    fn handle_events(&mut self,
-                     events: &[WindowEvent],
-                     world: &mut World,
-                     _: &mut AssetManager,
-                     _: &mut Pipeline)
-                     -> Trans {
-        use amethyst::ecs::Gate;
-        use amethyst::ecs::resources::InputHandler;
-
-        let input = world.write_resource::<InputHandler>();
-        input.pass().update(events);
-
-        for e in events {
-            match **e {
-                Event::KeyboardInput(_, _, Some(VirtualKeyCode::Escape)) => return Trans::Quit,
-                Event::Closed => return Trans::Quit,
-                _ => (),
+    fn handle_event(&mut self, _: &mut Engine, event: Event) -> Trans {
+        match event {
+            Event::WindowEvent { event, .. } => {
+                match event {
+                    WindowEvent::KeyboardInput {
+                        input: KeyboardInput { virtual_keycode: Some(VirtualKeyCode::Escape), .. }, ..
+                    } |
+                    WindowEvent::Closed => Trans::Quit,
+                    _ => Trans::None,
+                }
             }
+            _ => Trans::None,
         }
-        Trans::None
     }
 }
 
-fn main() {
-    let path = format!("{}/examples/04_pong/resources/config.yml",
-                       env!("CARGO_MANIFEST_DIR"));
-    let cfg = DisplayConfig::from_file(path).unwrap();
-    let mut game = Application::build(Pong, cfg)
+fn run() -> Result<(), amethyst::Error> {
+    use futures::future::Future;
+    use rayon::{Configuration, ThreadPool};
+
+    let path = format!(
+        "{}/examples/04_pong/resources/config.ron",
+        env!("CARGO_MANIFEST_DIR")
+    );
+    let cfg = DisplayConfig::load(path);
+    let assets_dir = format!("{}/examples/04_pong/resources/", env!("CARGO_MANIFEST_DIR"));
+    let mut loader = Loader::new(
+        assets_dir,
+        Arc::new(ThreadPool::new(Configuration::new()).unwrap()),
+    );
+    loader.register(AudioContext::new());
+    let bounce_sfx = loader.load("bounce", OggFormat).wait().unwrap();
+    let score_sfx = loader.load("score", OggFormat).wait().unwrap();
+    let music_1: Source = loader
+        .load(
+            "Computer_Music_All-Stars_-_Wheres_My_Jetpack.ogg",
+            OggFormat,
+        )
+        .wait()
+        .unwrap();
+    let music_2: Source = loader
+        .load("Computer_Music_All-Stars_-_Albatross_v2.ogg", OggFormat)
+        .wait()
+        .unwrap();
+    let audio_output = default_output();
+    let dj = match audio_output {
+        Some(ref output) => {
+            let mut dj = Dj::new(&output);
+            dj.set_volume(0.25); // Music is a bit loud, reduce the volume.
+            let mut playing_1 = false;
+            let music_1 = music_1.clone();
+            let music_2 = music_2.clone();
+            dj.set_picker(Box::new(move |ref mut dj| {
+                if playing_1 {
+                    dj.append(&music_2).expect("Decoder error occurred!");
+                    playing_1 = false;
+                } else {
+                    dj.append(&music_1).expect("Decoder error occurred!");
+                    playing_1 = true;
+                }
+                true
+            }));
+            Some(dj)
+        }
+        None => {
+            eprintln!("Audio device not found, no sound will be played.");
+            None
+        }
+    };
+    let pong = PongSystem {
+        bounce_sfx: bounce_sfx,
+        score_sfx: score_sfx,
+        audio_output: audio_output,
+    };
+    let mut game = Application::build(Pong)
+        .unwrap()
         .register::<Ball>()
         .register::<Plank>()
-        .with::<PongSystem>(PongSystem, "pong_system", 1)
-        .done();
-    game.run();
+        .with::<PongSystem>(pong, "pong_system", &[])
+        .with::<TransformSystem>(TransformSystem::new(), "transform_system", &["pong_system"])
+        .with_renderer(
+            Pipeline::build().with_stage(
+                Stage::with_backbuffer()
+                    .clear_target([0.0, 0.0, 0.0, 1.0], 1.0)
+                    .with_model_pass(pass::DrawFlat::<PosNormTex>::new()),
+            ),
+            Some(cfg),
+        )?;
+    if let Some(dj) = dj {
+        game = game.add_resource(dj).with(DjSystem, "dj_system", &[]);
+    }
+    Ok(game.build()?.run())
 }
 
-fn gen_rectangle(w: f32, h: f32) -> Vec<VertexPosNormal> {
-    let data: Vec<VertexPosNormal> = vec![VertexPosNormal {
-                                              pos: [-w / 2., -h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [0., 0.],
-                                          },
-                                          VertexPosNormal {
-                                              pos: [w / 2., -h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [1., 0.],
-                                          },
-                                          VertexPosNormal {
-                                              pos: [w / 2., h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [1., 1.],
-                                          },
-                                          VertexPosNormal {
-                                              pos: [w / 2., h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [1., 1.],
-                                          },
-                                          VertexPosNormal {
-                                              pos: [-w / 2., h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [1., 1.],
-                                          },
-                                          VertexPosNormal {
-                                              pos: [-w / 2., -h / 2., 0.],
-                                              normal: [0., 0., 1.],
-                                              tex_coord: [1., 1.],
-                                          }];
+
+
+fn main() {
+    if let Err(e) = run() {
+        println!("Failed to execute example: {}", e);
+        ::std::process::exit(1);
+    }
+}
+
+
+fn gen_rectangle(w: f32, h: f32) -> Vec<PosNormTex> {
+    let data: Vec<PosNormTex> = vec![
+        PosNormTex {
+            a_position: [-w / 2., -h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [0., 0.],
+        },
+        PosNormTex {
+            a_position: [w / 2., -h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [1., 0.],
+        },
+        PosNormTex {
+            a_position: [w / 2., h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [1., 1.],
+        },
+        PosNormTex {
+            a_position: [w / 2., h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [1., 1.],
+        },
+        PosNormTex {
+            a_position: [-w / 2., h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [1., 1.],
+        },
+        PosNormTex {
+            a_position: [-w / 2., -h / 2., 0.],
+            a_normal: [0., 0., 1.],
+            a_tex_coord: [1., 1.],
+        },
+    ];
     data
 }

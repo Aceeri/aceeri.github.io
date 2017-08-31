@@ -19,9 +19,20 @@
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- MathJax -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -30,18 +41,25 @@
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
             }
         </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
     </head>
     <body class="light">
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme = localStorage.getItem('theme');
-            if (theme == null) { theme = 'light'; }
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
             $('body').removeClass().addClass(theme);
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var sidebar = localStorage.getItem('sidebar');
+            var sidebar = store.get('sidebar');
             if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
             else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
         </script>
@@ -52,7 +70,7 @@
 
         <div id="page-wrapper" class="page-wrapper">
 
-            <div class="page">
+            <div class="page" tabindex="-1">
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
@@ -68,7 +86,7 @@
 
                 <div id="content" class="content">
                     <p><img src="./images/amethyst_thumb.png" alt="Logo" width="96px" style="float:left;margin-right:15px"/></p>
-<a class="header" href=".\intro.html#the-amethyst-engine" id="the-amethyst-engine"><h1>The Amethyst Engine</h1></a>
+<a class="header" href="intro.html#the amethyst engine" id="the amethyst engine"><h1>The Amethyst Engine</h1></a>
 <blockquote>
 <p>Note: This project is a <em>work in progress</em> and is very incomplete. Pardon the
 dust!</p>
@@ -93,7 +111,7 @@ and its source code is completely yours to tinker with. The code is available on
 <li>Bibliography – Read the works that influenced the design.</li>
 </ul>
 <p>Read the crate-level <a href="https://www.amethyst.rs/doc/master/amethyst/">API documentation</a> for more details.</p>
-<a class="header" href=".\intro.html#why-are-you-building-this" id="why-are-you-building-this"><h2>Why are you building this?</h2></a>
+<a class="header" href="intro.html#why are you building this" id="why are you building this"><h2>Why are you building this?</h2></a>
 <p>I've worked with a few game engines over the years, namely <a href="http://unity3d.com/">Unity</a> and the
 <a href="https://www.unrealengine.com/">Unreal Development Kit</a>, and both are pretty solid solutions if you want to
 build a quality game. But each have their own pros and cons that you have to
@@ -115,7 +133,7 @@ rapid prototyping that demands (a little) less boilerplate from the user.</li>
 <li>Build a toolset that splits up the traditional &quot;mega-editor&quot; into several
 <a href="https://github.com/ebkalderon/amethyst_tools">small but well-integrated tools</a>, adhering to the <a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix philosophy</a>.</li>
 </ol>
-<a class="header" href=".\intro.html#contributing" id="contributing"><h2>Contributing</h2></a>
+<a class="header" href="intro.html#contributing" id="contributing"><h2>Contributing</h2></a>
 <p>The Markdown source files from which this book is generated can be found
 <a href="https://github.com/amethyst/amethyst/tree/master/book/src">on GitHub</a>. Pull requests are welcome!</p>
 
@@ -125,7 +143,7 @@ rapid prototyping that demands (a little) less boilerplate from the user.</li>
                 
 
                 
-                    <a href="./getting_started.html" class="mobile-nav-chapters next">
+                    <a rel="next" href="./getting_started.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -155,6 +173,7 @@ rapid prototyping that demands (a little) less boilerplate from the user.</li>
 
         
 
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

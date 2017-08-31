@@ -11,83 +11,91 @@
 //!
 //! # Example
 //!
-//! ```no_run
+//! ```rust,no_run
 //! extern crate amethyst;
 //!
-//! use amethyst::{Application, Event, State, Trans, VirtualKeyCode, WindowEvent};
-//! use amethyst::asset_manager::AssetManager;
-//! use amethyst::config::Element;
-//! use amethyst::ecs::World;
-//! use amethyst::gfx_device::DisplayConfig;
-//! use amethyst::renderer::Pipeline;
+//! use amethyst::prelude::*;
 //!
 //! struct GameState;
 //!
 //! impl State for GameState {
-//!     fn on_start(&mut self, _: &mut World, _: &mut AssetManager, pipe: &mut Pipeline) {
-//!         use amethyst::renderer::pass::Clear;
-//!         use amethyst::renderer::Layer;
-//!         let clear_layer = Layer::new("main", vec![
-//!             Clear::new([0.0, 0.0, 0.0, 1.0]),
-//!         ]);
-//!         pipe.layers.push(clear_layer);
+//!     fn on_start(&mut self, _: &mut Engine) {
+//!         println!("Starting game!");
 //!     }
 //!
-//!     fn handle_events(&mut self,
-//!                      events: &[WindowEvent],
-//!                      _: &mut World,
-//!                      _: &mut AssetManager,
-//!                      _: &mut Pipeline) -> Trans {
-//!         for e in events {
-//!             match e.payload {
-//!                 Event::KeyboardInput(_, _, Some(VirtualKeyCode::Escape)) => return Trans::Quit,
-//!                 Event::Closed => return Trans::Quit,
-//!                 _ => (),
-//!             }
+//!     fn handle_event(&mut self, _: &mut Engine, event: Event) -> Trans {
+//!         match event {
+//!             Event::WindowEvent { event, .. } => match event {
+//!                 WindowEvent::KeyboardInput {
+//!                     input: KeyboardInput { virtual_keycode: Some(VirtualKeyCode::Escape), .. }, ..
+//!                 } |
+//!                 WindowEvent::Closed => Trans::Quit,
+//!                 _ => Trans::None,
+//!             },
+//!             _ => Trans::None,
 //!         }
-//!         Trans::None
+//!     }
+//!
+//!     fn update(&mut self, _: &mut Engine) -> Trans {
+//!         println!("Computing some more whoop-ass...");
+//!         Trans::Quit
 //!     }
 //! }
 //!
 //! fn main() {
-//!     let path = format!("{}/examples/01_window/resources/config.yml",
-//!                        env!("CARGO_MANIFEST_DIR"));
-//!     let cfg = DisplayConfig::from_file(path).expect("Could not find config!");
-//!     let mut game = Application::build(GameState, cfg).done();
+//!     let mut game = Application::new(GameState).expect("Fatal error");
+
 //!     game.run();
 //! }
 //! ```
 
-#![crate_name = "amethyst"]
-#![crate_type = "lib"]
 #![deny(missing_docs)]
 #![doc(html_logo_url = "https://tinyurl.com/jtmm43a")]
 
 #[macro_use]
-#[cfg(feature="profiler")]
+#[cfg(feature = "profiler")]
 pub extern crate thread_profiler;
-#[macro_use]
+
 pub extern crate amethyst_config as config;
 pub extern crate amethyst_renderer as renderer;
+pub extern crate amethyst_input as input;
 
+extern crate amethyst_assets;
 extern crate cgmath;
+extern crate crossbeam;
 extern crate dds;
+#[macro_use]
+extern crate derivative;
 extern crate fnv;
+extern crate futures;
 extern crate gfx;
-extern crate gfx_window_glutin;
-extern crate glutin;
 extern crate genmesh;
 extern crate imagefmt;
 extern crate num_cpus;
+extern crate rayon;
+extern crate rodio;
+extern crate serde;
+//#[macro_use]
+//extern crate serde_derive; // Only used in sub crates now
+extern crate smallvec;
+extern crate shred;
 extern crate specs;
-extern crate threadpool;
-extern crate ticketed_lock;
 extern crate wavefront_obj;
+extern crate winit;
 
-pub mod asset_manager;
+pub use self::app::{Application, ApplicationBuilder};
+pub use self::engine::Engine;
+pub use self::error::{Error, Result};
+pub use self::state::{State, StateMachine, Trans};
+
+pub mod assets;
+pub mod audio;
 pub mod ecs;
-pub mod gfx_device;
+pub mod event;
+pub mod prelude;
+pub mod timing;
 
+mod app;
 mod engine;
-
-pub use engine::*;
+mod state;
+mod error;
