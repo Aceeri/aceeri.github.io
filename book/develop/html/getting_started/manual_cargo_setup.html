@@ -20,9 +20,20 @@
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- MathJax -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -31,18 +42,25 @@
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
             }
         </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
     </head>
     <body class="light">
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme = localStorage.getItem('theme');
-            if (theme == null) { theme = 'light'; }
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
             $('body').removeClass().addClass(theme);
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var sidebar = localStorage.getItem('sidebar');
+            var sidebar = store.get('sidebar');
             if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
             else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
         </script>
@@ -53,7 +71,7 @@
 
         <div id="page-wrapper" class="page-wrapper">
 
-            <div class="page">
+            <div class="page" tabindex="-1">
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
@@ -68,25 +86,25 @@
                 </div>
 
                 <div id="content" class="content">
-                    <a class="header" href="./getting_started\manual_cargo_setup.html#manual-setup-with-cargo" id="manual-setup-with-cargo"><h1>Manual Setup With Cargo</h1></a>
+                    <a class="header" href="manual_cargo_setup.html#manual setup with cargo" id="manual setup with cargo"><h1>Manual Setup With Cargo</h1></a>
 <p>For those of you who prefer working with Cargo directly, like any other Rust
 project, you can. However, since this is just a &quot;Hello, World&quot; program, I would
 strongly recommend using the <a href="./getting_started/automatic_setup.html">Amethyst CLI tool</a> instead. It will save you
 a whole lot of time.</p>
-<a class="header" href="./getting_started\manual_cargo_setup.html#from-cratesio" id="from-cratesio"><h3>From Crates.io</h3></a>
+<a class="header" href="manual_cargo_setup.html#from cratesio" id="from cratesio"><h3>From Crates.io</h3></a>
 <p>Create a new Rust executable project with <code>cargo new --bin hello_world</code> and add
 the following lines to your &quot;Cargo.toml&quot;:</p>
 <pre><code class="language-toml">[dependencies]
 amethyst = &quot;*&quot;
 </code></pre>
-<a class="header" href="./getting_started\manual_cargo_setup.html#from-git-via-cargo" id="from-git-via-cargo"><h3>From Git via cargo</h3></a>
+<a class="header" href="manual_cargo_setup.html#from git via cargo" id="from git via cargo"><h3>From Git via cargo</h3></a>
 <p>If you don't want to get Amethyst from Crates.io but directly from the
 Git repository, you can add the following lines to your &quot;Cargo.toml&quot;:</p>
 <pre><code class="language-toml">[dependencies]
 amethyst = { git = &quot;https://github.com/amethyst/amethyst.git&quot; }
 </code></pre>
 <p>See the <a href="http://doc.crates.io/specifying-dependencies.html#specifying-dependencies-from-git-repositories">crates guide</a> for more information on the Cargo manifest file.</p>
-<a class="header" href="./getting_started\manual_cargo_setup.html#from-git-via-clone" id="from-git-via-clone"><h3>From Git via clone</h3></a>
+<a class="header" href="manual_cargo_setup.html#from git via clone" id="from git via clone"><h3>From Git via clone</h3></a>
 <p>Instead of using the above, you can also clone the entire SDK from the
 Git repository. Once you're done, create a new Cargo project and <code>cd</code> into it.</p>
 <pre><code>$ git clone https://github.com/amethyst/amethyst.git
@@ -98,7 +116,7 @@ as dependencies:</p>
 <pre><code class="language-toml">[dependencies.amethyst]
 path = &quot;../path/to/amethyst/&quot;
 </code></pre>
-<a class="header" href="./getting_started\manual_cargo_setup.html#resources-folder" id="resources-folder"><h2>Resources Folder</h2></a>
+<a class="header" href="manual_cargo_setup.html#resources folder" id="resources folder"><h2>Resources Folder</h2></a>
 <p>Every Amethyst game project must have a top-level folder called &quot;resources&quot;.
 This is where your game assets are stored. In your project's root folder, create
 the following folder structure:</p>
@@ -126,7 +144,7 @@ display:
 </code></pre>
 <p>The &quot;input.yml&quot; file, which normally holds key binding data, can be left blank
 since this is a simple application with no user interaction.</p>
-<a class="header" href="./getting_started\manual_cargo_setup.html#all-set" id="all-set"><h2>All Set!</h2></a>
+<a class="header" href="manual_cargo_setup.html#all set" id="all set"><h2>All Set!</h2></a>
 <p>Whew, we're done! Let's move on and write our first
 <a href="./getting_started/hello_world.html">&quot;Hello, World&quot; program</a>.</p>
 
@@ -134,13 +152,13 @@ since this is a simple application with no user interaction.</p>
 
                 <!-- Mobile navigation buttons -->
                 
-                    <a href="./getting_started/automatic_setup.html" class="mobile-nav-chapters previous">
+                    <a rel="prev" href="./getting_started/automatic_setup.html" class="mobile-nav-chapters previous">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="./getting_started/hello_world.html" class="mobile-nav-chapters next">
+                    <a rel="next" href="./getting_started/hello_world.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -174,6 +192,7 @@ since this is a simple application with no user interaction.</p>
 
         
 
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

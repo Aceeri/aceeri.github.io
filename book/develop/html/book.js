@@ -7,21 +7,30 @@ $( document ).ready(function() {
     window.onunload = function(){};
 
     // Set theme
-    var theme = localStorage.getItem('theme');
-    if (theme === null) { theme = 'light'; }
+    var theme = store.get('theme');
+    if (theme === null || theme === undefined) { theme = 'light'; }
 
     set_theme(theme);
-
 
     // Syntax highlighting Configuration
     hljs.configure({
         tabReplace: '    ', // 4 spaces
         languages: [],      // Languages used for auto-detection
     });
+    
+    if (window.ace) {
+        // language-rust class needs to be removed for editable
+        // blocks or highlightjs will capture events
+        $('code.editable').removeClass('language-rust');
 
-    $('code').each(function(i, block) {
-        hljs.highlightBlock(block);
-    });
+        $('code').not('.editable').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    } else {
+        $('code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    }
     
     // Adding the hljs class gives code blocks the color css
     // even if highlighting doesn't apply
@@ -51,30 +60,21 @@ $( document ).ready(function() {
     });
 
     // Interesting DOM Elements
-    var html = $("html");
     var sidebar = $("#sidebar");
-    var page_wrapper = $("#page-wrapper");
-    var content = $("#content");
+
+    // Help keyboard navigation by always focusing on page content
+    $(".page").focus();
 
     // Toggle sidebar
-    $("#sidebar-toggle").click(function(event){
-        if ( html.hasClass("sidebar-hidden") ) {
-            html.removeClass("sidebar-hidden").addClass("sidebar-visible");
-            localStorage.setItem('sidebar', 'visible');
-        } else if ( html.hasClass("sidebar-visible") ) {
-            html.removeClass("sidebar-visible").addClass("sidebar-hidden");
-            localStorage.setItem('sidebar', 'hidden');
-        } else {
-            if(sidebar.position().left === 0){
-                html.addClass("sidebar-hidden");
-                localStorage.setItem('sidebar', 'hidden');
-            } else {
-                html.addClass("sidebar-visible");
-                localStorage.setItem('sidebar', 'visible');
-            }
+    $("#sidebar-toggle").click(sidebarToggle);
+
+    // Hide sidebar on section link click if it occupies large space
+    // in relation to the whole screen (phone in portrait)
+    $("#sidebar a").click(function(event){
+        if (sidebar.width() > window.screen.width * 0.4) {
+            sidebarToggle();
         }
     });
-
 
     // Scroll sidebar to current active section
     var activeSection = sidebar.find(".active");
@@ -102,30 +102,60 @@ $( document ).ready(function() {
                 .append($('<div class="theme" id="light">Light <span class="default">(default)</span><div>'))
                 .append($('<div class="theme" id="rust">Rust</div>'))
                 .append($('<div class="theme" id="coal">Coal</div>'))
-                .append($('<div class="theme" id="navy">Navy</div>'));
+                .append($('<div class="theme" id="navy">Navy</div>'))
+                .append($('<div class="theme" id="ayu">Ayu</div>'));
 
 
             popup.insertAfter(this);
 
             $('.theme').click(function(){
                 var theme = $(this).attr('id');
-
                 set_theme(theme);
             });
         }
+    });
 
+    // Hide theme selector popup when clicking outside of it
+    $(document).click(function(event){
+        var popup = $('.theme-popup');
+        if(popup.length) {
+            var target = $(event.target);
+            if(!target.closest('.theme').length && !target.closest('#theme-toggle').length) {
+                popup.remove();
+            }
+        }
     });
 
     function set_theme(theme) {
+        let ace_theme;
+        
         if (theme == 'coal' || theme == 'navy') {
+            $("[href='ayu-highlight.css']").prop('disabled', true);
             $("[href='tomorrow-night.css']").prop('disabled', false);
             $("[href='highlight.css']").prop('disabled', true);
+            
+            ace_theme = "ace/theme/tomorrow_night";
+        } else if (theme == 'ayu') {
+            $("[href='ayu-highlight.css']").prop('disabled', false);
+            $("[href='tomorrow-night.css']").prop('disabled', true);
+            $("[href='highlight.css']").prop('disabled', true);
+            
+            ace_theme = "ace/theme/tomorrow_night";
         } else {
+            $("[href='ayu-highlight.css']").prop('disabled', true);
             $("[href='tomorrow-night.css']").prop('disabled', true);
             $("[href='highlight.css']").prop('disabled', false);
+            
+            ace_theme = "ace/theme/dawn";
+        }
+        
+        if (window.ace && window.editors) {
+            window.editors.forEach(function(editor) {
+                editor.setTheme(ace_theme);
+            });
         }
 
-        localStorage.setItem('theme', theme);
+        store.set('theme', theme);
 
         $('body').removeClass().addClass(theme);
     }
@@ -180,7 +210,6 @@ $( document ).ready(function() {
         });
     });
 
-
     // Process playpen code blocks
     $(".playpen").each(function(block){
         var pre_block = $(this);
@@ -191,15 +220,78 @@ $( document ).ready(function() {
             buttons = pre_block.find(".buttons");
         }
         buttons.prepend("<i class=\"fa fa-play play-button\"></i>");
+        buttons.prepend("<i class=\"fa fa-copy clip-button\"><i class=\"tooltiptext\"></i></i>");
+
+        let code_block = pre_block.find("code").first();
+        if (window.ace && code_block.hasClass("editable")) {
+            buttons.prepend("<i class=\"fa fa-history reset-button\"></i>");
+        }
 
         buttons.find(".play-button").click(function(e){
             run_rust_code(pre_block);
         });
+        buttons.find(".clip-button").mouseout(function(e){
+            hideTooltip(e.currentTarget);
+        });
+        buttons.find(".reset-button").click(function() {
+            if (!window.ace) { return; }
+            let editor = window.ace.edit(code_block.get(0));
+            editor.setValue(editor.originalCode);
+            editor.clearSelection();
+        });
     });
 
+    var clipboardSnippets = new Clipboard('.clip-button', {
+        text: function(trigger) {
+            hideTooltip(trigger);
+            let playpen = $(trigger).parents(".playpen");
+            let code_block = playpen.find("code").first();
 
+            if (window.ace && code_block.hasClass("editable")) {
+                let editor = window.ace.edit(code_block.get(0));
+                return editor.getValue();
+            } else {
+                return code_block.get(0).textContent;
+            }
+        }
+    });
+    clipboardSnippets.on('success', function(e) {
+            e.clearSelection();
+            showTooltip(e.trigger, "Copied!");
+    });
+    clipboardSnippets.on('error', function(e) {
+            showTooltip(e.trigger, "Clipboard error!");
+    });
 });
 
+function hideTooltip(elem) {
+    elem.firstChild.innerText="";
+    elem.setAttribute('class', 'fa fa-copy clip-button');
+}
+
+function showTooltip(elem, msg) {
+    elem.firstChild.innerText=msg;
+    elem.setAttribute('class', 'fa fa-copy tooltipped');
+}
+
+function sidebarToggle() {
+    var html = $("html");
+    if ( html.hasClass("sidebar-hidden") ) {
+        html.removeClass("sidebar-hidden").addClass("sidebar-visible");
+        store.set('sidebar', 'visible');
+    } else if ( html.hasClass("sidebar-visible") ) {
+        html.removeClass("sidebar-visible").addClass("sidebar-hidden");
+        store.set('sidebar', 'hidden');
+    } else {
+        if($("#sidebar").position().left === 0){
+            html.addClass("sidebar-hidden");
+            store.set('sidebar', 'hidden');
+        } else {
+            html.addClass("sidebar-visible");
+            store.set('sidebar', 'visible');
+        }
+    }
+}
 
 function run_rust_code(code_block) {
     var result_block = code_block.find(".result");
@@ -208,15 +300,23 @@ function run_rust_code(code_block) {
         result_block = code_block.find(".result");
     }
 
-    let text = code_block.find(".language-rust").text();
+    let text;
 
-    let params = {
+    let inner_code_block = code_block.find("code").first();
+    if (window.ace && inner_code_block.hasClass("editable")) {
+        let editor = window.ace.edit(inner_code_block.get(0));
+        text = editor.getValue();
+    } else {
+        text = inner_code_block.text();
+    }
+
+    var params = {
         version: "stable",
         optimize: "0",
         code: text,
     };
 
-    if(text.includes("#![feature")) {
+    if(text.indexOf("#![feature") !== -1) {
         params.version = "nightly";
     }
 
@@ -229,8 +329,12 @@ function run_rust_code(code_block) {
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(params),
+        timeout: 15000,
         success: function(response){
             result_block.text(response.result);
-        }
+        },
+        error: function(qXHR, textStatus, errorThrown){
+            result_block.text("Playground communication " + textStatus);
+        },
     });
 }

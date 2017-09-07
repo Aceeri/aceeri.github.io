@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `amethyst_assets` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, amethyst_assets">
+
+    <title>amethyst_assets - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Crate amethyst_assets</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'amethyst_assets', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>amethyst_assets</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/amethyst_assets/lib.rs.html#1-35' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'>
+<h1 id='amethyst_assets' class='section-header'><a href='#amethyst_assets'>amethyst_assets</a></h1>
+<p>Asset management crate. Designed with the following goals
+in mind:</p>
+
+<ul>
+<li>extensibility</li>
+<li>asynchronous &amp; parallel using rayon and futures</li>
+<li>allow different stores</li>
+</ul>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AssetError.html"
+                                  title='struct amethyst_assets::AssetError'>AssetError</a></td>
+                           <td class='docblock-short'>
+                                <p>Error type returned when loading an asset.
+Includes the <code>AssetSpec</code> and the error (<code>LoadError</code>).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AssetFuture.html"
+                                  title='struct amethyst_assets::AssetFuture'>AssetFuture</a></td>
+                           <td class='docblock-short'>
+                                <p>A future for an asset</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AssetPtr.html"
+                                  title='struct amethyst_assets::AssetPtr'>AssetPtr</a></td>
+                           <td class='docblock-short'>
+                                <p>An <code>AssetPtr</code> which provides <code>push_update</code>, <code>update</code>
+and <code>is_shared</code> methods. These can simply be called
+in order to implement the <code>Asset</code> trait.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AssetSpec.html"
+                                  title='struct amethyst_assets::AssetSpec'>AssetSpec</a></td>
+                           <td class='docblock-short'>
+                                <p>A specifier for an asset, uniquely identifying it by</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BoxedErr.html"
+                                  title='struct amethyst_assets::BoxedErr'>BoxedErr</a></td>
+                           <td class='docblock-short'>
+                                <p>A boxed error implementing <code>Debug</code>, <code>Display</code> and <code>Error</code>.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Cache.html"
+                                  title='struct amethyst_assets::Cache'>Cache</a></td>
+                           <td class='docblock-short'>
+                                <p>A basic implementation for a cache. This might be useful as the <code>Context</code> of
+an <code>Asset</code>, so that the same asset doesn&#39;t get imported twice.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Directory.html"
+                                  title='struct amethyst_assets::Directory'>Directory</a></td>
+                           <td class='docblock-short'>
+                                <p>Directory store.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Loader.html"
+                                  title='struct amethyst_assets::Loader'>Loader</a></td>
+                           <td class='docblock-short'>
+                                <p>The asset loader, holding the contexts,
+the default (directory) store and a reference to the
+<code>ThreadPool</code>.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SharedAssetError.html"
+                                  title='struct amethyst_assets::SharedAssetError'>SharedAssetError</a></td>
+                           <td class='docblock-short'>
+                                <p>Shared version of error</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SimpleAsset.html"
+                                  title='struct amethyst_assets::SimpleAsset'>SimpleAsset</a></td>
+                           <td class='docblock-short'>
+                                <p><code>Asset</code> implementation that supports hot reloading</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SimpleContext.html"
+                                  title='struct amethyst_assets::SimpleContext'>SimpleContext</a></td>
+                           <td class='docblock-short'>
+                                <p>A simple implementation of the <code>Context</code> trait.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SpawnedFuture.html"
+                                  title='struct amethyst_assets::SpawnedFuture'>SpawnedFuture</a></td>
+                           <td class='docblock-short'>
+                                <p>Represents a future value of an asset. This future may be
+added to the ECS world, where the responsible system can poll it and merge
+it into the persistent storage once it is <code>Ready</code>.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.StoreId.html"
+                                  title='struct amethyst_assets::StoreId'>StoreId</a></td>
+                           <td class='docblock-short'>
+                                <p>A unique store id, used to identify the storage in <code>AssetSpec</code>.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.LoadError.html"
+                                  title='enum amethyst_assets::LoadError'>LoadError</a></td>
+                           <td class='docblock-short'>
+                                <p>Combined error type which is produced when loading an
+asset. This error does not include information which asset
+failed to load. For that, please look at <code>AssetError</code>.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.NoError.html"
+                                  title='enum amethyst_assets::NoError'>NoError</a></td>
+                           <td class='docblock-short'>
+                                <p>An error type which cannot be instantiated.
+Used as a placeholder for associated error types if
+something cannot fail.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Asset.html"
+                                  title='trait amethyst_assets::Asset'>Asset</a></td>
+                           <td class='docblock-short'>
+                                <p>One of the three core traits of this crate.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Context.html"
+                                  title='trait amethyst_assets::Context'>Context</a></td>
+                           <td class='docblock-short'>
+                                <p>The context type which manages assets of one type.
+It is responsible for caching</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Format.html"
+                                  title='trait amethyst_assets::Format'>Format</a></td>
+                           <td class='docblock-short'>
+                                <p>A format, providing a conversion from bytes to asset data, which is then
+in turn accepted by <code>Asset::from_data</code>. Examples for formats are
+<code>Png</code>, <code>Obj</code> and <code>Wave</code>.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Store.html"
+                                  title='trait amethyst_assets::Store'>Store</a></td>
+                           <td class='docblock-short'>
+                                <p>A trait for asset stores, which provides
+methods for loading</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.load_asset.html"
+                                  title='fn amethyst_assets::load_asset'>load_asset</a></td>
+                           <td class='docblock-short'>
+                                <p>Loads an asset with a given context, format, specifier and storage right now.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "amethyst_assets";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

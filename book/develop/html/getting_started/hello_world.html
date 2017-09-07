@@ -20,9 +20,20 @@
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- MathJax -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
 
         <!-- Fetch JQuery from CDN but have a local fallback -->
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -31,18 +42,25 @@
                 document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
             }
         </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
     </head>
     <body class="light">
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script type="text/javascript">
-            var theme = localStorage.getItem('theme');
-            if (theme == null) { theme = 'light'; }
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
             $('body').removeClass().addClass(theme);
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
-            var sidebar = localStorage.getItem('sidebar');
+            var sidebar = store.get('sidebar');
             if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
             else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
         </script>
@@ -53,7 +71,7 @@
 
         <div id="page-wrapper" class="page-wrapper">
 
-            <div class="page">
+            <div class="page" tabindex="-1">
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
@@ -68,38 +86,34 @@
                 </div>
 
                 <div id="content" class="content">
-                    <a class="header" href="./getting_started\hello_world.html#hello-world" id="hello-world"><h1>Hello, World!</h1></a>
+                    <a class="header" href="hello_world.html#hello world" id="hello world"><h1>Hello, World!</h1></a>
 <p>Now, we will commence our journey in writing Amethyst applications with the
 obligatory &quot;Hello, World&quot; program! In your crate's &quot;main.rs&quot; file, type out or
 copy and paste the following code:</p>
 <pre><pre class="playpen"><code class="language-rust">extern crate amethyst;
 
-use amethyst::{Application, State, Trans};
-use amethyst::asset_manager::AssetManager;
-use amethyst::ecs::World;
-use amethyst::gfx_device::DisplayConfig;
-use amethyst::renderer::Pipeline;
+use amethyst::prelude::*;
 
 struct HelloWorld;
 
 impl State for HelloWorld {
-    fn on_start(&amp;mut self, _: &amp;mut World, _: &amp;mut AssetManager, _: &amp;mut Pipeline) {
+    fn on_start(&amp;mut self, _: &amp;mut Engine) {
         println!(&quot;Game started!&quot;);
     }
 
-    fn update(&amp;mut self, _: &amp;mut World, _: &amp;mut AssetManager, _: &amp;mut Pipeline) -&gt; Trans {
+    fn update(&amp;mut self, _: &amp;mut Engine) -&gt; Trans {
         println!(&quot;Hello from Amethyst!&quot;);
         Trans::Quit
     }
 
-    fn on_stop(&amp;mut self, _: &amp;mut World, _: &amp;mut AssetManager, _: &amp;mut Pipeline) {
+    fn on_stop(&amp;mut self, _: &amp;mut Engine) {
         println!(&quot;Game stopped!&quot;);
     }
 }
 
 fn main() {
-    let config = DisplayConfig::default();
-    let mut game = Application::build(HelloWorld, config).done();
+    let cfg = Config::default();
+    let mut game = Application::build(HelloWorld, cfg).finish().expect(&quot;Fatal&quot;);
     game.run();
 }
 </code></pre></pre>
@@ -114,7 +128,7 @@ Game stopped!
 you're using the <a href="https://doc.rust-lang.org/book/release-channels.html">nightly release</a> of Rust. You can use <a href="https://www.rustup.rs">rustup</a> to
 install stable and nightly Rust side-by-side.</p>
 <p>Congratulations! You have successfully written your first Amethyst application.</p>
-<a class="header" href="./getting_started\hello_world.html#what-did-i-just-do" id="what-did-i-just-do"><h2>What did I just do?</h2></a>
+<a class="header" href="hello_world.html#what did i just do" id="what did i just do"><h2>What did I just do?</h2></a>
 <p>Whoa, that went by too fast. Let's slow down a bit and break down this example
 program into bite-sized chunks. What we did is create a basic Rust crate that
 hooks into the Amethyst game engine, prints some text, and then signals to the
@@ -138,7 +152,7 @@ to quit.</li>
 <li>Shut the engine down.</li>
 <li>Quit the program.</li>
 </ol>
-<a class="header" href="./getting_started\hello_world.html#can-i-make-a-game-yet" id="can-i-make-a-game-yet"><h2>Can I make a game yet?</h2></a>
+<a class="header" href="hello_world.html#can i make a game yet" id="can i make a game yet"><h2>Can I make a game yet?</h2></a>
 <p>This program isn't very useful on its own, but if everything compiles correctly,
 then your environment is set up correctly and you can start working on the fun
 stuff! Follow along in <a href="./simple_application.html">the next section</a> to see how I implement a simple
@@ -148,13 +162,13 @@ Pong clone in Amethyst.</p>
 
                 <!-- Mobile navigation buttons -->
                 
-                    <a href="./getting_started/manual_cargo_setup.html" class="mobile-nav-chapters previous">
+                    <a rel="prev" href="./getting_started/manual_cargo_setup.html" class="mobile-nav-chapters previous">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="./simple_application.html" class="mobile-nav-chapters next">
+                    <a rel="next" href="./simple_application.html" class="mobile-nav-chapters next">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -188,6 +202,7 @@ Pong clone in Amethyst.</p>
 
         
 
+        
 
         <script src="highlight.js"></script>
         <script src="book.js"></script>

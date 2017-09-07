@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src\renderer\src\lib.rs`.">
+    <meta name="description" content="Source to the Rust file `amethyst_renderer\src\lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -28,7 +28,7 @@
     
 
     <nav class="sidebar">
-        <a href='../../amethyst_renderer/index.html'><img src='http://tinyurl.com/hgsb45k' alt='logo' width='100'></a>
+        <a href='../../amethyst_renderer/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a>
         
     </nav>
 
@@ -446,409 +446,495 @@
 <span id="401">401</span>
 <span id="402">402</span>
 <span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
 </pre><pre class="rust ">
-<span class="doccomment">//! High-level rendering engine with multiple backends.</span>
+<span class="doccomment">//! A data parallel rendering engine developed by the [Amethyst][am] project.</span>
+<span class="doccomment">//! The source code is available for download on [GitHub][gh]. See the</span>
+<span class="doccomment">//! [online book][bk] for a complete guide to using Amethyst.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [am]: https://www.amethyst.rs/</span>
+<span class="doccomment">//! [gh]: https://github.com/amethyst/amethyst/tree/develop/src/renderer</span>
+<span class="doccomment">//! [bk]: https://www.amethyst.rs/book/</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! # Example</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```rust,no_run</span>
+<span class="doccomment">//! # extern crate amethyst_renderer;</span>
+<span class="doccomment">//! # extern crate glutin;</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # use amethyst_renderer::{Mesh, Pipeline, Renderer, Result, Scene};</span>
+<span class="doccomment">//! # use amethyst_renderer::light::PointLight;</span>
+<span class="doccomment">//! # use amethyst_renderer::vertex::PosColor;</span>
+<span class="doccomment">//! # use std::time::{Duration, Instant};</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # fn some_sphere_gen_func() -&gt; &amp;&#39;static [PosColor] {</span>
+<span class="doccomment">//! #     &amp;[]</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # fn run_example() -&gt; Result&lt;()&gt; {</span>
+<span class="doccomment">//! let mut events = glutin::EventsLoop::new();</span>
+<span class="doccomment">//! let mut renderer = Renderer::new(&amp;events)?;</span>
+<span class="doccomment">//! let pipe = renderer.create_pipe(Pipeline::deferred())?;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let verts = some_sphere_gen_func();</span>
+<span class="doccomment">//! let sphere = renderer.create_mesh(Mesh::build(&amp;verts))?;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let light = PointLight::default();</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let mut scene = Scene::default();</span>
+<span class="doccomment">//! //scene.add_mesh(sphere)</span>
+<span class="doccomment">//! scene.add_light(light);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let mut delta = Duration::from_secs(0);</span>
+<span class="doccomment">//! let mut running = true;</span>
+<span class="doccomment">//! while running {</span>
+<span class="doccomment">//!     let start = Instant::now();</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     events.poll_events(|e| {</span>
+<span class="doccomment">//!         match e {</span>
+<span class="doccomment">//!             glutin::Event::WindowEvent { event, .. } =&gt; match event {</span>
+<span class="doccomment">//!                 glutin::WindowEvent::KeyboardInput { .. } |</span>
+<span class="doccomment">//!                 glutin::WindowEvent::Closed =&gt; running = false,</span>
+<span class="doccomment">//!                 _ =&gt; (),</span>
+<span class="doccomment">//!             },</span>
+<span class="doccomment">//!             _ =&gt; (),</span>
+<span class="doccomment">//!         }</span>
+<span class="doccomment">//!     });</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!     renderer.draw(&amp;scene, &amp;pipe, delta);</span>
+<span class="doccomment">//!     delta = Instant::now() - start;</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! # Ok(())</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//! #</span>
+<span class="doccomment">//! # fn main() {</span>
+<span class="doccomment">//! #     run_example().unwrap();</span>
+<span class="doccomment">//! # }</span>
+<span class="doccomment">//! ```</span>
 
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_name</span> <span class="op">=</span> <span class="string">&quot;amethyst_renderer&quot;</span>]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">crate_type</span> <span class="op">=</span> <span class="string">&quot;lib&quot;</span>]</span>
-<span class="attribute">#<span class="op">!</span>[<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;http://tinyurl.com/hgsb45k&quot;</span>)]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">deny</span>(<span class="ident">missing_docs</span>)]</span>
+<span class="attribute">#<span class="op">!</span>[<span class="ident">doc</span>(<span class="ident">html_logo_url</span> <span class="op">=</span> <span class="string">&quot;https://tinyurl.com/jtmm43a&quot;</span>)]</span>
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">cgmath</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">derivative</span>;
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">fnv</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">glutin</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">specs</span>;
-<span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_core</span>;
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">mopa</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_macros</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">num_cpus</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rayon</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde_derive</span>;
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">winit</span>;
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;d3d11&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_device_dx11</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;d3d11&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_window_dxgi</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metal&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>))]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_device_metal</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metal&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>))]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_window_metal</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_device_gl</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_window_glutin</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">glutin</span>;
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;vulkan&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_device_vulkan</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;vulkan&quot;</span>)]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">gfx_window_vulkan</span>;
+
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">cam</span>::{<span class="ident">Camera</span>, <span class="ident">Projection</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">color</span>::<span class="ident">Rgba</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">config</span>::<span class="ident">Config</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">error</span>::{<span class="ident">Error</span>, <span class="prelude-ty">Result</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">light</span>::<span class="ident">Light</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">mesh</span>::{<span class="ident">Mesh</span>, <span class="ident">MeshBuilder</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">mtl</span>::{<span class="ident">Material</span>, <span class="ident">MaterialBuilder</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pipe</span>::{<span class="ident">Pipeline</span>, <span class="ident">PipelineBuilder</span>, <span class="ident">Stage</span>, <span class="ident">Target</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">scene</span>::{<span class="ident">Model</span>, <span class="ident">Scene</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">tex</span>::{<span class="ident">Texture</span>, <span class="ident">TextureBuilder</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">Encoder</span>, <span class="ident">Factory</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">vertex</span>::<span class="ident">VertexFormat</span>;
+
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">light</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pass</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">target</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">prelude</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">pipe</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">vertex</span>;
 
-<span class="kw">use</span> <span class="ident">fnv</span>::<span class="ident">FnvHashMap</span> <span class="kw">as</span> <span class="ident">HashMap</span>;
-<span class="kw">use</span> <span class="ident">specs</span>::{<span class="ident">Component</span>, <span class="ident">VecStorage</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">TypeId</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">pass</span>::{<span class="ident">Pass</span>, <span class="ident">PassDescription</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">target</span>::<span class="ident">Target</span>;
+<span class="kw">use</span> <span class="ident">gfx</span>::<span class="ident">memory</span>::<span class="ident">Pod</span>;
+<span class="kw">use</span> <span class="ident">pipe</span>::{<span class="ident">ColorBuffer</span>, <span class="ident">DepthBuffer</span>};
+<span class="kw">use</span> <span class="ident">rayon</span>::<span class="ident">ThreadPool</span>;
+<span class="kw">use</span> <span class="ident">winit</span>::{<span class="ident">EventsLoop</span>, <span class="ident">WindowBuilder</span>};
 
-<span class="doccomment">/// Manages passes and the execution of the passes over the targets. It only</span>
-<span class="doccomment">/// contains the passes, all other data is contained in the `Frame`.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Renderer</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span>, <span class="ident">C</span>: <span class="ident">gfx</span>::<span class="ident">CommandBuffer</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;&gt;</span> {
-    <span class="ident">cmd_buf</span>: <span class="ident">gfx</span>::<span class="ident">Encoder</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>,
-    <span class="ident">passes</span>: <span class="ident">HashMap</span><span class="op">&lt;</span>(<span class="ident">TypeId</span>, <span class="ident">TypeId</span>),
-                    <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Fn</span>(<span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PassDescription</span><span class="op">&gt;</span>,
-                           <span class="kw-2">&amp;</span><span class="ident">Target</span>,
-                           <span class="kw-2">&amp;</span><span class="ident">Pipeline</span>,
-                           <span class="kw-2">&amp;</span><span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-                           <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gfx</span>::<span class="ident">Encoder</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>)<span class="op">&gt;&gt;</span>,
+<span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">ColorFormat</span>, <span class="ident">DepthFormat</span>, <span class="ident">Window</span>};
+
+<span class="kw">mod</span> <span class="ident">cam</span>;
+<span class="kw">mod</span> <span class="ident">color</span>;
+<span class="kw">mod</span> <span class="ident">config</span>;
+<span class="kw">mod</span> <span class="ident">error</span>;
+<span class="kw">mod</span> <span class="ident">mesh</span>;
+<span class="kw">mod</span> <span class="ident">mtl</span>;
+<span class="kw">mod</span> <span class="ident">scene</span>;
+<span class="kw">mod</span> <span class="ident">tex</span>;
+<span class="kw">mod</span> <span class="ident">types</span>;
+
+<span class="doccomment">/// Generic renderer.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Renderer</span> {
+    <span class="doccomment">/// The gfx factory used for creation of buffers.</span>
+    <span class="kw">pub</span> <span class="ident">factory</span>: <span class="ident">Factory</span>,
+
+    <span class="ident">device</span>: <span class="ident">types</span>::<span class="ident">Device</span>,
+    <span class="ident">encoders</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Encoder</span><span class="op">&gt;</span>,
+    <span class="ident">main_target</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Target</span><span class="op">&gt;</span>,
+    <span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ThreadPool</span><span class="op">&gt;</span>,
+    <span class="ident">window</span>: <span class="ident">Window</span>,
 }
 
-<span class="doccomment">/// NOTE: This is just a placeholder!</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">missing_docs</span>)]</span>
-<span class="macro">gfx_vertex_struct</span><span class="macro">!</span>(<span class="ident">VertexPosNormal</span> {
-    <span class="ident">pos</span>: [<span class="ident">f32</span>; <span class="number">3</span>] <span class="op">=</span> <span class="string">&quot;a_Pos&quot;</span>,
-    <span class="ident">normal</span>: [<span class="ident">f32</span>; <span class="number">3</span>] <span class="op">=</span> <span class="string">&quot;a_Normal&quot;</span>,
-    <span class="ident">tex_coord</span>: [<span class="ident">f32</span>; <span class="number">2</span>] <span class="op">=</span> <span class="string">&quot;a_TexCoord&quot;</span>,
-});
+<span class="kw">impl</span> <span class="ident">Renderer</span> {
+    <span class="doccomment">/// Creates a `Renderer` with default window settings.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="ident">EventsLoop</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Renderer</span><span class="op">&gt;</span> {
+        <span class="ident">RendererBuilder</span>::<span class="ident">new</span>(<span class="ident">el</span>).<span class="ident">build</span>()
+    }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span> <span class="ident">Renderer</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>
-    <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span>,
-          <span class="ident">C</span>: <span class="ident">gfx</span>::<span class="ident">CommandBuffer</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-{
-    <span class="doccomment">/// Creates a new renderer with the given command buffer.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">cmd_buf</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="ident">Renderer</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span> {
-        <span class="ident">Renderer</span> {
-            <span class="ident">cmd_buf</span>: <span class="ident">cmd_buf</span>.<span class="ident">into</span>(),
-            <span class="ident">passes</span>: <span class="ident">HashMap</span>::<span class="ident">default</span>(),
+    <span class="doccomment">/// Creates a new `RendererBuilder`, equivalent to `RendererBuilder::new()`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="ident">EventsLoop</span>) <span class="op">-&gt;</span> <span class="ident">RendererBuilder</span> {
+        <span class="ident">RendererBuilder</span>::<span class="ident">new</span>(<span class="ident">el</span>)
+    }
+
+    <span class="doccomment">/// Builds a new mesh from the given vertices.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_mesh</span><span class="op">&lt;</span><span class="ident">D</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">mb</span>: <span class="ident">MeshBuilder</span><span class="op">&lt;</span><span class="ident">D</span>, <span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Mesh</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">D</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">T</span>]<span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">VertexFormat</span>,
+    {
+        <span class="ident">mb</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">factory</span>)
+    }
+
+    <span class="doccomment">/// Builds a new texture resource.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_texture</span><span class="op">&lt;</span><span class="ident">D</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">tb</span>: <span class="ident">TextureBuilder</span><span class="op">&lt;</span><span class="ident">D</span>, <span class="ident">T</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Texture</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">D</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">T</span>]<span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">Pod</span>,
+    {
+        <span class="ident">tb</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">factory</span>)
+    }
+
+    <span class="doccomment">/// Builds a new material resource.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_material</span><span class="op">&lt;</span><span class="ident">DA</span>, <span class="ident">TA</span>, <span class="ident">DE</span>, <span class="ident">TE</span>, <span class="ident">DN</span>, <span class="ident">TN</span>, <span class="ident">DM</span>, <span class="ident">TM</span>, <span class="ident">DR</span>, <span class="ident">TR</span>, <span class="ident">DO</span>, <span class="ident">TO</span>, <span class="ident">DC</span>, <span class="ident">TC</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
+        <span class="ident">mb</span>: <span class="ident">MaterialBuilder</span><span class="op">&lt;</span><span class="ident">DA</span>, <span class="ident">TA</span>, <span class="ident">DE</span>, <span class="ident">TE</span>, <span class="ident">DN</span>, <span class="ident">TN</span>, <span class="ident">DM</span>, <span class="ident">TM</span>, <span class="ident">DR</span>, <span class="ident">TR</span>, <span class="ident">DO</span>, <span class="ident">TO</span>, <span class="ident">DC</span>, <span class="ident">TC</span><span class="op">&gt;</span>,
+    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Material</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">DA</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TA</span>]<span class="op">&gt;</span>,
+        <span class="ident">TA</span>: <span class="ident">Pod</span>,
+        <span class="ident">DE</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TE</span>]<span class="op">&gt;</span>,
+        <span class="ident">TE</span>: <span class="ident">Pod</span>,
+        <span class="ident">DN</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TN</span>]<span class="op">&gt;</span>,
+        <span class="ident">TN</span>: <span class="ident">Pod</span>,
+        <span class="ident">DM</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TM</span>]<span class="op">&gt;</span>,
+        <span class="ident">TM</span>: <span class="ident">Pod</span>,
+        <span class="ident">DR</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TR</span>]<span class="op">&gt;</span>,
+        <span class="ident">TR</span>: <span class="ident">Pod</span>,
+        <span class="ident">DO</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TO</span>]<span class="op">&gt;</span>,
+        <span class="ident">TO</span>: <span class="ident">Pod</span>,
+        <span class="ident">DC</span>: <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">TC</span>]<span class="op">&gt;</span>,
+        <span class="ident">TC</span>: <span class="ident">Pod</span>,
+    {
+        <span class="ident">mb</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">factory</span>)
+    }
+
+    <span class="doccomment">/// Builds a new renderer pipeline.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_pipe</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pb</span>: <span class="ident">PipelineBuilder</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Pipeline</span><span class="op">&gt;</span> {
+        <span class="ident">pb</span>.<span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">factory</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">main_target</span>)
+    }
+
+    <span class="doccomment">/// Draws a scene with the given pipeline.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">draw</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">scene</span>: <span class="kw-2">&amp;</span><span class="ident">Scene</span>, <span class="ident">pipe</span>: <span class="kw-2">&amp;</span><span class="ident">Pipeline</span>, <span class="ident">_delta</span>: <span class="ident">Duration</span>) {
+        <span class="kw">use</span> <span class="ident">gfx</span>::<span class="ident">Device</span>;
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+        <span class="kw">use</span> <span class="ident">glutin</span>::<span class="ident">GlContext</span>;
+        <span class="kw">use</span> <span class="ident">rayon</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
+
+        <span class="kw">let</span> <span class="ident">num_threads</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pool</span>.<span class="ident">current_num_threads</span>();
+        <span class="kw">let</span> <span class="ident">encoders_required</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="ident">pipe</span>.<span class="ident">enabled_stages</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">encoders_required</span>(<span class="ident">num_threads</span>))
+            .<span class="ident">sum</span>();
+
+        <span class="kw">let</span> <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">fac</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">factory</span>;
+        <span class="kw">let</span> <span class="ident">encoders_count</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encoders</span>.<span class="ident">len</span>();
+        <span class="kw">if</span> <span class="ident">encoders_count</span> <span class="op">&lt;</span> <span class="ident">encoders_required</span> {
+            <span class="self">self</span>.<span class="ident">encoders</span>.<span class="ident">extend</span>(
+                (<span class="ident">encoders_count</span>..<span class="ident">encoders_required</span>).<span class="ident">map</span>(<span class="op">|</span>_<span class="op">|</span> {
+                    <span class="ident">fac</span>.<span class="ident">create_command_buffer</span>().<span class="ident">into</span>()
+                }),
+            )
         }
-    }
 
-    <span class="doccomment">/// Load all known passes into the renderer.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_all</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">F</span>)
-        <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">gfx</span>::<span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-    {
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">forward</span>::<span class="ident">Clear</span>);
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">forward</span>::<span class="ident">DrawFlat</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">forward</span>::<span class="ident">DrawShaded</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">forward</span>::<span class="ident">Wireframe</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">deferred</span>::<span class="ident">Clear</span>);
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">deferred</span>::<span class="ident">DrawPass</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">deferred</span>::<span class="ident">DepthPass</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">deferred</span>::<span class="ident">BlitLayer</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-        <span class="self">self</span>.<span class="ident">add_pass</span>(<span class="ident">pass</span>::<span class="ident">deferred</span>::<span class="ident">LightingPass</span>::<span class="ident">new</span>(<span class="ident">factory</span>));
-    }
-
-    <span class="doccomment">/// Add a pass to the table of available passes.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">add_pass</span><span class="op">&lt;</span><span class="ident">A</span>, <span class="ident">T</span>, <span class="ident">P</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">p</span>: <span class="ident">P</span>)
-        <span class="kw">where</span> <span class="ident">P</span>: <span class="ident">Pass</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">Arg</span> <span class="op">=</span> <span class="ident">A</span>, <span class="ident">Target</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
-              <span class="ident">A</span>: <span class="ident">PassDescription</span>,
-              <span class="ident">T</span>: <span class="ident">Target</span>
-    {
-        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> (<span class="ident">TypeId</span>::<span class="ident">of</span>::<span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>(), <span class="ident">TypeId</span>::<span class="ident">of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>());
-        <span class="self">self</span>.<span class="ident">passes</span>.<span class="ident">insert</span>(<span class="ident">id</span>,
-                           <span class="ident">Box</span>::<span class="ident">new</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">a</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PassDescription</span><span class="op">&gt;</span>,
-                                          <span class="ident">t</span>: <span class="kw-2">&amp;</span><span class="ident">Target</span>,
-                                          <span class="ident">pipeline</span>: <span class="kw-2">&amp;</span><span class="ident">Pipeline</span>,
-                                          <span class="ident">scene</span>: <span class="kw-2">&amp;</span><span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-                                          <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gfx</span>::<span class="ident">Encoder</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span><span class="op">|</span> {
-                               <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="ident">a</span>.<span class="ident">downcast_ref</span>::<span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
-                               <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">t</span>.<span class="ident">downcast_ref</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>().<span class="ident">unwrap</span>();
-                               <span class="ident">p</span>.<span class="ident">apply</span>(<span class="ident">a</span>, <span class="ident">t</span>, <span class="ident">pipeline</span>, <span class="ident">scene</span>, <span class="ident">encoder</span>)
-                           }));
-    }
-
-    <span class="doccomment">/// Execute all passes and draw the frame.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">submit</span><span class="op">&lt;</span><span class="ident">D</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pipe</span>: <span class="kw-2">&amp;</span><span class="ident">Pipeline</span>, <span class="ident">scene</span>: <span class="kw-2">&amp;</span><span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>, <span class="ident">device</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">D</span>)
-        <span class="kw">where</span> <span class="ident">D</span>: <span class="ident">gfx</span>::<span class="ident">Device</span><span class="op">&lt;</span><span class="ident">Resources</span> <span class="op">=</span> <span class="ident">R</span>, <span class="ident">CommandBuffer</span> <span class="op">=</span> <span class="ident">C</span><span class="op">&gt;</span>
-    {
-        <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">pipe</span>.<span class="ident">layers</span> {
-            <span class="kw">let</span> <span class="ident">fb</span> <span class="op">=</span> <span class="ident">pipe</span>.<span class="ident">targets</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">target</span>).<span class="ident">unwrap</span>();
-            <span class="kw">for</span> <span class="ident">desc</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">passes</span> {
-                <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> (<span class="ident">mopa</span>::<span class="ident">Any</span>::<span class="ident">get_type_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">desc</span>), <span class="ident">mopa</span>::<span class="ident">Any</span>::<span class="ident">get_type_id</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">fb</span>));
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">pass</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">passes</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
-                    <span class="ident">pass</span>(<span class="ident">desc</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">fb</span>, <span class="kw-2">&amp;</span><span class="ident">pipe</span>, <span class="kw-2">&amp;</span><span class="ident">scene</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">cmd_buf</span>);
-                } <span class="kw">else</span> {
-                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;No pass implementation found for target={}, pass={:?}&quot;</span>,
-                           <span class="ident">layer</span>.<span class="ident">target</span>,
-                           <span class="ident">desc</span>);
+        {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoders</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">encoders</span>.<span class="ident">iter_mut</span>();
+            <span class="self">self</span>.<span class="ident">pool</span>.<span class="ident">install</span>(<span class="kw">move</span> <span class="op">||</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">updates</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+                <span class="kw">for</span> <span class="ident">stage</span> <span class="kw">in</span> <span class="ident">pipe</span>.<span class="ident">enabled_stages</span>() {
+                    <span class="kw">let</span> <span class="ident">needed</span> <span class="op">=</span> <span class="ident">stage</span>.<span class="ident">encoders_required</span>(<span class="ident">num_threads</span>);
+                    <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="ident">encoders</span>.<span class="ident">into_slice</span>();
+                    <span class="kw">let</span> (<span class="ident">taken</span>, <span class="ident">left</span>) <span class="op">=</span> <span class="ident">slice</span>.<span class="ident">split_at_mut</span>(<span class="ident">needed</span>);
+                    <span class="ident">encoders</span> <span class="op">=</span> <span class="ident">left</span>.<span class="ident">iter_mut</span>();
+                    <span class="ident">updates</span>.<span class="ident">push</span>(<span class="ident">stage</span>.<span class="ident">apply</span>(<span class="ident">taken</span>, <span class="ident">scene</span>));
                 }
+
+                <span class="ident">updates</span>.<span class="ident">into_par_iter</span>().<span class="ident">flat_map</span>(<span class="op">|</span><span class="ident">update</span><span class="op">|</span> <span class="ident">update</span>).<span class="ident">for_each</span>(
+                    <span class="op">|</span>(<span class="ident">pass</span>, <span class="ident">models</span>, <span class="ident">enc</span>)<span class="op">|</span> <span class="kw">for</span> <span class="ident">model</span> <span class="kw">in</span> <span class="ident">models</span> {
+                        <span class="ident">pass</span>.<span class="ident">apply</span>(<span class="ident">enc</span>, <span class="ident">scene</span>, <span class="ident">model</span>);
+                    },
+                );
+            });
+        }
+
+        <span class="kw">for</span> <span class="ident">enc</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">encoders</span>.<span class="ident">iter_mut</span>() {
+            <span class="ident">enc</span>.<span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">device</span>);
+        }
+
+        <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">cleanup</span>();
+
+        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+        <span class="self">self</span>.<span class="ident">window</span>.<span class="ident">swap_buffers</span>().<span class="ident">expect</span>(
+            <span class="string">&quot;OpenGL context has been lost&quot;</span>,
+        );
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Renderer</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">use</span> <span class="ident">gfx</span>::<span class="ident">Device</span>;
+        <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">cleanup</span>();
+    }
+}
+
+<span class="doccomment">/// Constructs a new `Renderer`.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RendererBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="ident">config</span>: <span class="ident">Config</span>,
+    <span class="ident">events</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventsLoop</span>,
+    <span class="ident">pool</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ThreadPool</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">winit_builder</span>: <span class="ident">WindowBuilder</span>,
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">RendererBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Creates a new `RendererBuilder`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">EventsLoop</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">RendererBuilder</span> {
+            <span class="ident">config</span>: <span class="ident">Config</span>::<span class="ident">default</span>(),
+            <span class="ident">events</span>: <span class="ident">el</span>,
+            <span class="ident">pool</span>: <span class="prelude-val">None</span>,
+            <span class="ident">winit_builder</span>: <span class="ident">WindowBuilder</span>::<span class="ident">new</span>().<span class="ident">with_title</span>(<span class="string">&quot;Amethyst&quot;</span>),
+        }
+    }
+
+    <span class="doccomment">/// Applies configuration from `Config`</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_config</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">config</span>: <span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">config</span> <span class="op">=</span> <span class="ident">config</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wb</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">winit_builder</span>.<span class="ident">clone</span>();
+        <span class="ident">wb</span> <span class="op">=</span> <span class="ident">wb</span>.<span class="ident">with_title</span>(<span class="self">self</span>.<span class="ident">config</span>.<span class="ident">title</span>.<span class="ident">clone</span>()).<span class="ident">with_visibility</span>(
+            <span class="self">self</span>.<span class="ident">config</span>
+                .<span class="ident">visibility</span>,
+        );
+
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">fullscreen</span> {
+            <span class="ident">wb</span> <span class="op">=</span> <span class="ident">wb</span>.<span class="ident">with_fullscreen</span>(<span class="ident">winit</span>::<span class="ident">get_primary_monitor</span>());
+        }
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">dimensions</span> {
+            <span class="prelude-val">Some</span>((<span class="ident">width</span>, <span class="ident">height</span>)) <span class="op">=&gt;</span> {
+                <span class="ident">wb</span> <span class="op">=</span> <span class="ident">wb</span>.<span class="ident">with_dimensions</span>(<span class="ident">width</span>, <span class="ident">height</span>);
             }
+            _ <span class="op">=&gt;</span> (),
         }
-
-        <span class="self">self</span>.<span class="ident">cmd_buf</span>.<span class="ident">flush</span>(<span class="ident">device</span>);
-        <span class="ident">device</span>.<span class="ident">cleanup</span>();
-    }
-}
-
-<span class="doccomment">/// Tiny 1x1 texture that can be used to store constant colors.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConstantColorTexture</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Handle to the texture resource.</span>
-    <span class="ident">texture</span>: <span class="ident">gfx</span>::<span class="ident">handle</span>::<span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">R8_G8_B8_A8</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Immutable view of the texture resource above.</span>
-    <span class="ident">view</span>: <span class="ident">gfx</span>::<span class="ident">handle</span>::<span class="ident">ShaderResourceView</span><span class="op">&lt;</span><span class="ident">R</span>, [<span class="ident">f32</span>; <span class="number">4</span>]<span class="op">&gt;</span>,
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> <span class="ident">ConstantColorTexture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Create a new `ConstantColorTexture` from the given factory.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">factory</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="ident">ConstantColorTexture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">gfx</span>::<span class="ident">Factory</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-    {
-        <span class="kw">let</span> <span class="ident">kind</span> <span class="op">=</span> <span class="ident">gfx</span>::<span class="ident">texture</span>::<span class="ident">Kind</span>::<span class="ident">D2</span>(<span class="number">1</span>, <span class="number">1</span>, <span class="ident">gfx</span>::<span class="ident">texture</span>::<span class="ident">AaMode</span>::<span class="ident">Single</span>);
-        <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">factory</span>.<span class="ident">create_texture</span>::<span class="op">&lt;</span><span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">R8_G8_B8_A8</span><span class="op">&gt;</span>(<span class="ident">kind</span>,
-                                                        <span class="number">1</span>,
-                                                        <span class="ident">gfx</span>::<span class="ident">SHADER_RESOURCE</span>,
-                                                        <span class="ident">gfx</span>::<span class="ident">memory</span>::<span class="ident">Usage</span>::<span class="ident">Dynamic</span>,
-                                                        <span class="prelude-val">Some</span>(<span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">ChannelType</span>::<span class="ident">Unorm</span>))
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">levels</span> <span class="op">=</span> (<span class="number">0</span>, <span class="ident">text</span>.<span class="ident">get_info</span>().<span class="ident">levels</span> <span class="op">-</span> <span class="number">1</span>);
-        <span class="kw">let</span> <span class="ident">view</span> <span class="op">=</span> <span class="ident">factory</span>.<span class="ident">view_texture_as_shader_resource</span>::<span class="op">&lt;</span><span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">Rgba8</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>,
-                                                                   <span class="ident">levels</span>,
-                                                                   <span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">Swizzle</span>::<span class="ident">new</span>())
-            .<span class="ident">unwrap</span>();
-        <span class="ident">ConstantColorTexture</span> {
-            <span class="ident">texture</span>: <span class="ident">text</span>,
-            <span class="ident">view</span>: <span class="ident">view</span>,
-        }
-    }
-}
-
-<span class="doccomment">/// A renderable texture resource.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// A texture with one constant RGBA color value.</span>
-    <span class="ident">Constant</span>([<span class="ident">f32</span>; <span class="number">4</span>]),
-    <span class="doccomment">/// Handle to a slice of texture memory.</span>
-    <span class="ident">Texture</span>(<span class="ident">gfx</span>::<span class="ident">handle</span>::<span class="ident">ShaderResourceView</span><span class="op">&lt;</span><span class="ident">R</span>, [<span class="ident">f32</span>; <span class="number">4</span>]<span class="op">&gt;</span>),
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Takes the given constant color texture and, using the encoder, returns a</span>
-    <span class="doccomment">/// slice of texture memory.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">to_view</span><span class="op">&lt;</span><span class="ident">C</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>,
-                      <span class="ident">texture</span>: <span class="kw-2">&amp;</span><span class="ident">ConstantColorTexture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-                      <span class="ident">encoder</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gfx</span>::<span class="ident">Encoder</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">C</span><span class="op">&gt;</span>)
-                      <span class="op">-&gt;</span> <span class="ident">gfx</span>::<span class="ident">handle</span>::<span class="ident">ShaderResourceView</span><span class="op">&lt;</span><span class="ident">R</span>, [<span class="ident">f32</span>; <span class="number">4</span>]<span class="op">&gt;</span>
-        <span class="kw">where</span> <span class="ident">C</span>: <span class="ident">gfx</span>::<span class="ident">CommandBuffer</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>
-    {
-        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">Texture</span>::<span class="ident">Constant</span>(<span class="kw-2">ref</span> <span class="ident">color</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="ident">color</span>: [[<span class="ident">u8</span>; <span class="number">4</span>]; <span class="number">1</span>] <span class="op">=</span> [[(<span class="ident">color</span>[<span class="number">0</span>] <span class="op">*</span> <span class="number">255.</span>) <span class="kw">as</span> <span class="ident">u8</span>,
-                                            (<span class="ident">color</span>[<span class="number">1</span>] <span class="op">*</span> <span class="number">255.</span>) <span class="kw">as</span> <span class="ident">u8</span>,
-                                            (<span class="ident">color</span>[<span class="number">2</span>] <span class="op">*</span> <span class="number">255.</span>) <span class="kw">as</span> <span class="ident">u8</span>,
-                                            (<span class="ident">color</span>[<span class="number">3</span>] <span class="op">*</span> <span class="number">255.</span>) <span class="kw">as</span> <span class="ident">u8</span>]];
-
-                <span class="ident">encoder</span>.<span class="ident">update_texture</span>::<span class="op">&lt;</span>_, <span class="ident">gfx</span>::<span class="ident">format</span>::<span class="ident">Rgba8</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">texture</span>.<span class="ident">texture</span>,
-                                                             <span class="prelude-val">None</span>,
-                                                             <span class="ident">texture</span>.<span class="ident">texture</span>
-                                                                 .<span class="ident">get_info</span>()
-                                                                 .<span class="ident">to_image_info</span>(<span class="number">0</span>),
-                                                             <span class="kw-2">&amp;</span><span class="ident">color</span>[..])
-                    .<span class="ident">unwrap</span>();
-
-                <span class="ident">texture</span>.<span class="ident">view</span>.<span class="ident">clone</span>()
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">min_dimensions</span> {
+            <span class="prelude-val">Some</span>((<span class="ident">width</span>, <span class="ident">height</span>)) <span class="op">=&gt;</span> {
+                <span class="ident">wb</span> <span class="op">=</span> <span class="ident">wb</span>.<span class="ident">with_min_dimensions</span>(<span class="ident">width</span>, <span class="ident">height</span>);
             }
-            <span class="ident">Texture</span>::<span class="ident">Texture</span>(<span class="kw-2">ref</span> <span class="ident">tex</span>) <span class="op">=&gt;</span> <span class="ident">tex</span>.<span class="ident">clone</span>(),
+            _ <span class="op">=&gt;</span> (),
         }
-    }
-}
-
-<span class="doccomment">/// The most basic drawable element.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Fragment</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// The transform matrix to apply to the matrix. This is sometimes referred</span>
-    <span class="doccomment">/// to as the model matrix. FIXME: Wording needs clarification.</span>
-    <span class="kw">pub</span> <span class="ident">transform</span>: [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>],
-    <span class="doccomment">/// Vertex buffer associated with this fragment.</span>
-    <span class="kw">pub</span> <span class="ident">buffer</span>: <span class="ident">gfx</span>::<span class="ident">handle</span>::<span class="ident">Buffer</span><span class="op">&lt;</span><span class="ident">R</span>, <span class="ident">VertexPosNormal</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// A slice of the vertex buffer above.</span>
-    <span class="kw">pub</span> <span class="ident">slice</span>: <span class="ident">gfx</span>::<span class="ident">Slice</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The ambient color.</span>
-    <span class="kw">pub</span> <span class="ident">ka</span>: <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The diffuse color.</span>
-    <span class="kw">pub</span> <span class="ident">kd</span>: <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The specular color.</span>
-    <span class="kw">pub</span> <span class="ident">ks</span>: <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// The pecular exponent.</span>
-    <span class="kw">pub</span> <span class="ident">ns</span>: <span class="ident">f32</span>,
-}
-
-<span class="doccomment">/// A point light source.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Lighting calculations are based off of the Frostbite engine&#39;s lighting,</span>
-<span class="doccomment">/// which is explained in detail here in [this presentation][fb]. The particular</span>
-<span class="doccomment">/// equation used for our calculations is Eq. 26, and the `PointLight`</span>
-<span class="doccomment">/// properties below map like so:</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// * *I* = `intensity`</span>
-<span class="doccomment">/// * *radius* = `radius`</span>
-<span class="doccomment">/// * *n* = `smoothness`</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// [fb]: http://www.frostbite.com/wp-content/uploads/2014/11/course_notes_moving_frostbite_to_pbr.pdf</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PointLight</span> {
-    <span class="doccomment">/// Coordinates of the light source in three dimensional space.</span>
-    <span class="kw">pub</span> <span class="ident">center</span>: [<span class="ident">f32</span>; <span class="number">3</span>],
-    <span class="doccomment">/// Color of the light.</span>
-    <span class="kw">pub</span> <span class="ident">color</span>: [<span class="ident">f32</span>; <span class="number">4</span>],
-    <span class="doccomment">/// Brightness of the light source.</span>
-    <span class="kw">pub</span> <span class="ident">intensity</span>: <span class="ident">f32</span>,
-    <span class="doccomment">/// Maximum radius of the point light&#39;s affected area.</span>
-    <span class="kw">pub</span> <span class="ident">radius</span>: <span class="ident">f32</span>,
-    <span class="doccomment">/// Smoothness of the light-to-dark transition from the center to the</span>
-    <span class="doccomment">/// radius.</span>
-    <span class="kw">pub</span> <span class="ident">smoothness</span>: <span class="ident">f32</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PointLight</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">PointLight</span> {
-        <span class="ident">PointLight</span> {
-            <span class="ident">color</span>: [<span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>, <span class="number">1.0</span>],
-            <span class="ident">center</span>: [<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>],
-            <span class="ident">intensity</span>: <span class="number">10.0</span>,
-            <span class="ident">radius</span>: <span class="number">10.0</span>,
-            <span class="ident">smoothness</span>: <span class="number">4.0</span>,
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_dimensions</span> {
+            <span class="prelude-val">Some</span>((<span class="ident">width</span>, <span class="ident">height</span>)) <span class="op">=&gt;</span> {
+                <span class="ident">wb</span> <span class="op">=</span> <span class="ident">wb</span>.<span class="ident">with_max_dimensions</span>(<span class="ident">width</span>, <span class="ident">height</span>);
+            }
+            _ <span class="op">=&gt;</span> (),
         }
+        <span class="self">self</span>.<span class="ident">winit_builder</span> <span class="op">=</span> <span class="ident">wb</span>;
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Applies window settings from the given `glutin::WindowBuilder`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">use_winit_builder</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">wb</span>: <span class="ident">WindowBuilder</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">winit_builder</span> <span class="op">=</span> <span class="ident">wb</span>;
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Specifies an existing thread pool for the `Renderer` to use.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">with_pool</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">ThreadPool</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">pool</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">pool</span>);
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Consumes the builder and creates the new `Renderer`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Renderer</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">Backend</span>(<span class="ident">dev</span>, <span class="ident">fac</span>, <span class="ident">main</span>, <span class="ident">win</span>) <span class="op">=</span>
+            <span class="ident">init_backend</span>(<span class="self">self</span>.<span class="ident">winit_builder</span>.<span class="ident">clone</span>(), <span class="self">self</span>.<span class="ident">events</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">num_cores</span> <span class="op">=</span> <span class="ident">num_cpus</span>::<span class="ident">get</span>();
+        <span class="kw">let</span> <span class="ident">pool</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pool</span>.<span class="ident">clone</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="prelude-val">Ok</span>(<span class="ident">p</span>)).<span class="ident">unwrap_or_else</span>(<span class="op">||</span> {
+            <span class="kw">let</span> <span class="ident">cfg</span> <span class="op">=</span> <span class="ident">rayon</span>::<span class="ident">Configuration</span>::<span class="ident">new</span>().<span class="ident">num_threads</span>(<span class="ident">num_cores</span>);
+            <span class="ident">ThreadPool</span>::<span class="ident">new</span>(<span class="ident">cfg</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">p</span>)).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+                <span class="ident">Error</span>::<span class="ident">PoolCreation</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>))
+            })
+        })<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(<span class="ident">Renderer</span> {
+            <span class="ident">device</span>: <span class="ident">dev</span>,
+            <span class="ident">encoders</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="ident">factory</span>: <span class="ident">fac</span>,
+            <span class="ident">main_target</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">main</span>),
+            <span class="ident">pool</span>: <span class="ident">pool</span>,
+            <span class="ident">window</span>: <span class="ident">win</span>,
+        })
     }
 }
 
-<span class="kw">impl</span> <span class="ident">Component</span> <span class="kw">for</span> <span class="ident">PointLight</span> {
-    <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">PointLight</span><span class="op">&gt;</span>;
+<span class="doccomment">/// Represents a graphics backend for the renderer.</span>
+<span class="kw">struct</span> <span class="ident">Backend</span>(<span class="kw">pub</span> <span class="ident">types</span>::<span class="ident">Device</span>, <span class="kw">pub</span> <span class="ident">Factory</span>, <span class="kw">pub</span> <span class="ident">Target</span>, <span class="kw">pub</span> <span class="ident">Window</span>);
+
+<span class="doccomment">/// Creates the Direct3D 11 backend.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;d3d11&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;windows&quot;</span>))]</span>
+<span class="kw">fn</span> <span class="ident">init_backend</span>(<span class="ident">wb</span>: <span class="ident">WindowBuilder</span>, <span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="ident">EventsLoop</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span> {
+    <span class="kw">use</span> <span class="ident">gfx_window_dxgi</span> <span class="kw">as</span> <span class="ident">win</span>;
+
+    <span class="comment">// FIXME: vsync + multisampling from config</span>
+    <span class="kw">let</span> (<span class="ident">win</span>, <span class="ident">dev</span>, <span class="kw-2">mut</span> <span class="ident">fac</span>, <span class="ident">color</span>) <span class="op">=</span> <span class="ident">win</span>::<span class="ident">init</span>::<span class="op">&lt;</span><span class="ident">ColorFormat</span><span class="op">&gt;</span>(<span class="ident">wb</span>, <span class="ident">el</span>).<span class="ident">unwrap</span>();
+    <span class="kw">let</span> <span class="ident">dev</span> <span class="op">=</span> <span class="ident">gfx_device_dx11</span>::<span class="ident">Deferred</span>::<span class="ident">from</span>(<span class="ident">dev</span>);
+
+    <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">win</span>.<span class="ident">get_inner_size_points</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="ident">WindowDestroyed</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">w</span>, <span class="ident">h</span>) <span class="op">=</span> (<span class="ident">size</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">size</span>.<span class="number">1</span> <span class="kw">as</span> <span class="ident">u16</span>);
+    <span class="kw">let</span> <span class="ident">depth</span> <span class="op">=</span> <span class="ident">fac</span>.<span class="ident">create_depth_stencil_view_only</span>::<span class="op">&lt;</span><span class="ident">DepthFormat</span><span class="op">&gt;</span>(<span class="ident">w</span>, <span class="ident">h</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">main_target</span> <span class="op">=</span> <span class="ident">Target</span>::<span class="ident">new</span>(
+        <span class="ident">ColorBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">color</span>,
+        },
+        <span class="ident">DepthBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">depth</span>,
+        },
+        <span class="ident">size</span>,
+    );
+
+    <span class="prelude-val">Ok</span>(<span class="ident">Backend</span>(<span class="ident">dev</span>, <span class="ident">fac</span>, <span class="ident">main_target</span>, <span class="ident">win</span>))
 }
 
-<span class="doccomment">/// A directional light source.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DirectionalLight</span> {
-    <span class="doccomment">/// Color of the light.</span>
-    <span class="kw">pub</span> <span class="ident">color</span>: [<span class="ident">f32</span>; <span class="number">4</span>],
-    <span class="doccomment">/// Direction that the light is pointing.</span>
-    <span class="kw">pub</span> <span class="ident">direction</span>: [<span class="ident">f32</span>; <span class="number">3</span>],
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;metal&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;macos&quot;</span>))]</span>
+<span class="kw">fn</span> <span class="ident">init_backend</span>(<span class="ident">wb</span>: <span class="ident">WindowBuilder</span>, <span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="ident">EventsLoop</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span> {
+    <span class="kw">use</span> <span class="ident">gfx_window_metal</span> <span class="kw">as</span> <span class="ident">win</span>;
+
+    <span class="comment">// FIXME: vsync + multisampling from config</span>
+    <span class="kw">let</span> (<span class="ident">win</span>, <span class="ident">dev</span>, <span class="kw-2">mut</span> <span class="ident">fac</span>, <span class="ident">color</span>) <span class="op">=</span> <span class="ident">win</span>::<span class="ident">init</span>::<span class="op">&lt;</span><span class="ident">ColorFormat</span><span class="op">&gt;</span>(<span class="ident">wb</span>, <span class="ident">el</span>).<span class="ident">unwrap</span>();
+
+    <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">win</span>.<span class="ident">get_inner_size_points</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="ident">WindowDestroyed</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> (<span class="ident">w</span>, <span class="ident">h</span>) <span class="op">=</span> (<span class="ident">size</span>.<span class="number">0</span> <span class="kw">as</span> <span class="ident">u16</span>, <span class="ident">size</span>.<span class="number">1</span> <span class="kw">as</span> <span class="ident">u16</span>);
+    <span class="kw">let</span> <span class="ident">depth</span> <span class="op">=</span> <span class="ident">fac</span>.<span class="ident">create_depth_stencil_view_only</span>::<span class="op">&lt;</span><span class="ident">DepthFormat</span><span class="op">&gt;</span>(<span class="ident">w</span>, <span class="ident">h</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">main_target</span> <span class="op">=</span> <span class="ident">Target</span>::<span class="ident">new</span>(
+        <span class="ident">ColorBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">color</span>,
+        },
+        <span class="ident">DepthBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">depth</span>,
+        },
+        <span class="ident">size</span>,
+    );
+
+    <span class="prelude-val">Ok</span>(<span class="ident">Backend</span>(<span class="ident">dev</span>, <span class="ident">fac</span>, <span class="ident">main_target</span>, <span class="ident">win</span>))
 }
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">DirectionalLight</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">DirectionalLight</span> {
-        <span class="ident">DirectionalLight</span> {
-            <span class="ident">color</span>: [<span class="number">1.0</span>; <span class="number">4</span>],
-            <span class="ident">direction</span>: [<span class="op">-</span><span class="number">1.0</span>; <span class="number">3</span>],
-        }
-    }
-}
+<span class="doccomment">/// Creates the OpenGL backend.</span>
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;opengl&quot;</span>)]</span>
+<span class="kw">fn</span> <span class="ident">init_backend</span>(<span class="ident">wb</span>: <span class="ident">WindowBuilder</span>, <span class="ident">el</span>: <span class="kw-2">&amp;</span><span class="ident">EventsLoop</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Backend</span><span class="op">&gt;</span> {
+    <span class="kw">use</span> <span class="ident">glutin</span>::{<span class="ident">GlProfile</span>, <span class="ident">GlRequest</span>};
+    <span class="kw">use</span> <span class="ident">gfx_window_glutin</span> <span class="kw">as</span> <span class="ident">win</span>;
 
-<span class="kw">impl</span> <span class="ident">Component</span> <span class="kw">for</span> <span class="ident">DirectionalLight</span> {
-    <span class="kw">type</span> <span class="ident">Storage</span> <span class="op">=</span> <span class="ident">VecStorage</span><span class="op">&lt;</span><span class="ident">DirectionalLight</span><span class="op">&gt;</span>;
-}
+    <span class="kw">let</span> <span class="ident">ctx</span> <span class="op">=</span> <span class="ident">glutin</span>::<span class="ident">ContextBuilder</span>::<span class="ident">new</span>()
+        .<span class="ident">with_multisampling</span>(<span class="ident">config</span>.<span class="ident">multisampling</span>)
+        .<span class="ident">with_vsync</span>(<span class="ident">config</span>.<span class="ident">vsync</span>)
+        .<span class="ident">with_gl_profile</span>(<span class="ident">GlProfile</span>::<span class="ident">Core</span>)
+        .<span class="ident">with_gl</span>(<span class="ident">GlRequest</span>::<span class="ident">Latest</span>);
 
-<span class="doccomment">/// An ambient light source.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AmbientLight</span> {
-    <span class="doccomment">/// Intensity of the light.</span>
-    <span class="kw">pub</span> <span class="ident">power</span>: <span class="ident">f32</span>,
-}
+    <span class="kw">let</span> (<span class="ident">win</span>, <span class="ident">dev</span>, <span class="ident">fac</span>, <span class="ident">color</span>, <span class="ident">depth</span>) <span class="op">=</span> <span class="ident">win</span>::<span class="ident">init</span>::<span class="op">&lt;</span><span class="ident">ColorFormat</span>, <span class="ident">DepthFormat</span><span class="op">&gt;</span>(<span class="ident">wb</span>, <span class="ident">ctx</span>, <span class="ident">el</span>);
+    <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">win</span>.<span class="ident">get_inner_size_points</span>().<span class="ident">ok_or</span>(<span class="ident">Error</span>::<span class="ident">WindowDestroyed</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">main_target</span> <span class="op">=</span> <span class="ident">Target</span>::<span class="ident">new</span>(
+        <span class="ident">ColorBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">color</span>,
+        },
+        <span class="ident">DepthBuffer</span> {
+            <span class="ident">as_input</span>: <span class="prelude-val">None</span>,
+            <span class="ident">as_output</span>: <span class="ident">depth</span>,
+        },
+        <span class="ident">size</span>,
+    );
 
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">AmbientLight</span> {
-    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="ident">AmbientLight</span> {
-        <span class="ident">AmbientLight</span> { <span class="ident">power</span>: <span class="number">0.01</span> }
-    }
-}
-
-<span class="doccomment">/// Collection of fragments and lights that make up the scene.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// List of renderable fragments.</span>
-    <span class="kw">pub</span> <span class="ident">fragments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Fragment</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;&gt;</span>,
-    <span class="doccomment">/// List of point lights.</span>
-    <span class="kw">pub</span> <span class="ident">point_lights</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PointLight</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// List of directional lights.</span>
-    <span class="kw">pub</span> <span class="ident">directional_lights</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">DirectionalLight</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// Ambient light factor.</span>
-    <span class="kw">pub</span> <span class="ident">ambient_light</span>: <span class="ident">f32</span>,
-    <span class="doccomment">/// A camera used to render this scene</span>
-    <span class="kw">pub</span> <span class="ident">camera</span>: <span class="ident">Camera</span>,
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">gfx</span>::<span class="ident">Resources</span><span class="op">&gt;</span> <span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Creates an empty scene with the given camera.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">camera</span>: <span class="ident">Camera</span>) <span class="op">-&gt;</span> <span class="ident">Scene</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> {
-        <span class="ident">Scene</span> {
-            <span class="ident">fragments</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">point_lights</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">directional_lights</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">ambient_light</span>: <span class="number">0.01</span>,
-            <span class="ident">camera</span>: <span class="ident">camera</span>,
-        }
-    }
-}
-
-<span class="doccomment">/// Contains the graphical transforms for a camera.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Camera</span> {
-    <span class="doccomment">/// Graphical projection matrix.</span>
-    <span class="kw">pub</span> <span class="ident">proj</span>: [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>],
-    <span class="doccomment">/// The view matrix.</span>
-    <span class="kw">pub</span> <span class="ident">view</span>: [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>],
-}
-
-<span class="kw">impl</span> <span class="ident">Camera</span> {
-    <span class="doccomment">/// Creates a new camera with the given projection and view matrices.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">proj</span>: [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>], <span class="ident">view</span>: [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>]) <span class="op">-&gt;</span> <span class="ident">Camera</span> {
-        <span class="ident">Camera</span> {
-            <span class="ident">proj</span>: <span class="ident">proj</span>,
-            <span class="ident">view</span>: <span class="ident">view</span>,
-        }
-    }
-
-    <span class="doccomment">/// Returns a realistic perspective projection matrix.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">perspective</span>(<span class="ident">fov</span>: <span class="ident">f32</span>, <span class="ident">aspect</span>: <span class="ident">f32</span>, <span class="ident">near</span>: <span class="ident">f32</span>, <span class="ident">far</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>] {
-        <span class="ident">cgmath</span>::<span class="ident">perspective</span>(<span class="ident">cgmath</span>::<span class="ident">Deg</span>(<span class="ident">fov</span>), <span class="ident">aspect</span>, <span class="ident">near</span>, <span class="ident">far</span>).<span class="ident">into</span>()
-    }
-
-    <span class="doccomment">/// Returns an orthographic projection matrix..</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">orthographic</span>(<span class="ident">left</span>: <span class="ident">f32</span>,
-                        <span class="ident">right</span>: <span class="ident">f32</span>,
-                        <span class="ident">bottom</span>: <span class="ident">f32</span>,
-                        <span class="ident">top</span>: <span class="ident">f32</span>,
-                        <span class="ident">near</span>: <span class="ident">f32</span>,
-                        <span class="ident">far</span>: <span class="ident">f32</span>)
-                        <span class="op">-&gt;</span> [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>] {
-        <span class="ident">cgmath</span>::<span class="ident">ortho</span>(<span class="ident">left</span>, <span class="ident">right</span>, <span class="ident">bottom</span>, <span class="ident">top</span>, <span class="ident">near</span>, <span class="ident">far</span>).<span class="ident">into</span>()
-    }
-
-    <span class="doccomment">/// Returns a 4x4 view matrix.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">look_at</span>(<span class="ident">eye</span>: [<span class="ident">f32</span>; <span class="number">3</span>], <span class="ident">target</span>: [<span class="ident">f32</span>; <span class="number">3</span>], <span class="ident">up</span>: [<span class="ident">f32</span>; <span class="number">3</span>]) <span class="op">-&gt;</span> [[<span class="ident">f32</span>; <span class="number">4</span>]; <span class="number">4</span>] {
-        <span class="kw">use</span> <span class="ident">cgmath</span>::{<span class="ident">Point3</span>, <span class="ident">Vector3</span>, <span class="ident">Matrix4</span>, <span class="ident">Transform</span>};
-        <span class="kw">let</span> <span class="ident">view</span>: <span class="ident">Matrix4</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Transform</span>::<span class="ident">look_at</span>(<span class="ident">Point3</span>::<span class="ident">new</span>(<span class="ident">eye</span>[<span class="number">0</span>], <span class="ident">eye</span>[<span class="number">1</span>], <span class="ident">eye</span>[<span class="number">2</span>]),
-                                                    <span class="ident">Point3</span>::<span class="ident">new</span>(<span class="ident">target</span>[<span class="number">0</span>], <span class="ident">target</span>[<span class="number">1</span>], <span class="ident">target</span>[<span class="number">2</span>]),
-                                                    <span class="ident">Vector3</span>::<span class="ident">new</span>(<span class="ident">up</span>[<span class="number">0</span>], <span class="ident">up</span>[<span class="number">1</span>], <span class="ident">up</span>[<span class="number">2</span>]));
-        <span class="ident">view</span>.<span class="ident">into</span>()
-    }
-}
-
-<span class="doccomment">/// A stackable image layer.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// Layers contain a list of passes which are used to render a final image which</span>
-<span class="doccomment">/// is then composited onto a render target. They are especially useful for</span>
-<span class="doccomment">/// postprocessing, e.g. applying a fullscreen night vision effect, drawing a</span>
-<span class="doccomment">/// HUD (heads-up display) over a rendered scene.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Layer</span> {
-    <span class="doccomment">/// Name of the render target to draw on.</span>
-    <span class="kw">pub</span> <span class="ident">target</span>: <span class="ident">String</span>,
-    <span class="doccomment">/// Sequence of passes to execute over the render target.</span>
-    <span class="kw">pub</span> <span class="ident">passes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PassDescription</span><span class="op">&gt;&gt;</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Layer</span> {
-    <span class="doccomment">/// Creates a new layer with the given list of passes and the name of the</span>
-    <span class="doccomment">/// render target</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">target</span>: <span class="ident">T</span>, <span class="ident">passes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PassDescription</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Layer</span>
-        <span class="kw">where</span> <span class="ident">String</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
-    {
-        <span class="ident">Layer</span> {
-            <span class="ident">target</span>: <span class="ident">String</span>::<span class="ident">from</span>(<span class="ident">target</span>),
-            <span class="ident">passes</span>: <span class="ident">passes</span>,
-        }
-    }
-}
-
-<span class="doccomment">/// The render job submission</span>
-<span class="doccomment">/// Describes the layers and</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pipeline</span> {
-    <span class="doccomment">/// the layers to be processed</span>
-    <span class="kw">pub</span> <span class="ident">layers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Layer</span><span class="op">&gt;</span>,
-    <span class="doccomment">/// collection of render targets. A target may be</span>
-    <span class="doccomment">/// a source or a sink for a `Pass`</span>
-    <span class="kw">pub</span> <span class="ident">targets</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Target</span><span class="op">&gt;&gt;</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">Pipeline</span> {
-    <span class="doccomment">/// Create an empty Pipeline</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">Pipeline</span> {
-        <span class="ident">Pipeline</span> {
-            <span class="ident">layers</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
-            <span class="ident">targets</span>: <span class="ident">HashMap</span>::<span class="ident">default</span>(),
-        }
-    }
+    <span class="prelude-val">Ok</span>(<span class="ident">Backend</span>(<span class="ident">dev</span>, <span class="ident">fac</span>, <span class="ident">main_target</span>, <span class="ident">win</span>))
 }
 </pre>
 </section>

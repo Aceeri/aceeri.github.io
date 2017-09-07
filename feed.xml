@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-08-30T21:54:45-07:00</updated><id>http://localhost:4000/</id><title type="html">Amethyst | Data-oriented, data-driven game engine</title><subtitle>A data-oriented, data-driven game engine written in Rust.</subtitle><entry><title type="html">These Months in Amethyst 9</title><link href="http://localhost:4000/2016/09/11/twia-9.html" rel="alternate" type="text/html" title="These Months in Amethyst 9" /><published>2016-09-11T09:00:00-07:00</published><updated>2016-09-11T09:00:00-07:00</updated><id>http://localhost:4000/2016/09/11/twia-9</id><content type="html" xml:base="http://localhost:4000/2016/09/11/twia-9.html">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.0">Jekyll</generator><link href="https://amethyst.rs/feed.xml" rel="self" type="application/atom+xml" /><link href="https://amethyst.rs/" rel="alternate" type="text/html" /><updated>2017-09-07T02:02:18-07:00</updated><id>https://amethyst.rs/</id><title type="html">Amethyst | Data-oriented, data-driven game engine</title><subtitle>A data-oriented, data-driven game engine written in Rust.</subtitle><entry><title type="html">These Months in Amethyst 9</title><link href="https://amethyst.rs/2016/09/11/twia-9.html" rel="alternate" type="text/html" title="These Months in Amethyst 9" /><published>2016-09-11T09:00:00-07:00</published><updated>2016-09-11T09:00:00-07:00</updated><id>https://amethyst.rs/2016/09/11/twia-9</id><content type="html" xml:base="https://amethyst.rs/2016/09/11/twia-9.html">&lt;blockquote&gt;
   &lt;p&gt;News from Mar 27, 2016 – Sep 11, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -103,7 +103,7 @@ know that you are working on it!&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/serprex&quot;&gt;serprex&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;This edition was written and edited by &lt;a href=&quot;https://github.com/LucioFranco&quot;&gt;@LucioFranco&lt;/a&gt; and &lt;a href=&quot;https://github.com/ebkalderon&quot;&gt;@ebkalderon&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Mar 27, 2016 – Sep 11, 2016</summary></entry><entry><title type="html">These Weeks in Amethyst 8</title><link href="http://localhost:4000/2016/03/27/twia-8.html" rel="alternate" type="text/html" title="These Weeks in Amethyst 8" /><published>2016-03-27T23:59:30-07:00</published><updated>2016-03-27T23:59:30-07:00</updated><id>http://localhost:4000/2016/03/27/twia-8</id><content type="html" xml:base="http://localhost:4000/2016/03/27/twia-8.html">&lt;blockquote&gt;
+&lt;p&gt;This edition was written and edited by &lt;a href=&quot;https://github.com/LucioFranco&quot;&gt;@LucioFranco&lt;/a&gt; and &lt;a href=&quot;https://github.com/ebkalderon&quot;&gt;@ebkalderon&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Mar 27, 2016 – Sep 11, 2016</summary></entry><entry><title type="html">These Weeks in Amethyst 8</title><link href="https://amethyst.rs/2016/03/27/twia-8.html" rel="alternate" type="text/html" title="These Weeks in Amethyst 8" /><published>2016-03-27T23:59:30-07:00</published><updated>2016-03-27T23:59:30-07:00</updated><id>https://amethyst.rs/2016/03/27/twia-8</id><content type="html" xml:base="https://amethyst.rs/2016/03/27/twia-8.html">&lt;blockquote&gt;
   &lt;p&gt;News from Mar 13, 2016 – Mar 27, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -179,7 +179,7 @@ excellent effort! Check out the &lt;a href=&quot;https://github.com/amethyst/web
       &lt;li&gt;&lt;a href=&quot;https://github.com/amethyst/tools/issues/26&quot;&gt;Determine if project is amethyst or not (issue #26)&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">News from Mar 13, 2016 – Mar 27, 2016</summary></entry><entry><title type="html">These Weeks in Amethyst 7</title><link href="http://localhost:4000/2016/03/13/twia-7.html" rel="alternate" type="text/html" title="These Weeks in Amethyst 7" /><published>2016-03-13T14:23:00-07:00</published><updated>2016-03-13T14:23:00-07:00</updated><id>http://localhost:4000/2016/03/13/twia-7</id><content type="html" xml:base="http://localhost:4000/2016/03/13/twia-7.html">&lt;blockquote&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">News from Mar 13, 2016 – Mar 27, 2016</summary></entry><entry><title type="html">These Weeks in Amethyst 7</title><link href="https://amethyst.rs/2016/03/13/twia-7.html" rel="alternate" type="text/html" title="These Weeks in Amethyst 7" /><published>2016-03-13T14:23:00-07:00</published><updated>2016-03-13T14:23:00-07:00</updated><id>https://amethyst.rs/2016/03/13/twia-7</id><content type="html" xml:base="https://amethyst.rs/2016/03/13/twia-7.html">&lt;blockquote&gt;
   &lt;p&gt;News from Feb 22, 2016 – Mar 13, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -272,7 +272,7 @@ on GitHub, much like &lt;a href=&quot;http://this-week-in-rust.org/&quot;&gt;&lt
 to be our official domain. So far, the main page points to nothing.
 &lt;a href=&quot;https://github.com/LucioFranco&quot;&gt;@LucioFranco&lt;/a&gt; (this guy has been really helpful lately!) put together a
 preliminary &lt;a href=&quot;https://github.com/ebkalderon/amethyst/pull/26&quot;&gt;pull request&lt;/a&gt; where we can get this working. We’re running
-into some issues with &lt;a href=&quot;https://github.com/cobalt-org/cobalt.rs&quot;&gt;Cobalt.rs&lt;/a&gt;, but we hope to resolve them soon.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 22, 2016 – Mar 13, 2016</summary></entry><entry><title type="html">This Week in Amethyst 6</title><link href="http://localhost:4000/2016/02/22/twia-6.html" rel="alternate" type="text/html" title="This Week in Amethyst 6" /><published>2016-02-22T17:00:00-08:00</published><updated>2016-02-22T17:00:00-08:00</updated><id>http://localhost:4000/2016/02/22/twia-6</id><content type="html" xml:base="http://localhost:4000/2016/02/22/twia-6.html">&lt;blockquote&gt;
+into some issues with &lt;a href=&quot;https://github.com/cobalt-org/cobalt.rs&quot;&gt;Cobalt.rs&lt;/a&gt;, but we hope to resolve them soon.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 22, 2016 – Mar 13, 2016</summary></entry><entry><title type="html">This Week in Amethyst 6</title><link href="https://amethyst.rs/2016/02/22/twia-6.html" rel="alternate" type="text/html" title="This Week in Amethyst 6" /><published>2016-02-22T17:00:00-08:00</published><updated>2016-02-22T17:00:00-08:00</updated><id>https://amethyst.rs/2016/02/22/twia-6</id><content type="html" xml:base="https://amethyst.rs/2016/02/22/twia-6.html">&lt;blockquote&gt;
   &lt;p&gt;News from Feb 15, 2016 – Feb 22, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -322,7 +322,7 @@ goodies. Please leave your thoughts on &lt;a href=&quot;https://github.com/ebkal
 &lt;p&gt;Some meta-news: starting next issue, TWIA’s release schedule will shift from
 every Monday to every Sunday. This is to get our newsletter in sync with
 &lt;a href=&quot;https://this-week-in-rust.org/&quot;&gt;&lt;em&gt;This Week in Rust&lt;/em&gt;&lt;/a&gt; so readers aren’t stuck reading last week’s post
-every time. Hopefully this will make things more convenient in the long run!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 15, 2016 – Feb 22, 2016</summary></entry><entry><title type="html">This Week in Amethyst 5</title><link href="http://localhost:4000/2016/02/15/twia-5.html" rel="alternate" type="text/html" title="This Week in Amethyst 5" /><published>2016-02-15T10:04:00-08:00</published><updated>2016-02-15T10:04:00-08:00</updated><id>http://localhost:4000/2016/02/15/twia-5</id><content type="html" xml:base="http://localhost:4000/2016/02/15/twia-5.html">&lt;blockquote&gt;
+every time. Hopefully this will make things more convenient in the long run!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 15, 2016 – Feb 22, 2016</summary></entry><entry><title type="html">This Week in Amethyst 5</title><link href="https://amethyst.rs/2016/02/15/twia-5.html" rel="alternate" type="text/html" title="This Week in Amethyst 5" /><published>2016-02-15T10:04:00-08:00</published><updated>2016-02-15T10:04:00-08:00</updated><id>https://amethyst.rs/2016/02/15/twia-5</id><content type="html" xml:base="https://amethyst.rs/2016/02/15/twia-5.html">&lt;blockquote&gt;
   &lt;p&gt;News from Feb 08, 2016 – Feb 15, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -391,7 +391,7 @@ tools issue [#13]. Thanks again, &lt;a href=&quot;https://github.com/White-Oak&q
 &lt;a href=&quot;https://gitter.im/ebkalderon/amethyst&quot;&gt;the Gitter chat&lt;/a&gt;. Please leave your input there or on
 [engine issue #10][e10].&lt;/p&gt;
 
-&lt;p&gt;Thanks for the contributions this week, everyone. Keep up the great work!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 08, 2016 – Feb 15, 2016</summary></entry><entry><title type="html">This Week in Amethyst 4</title><link href="http://localhost:4000/2016/02/08/twia-4.html" rel="alternate" type="text/html" title="This Week in Amethyst 4" /><published>2016-02-08T10:40:00-08:00</published><updated>2016-02-08T10:40:00-08:00</updated><id>http://localhost:4000/2016/02/08/twia-4</id><content type="html" xml:base="http://localhost:4000/2016/02/08/twia-4.html">&lt;blockquote&gt;
+&lt;p&gt;Thanks for the contributions this week, everyone. Keep up the great work!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Feb 08, 2016 – Feb 15, 2016</summary></entry><entry><title type="html">This Week in Amethyst 4</title><link href="https://amethyst.rs/2016/02/08/twia-4.html" rel="alternate" type="text/html" title="This Week in Amethyst 4" /><published>2016-02-08T10:40:00-08:00</published><updated>2016-02-08T10:40:00-08:00</updated><id>https://amethyst.rs/2016/02/08/twia-4</id><content type="html" xml:base="https://amethyst.rs/2016/02/08/twia-4.html">&lt;blockquote&gt;
   &lt;p&gt;News for Feb 01, 2016 – Feb 08, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -451,7 +451,7 @@ discussion on &lt;a href=&quot;https://github.com/ebkalderon/amethyst/issues/10&
 feedback. Please see [engine issue #19] if you have any suggestions or comments
 before implementation begins.&lt;/p&gt;
 
-&lt;p&gt;It’s been a busy week for all of us. Thanks for the good work everyone!&lt;/p&gt;</content><author><name></name></author><summary type="html">News for Feb 01, 2016 – Feb 08, 2016</summary></entry><entry><title type="html">This Week in Amethyst 3</title><link href="http://localhost:4000/2016/02/01/twia-3.html" rel="alternate" type="text/html" title="This Week in Amethyst 3" /><published>2016-02-01T17:00:00-08:00</published><updated>2016-02-01T17:00:00-08:00</updated><id>http://localhost:4000/2016/02/01/twia-3</id><content type="html" xml:base="http://localhost:4000/2016/02/01/twia-3.html">&lt;blockquote&gt;
+&lt;p&gt;It’s been a busy week for all of us. Thanks for the good work everyone!&lt;/p&gt;</content><author><name></name></author><summary type="html">News for Feb 01, 2016 – Feb 08, 2016</summary></entry><entry><title type="html">This Week in Amethyst 3</title><link href="https://amethyst.rs/2016/02/01/twia-3.html" rel="alternate" type="text/html" title="This Week in Amethyst 3" /><published>2016-02-01T17:00:00-08:00</published><updated>2016-02-01T17:00:00-08:00</updated><id>https://amethyst.rs/2016/02/01/twia-3</id><content type="html" xml:base="https://amethyst.rs/2016/02/01/twia-3.html">&lt;blockquote&gt;
   &lt;p&gt;News from Jan 18, 2016 – Jan 25, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -536,7 +536,7 @@ write our own? Leave your input there.&lt;/p&gt;
 
 &lt;p&gt;In other news, there has been a recent explosion of activity
 [on the Gitter chat][gc], which is wonderful to see. Have any questions,
-suggestions, or comments? Come join the conversation!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 18, 2016 – Jan 25, 2016</summary></entry><entry><title type="html">This Week in Amethyst 2</title><link href="http://localhost:4000/2016/01/25/twia-2.html" rel="alternate" type="text/html" title="This Week in Amethyst 2" /><published>2016-01-25T17:00:00-08:00</published><updated>2016-01-25T17:00:00-08:00</updated><id>http://localhost:4000/2016/01/25/twia-2</id><content type="html" xml:base="http://localhost:4000/2016/01/25/twia-2.html">&lt;blockquote&gt;
+suggestions, or comments? Come join the conversation!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 18, 2016 – Jan 25, 2016</summary></entry><entry><title type="html">This Week in Amethyst 2</title><link href="https://amethyst.rs/2016/01/25/twia-2.html" rel="alternate" type="text/html" title="This Week in Amethyst 2" /><published>2016-01-25T17:00:00-08:00</published><updated>2016-01-25T17:00:00-08:00</updated><id>https://amethyst.rs/2016/01/25/twia-2</id><content type="html" xml:base="https://amethyst.rs/2016/01/25/twia-2.html">&lt;blockquote&gt;
   &lt;p&gt;News from Jan 18, 2016 – Jan 25, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -598,7 +598,7 @@ idiomatic practice but is a good enough solution for now. Thanks again to
 &lt;h2 id=&quot;other-announcements&quot;&gt;Other announcements&lt;/h2&gt;
 
 &lt;p&gt;Once issue #13 is closed and the unit test matter is resolved, expect the first
-official release of the “Explosive Cleric” series, Amethyst 0.2.0!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 18, 2016 – Jan 25, 2016</summary></entry><entry><title type="html">This Week in Amethyst 1</title><link href="http://localhost:4000/2016/01/18/twia-1.html" rel="alternate" type="text/html" title="This Week in Amethyst 1" /><published>2016-01-18T17:00:00-08:00</published><updated>2016-01-18T17:00:00-08:00</updated><id>http://localhost:4000/2016/01/18/twia-1</id><content type="html" xml:base="http://localhost:4000/2016/01/18/twia-1.html">&lt;blockquote&gt;
+official release of the “Explosive Cleric” series, Amethyst 0.2.0!&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 18, 2016 – Jan 25, 2016</summary></entry><entry><title type="html">This Week in Amethyst 1</title><link href="https://amethyst.rs/2016/01/18/twia-1.html" rel="alternate" type="text/html" title="This Week in Amethyst 1" /><published>2016-01-18T17:00:00-08:00</published><updated>2016-01-18T17:00:00-08:00</updated><id>https://amethyst.rs/2016/01/18/twia-1</id><content type="html" xml:base="https://amethyst.rs/2016/01/18/twia-1.html">&lt;blockquote&gt;
   &lt;p&gt;News from Jan 11, 2016 – Jan 18, 2016&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -661,7 +661,7 @@ reading.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;What do you think about these approaches? Leave your thoughts in the
-&lt;a href=&quot;https://gitter.im/ebkalderon/amethyst&quot;&gt;Gitter chat&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 11, 2016 – Jan 18, 2016</summary></entry><entry><title type="html">This Week in Amethyst 0</title><link href="http://localhost:4000/2016/01/14/twia-0.html" rel="alternate" type="text/html" title="This Week in Amethyst 0" /><published>2016-01-14T18:00:30-08:00</published><updated>2016-01-14T18:00:30-08:00</updated><id>http://localhost:4000/2016/01/14/twia-0</id><content type="html" xml:base="http://localhost:4000/2016/01/14/twia-0.html">&lt;blockquote&gt;
+&lt;a href=&quot;https://gitter.im/ebkalderon/amethyst&quot;&gt;Gitter chat&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">News from Jan 11, 2016 – Jan 18, 2016</summary></entry><entry><title type="html">This Week in Amethyst 0</title><link href="https://amethyst.rs/2016/01/14/twia-0.html" rel="alternate" type="text/html" title="This Week in Amethyst 0" /><published>2016-01-14T18:00:30-08:00</published><updated>2016-01-14T18:00:30-08:00</updated><id>https://amethyst.rs/2016/01/14/twia-0</id><content type="html" xml:base="https://amethyst.rs/2016/01/14/twia-0.html">&lt;blockquote&gt;
   &lt;p&gt;Welcome to this new series! The first issue will come Jan 18, 2016.&lt;/p&gt;
 &lt;/blockquote&gt;
 

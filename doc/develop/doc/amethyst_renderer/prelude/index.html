@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `prelude` mod in crate `amethyst_renderer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, prelude">
+
+    <title>amethyst_renderer::prelude - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <a href='../../amethyst_renderer/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a>
+        <p class='location'>Module prelude</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>amethyst_renderer</a></p><script>window.sidebarCurrent = {name: 'prelude', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>amethyst_renderer</a>::<wbr><a class="mod" href=''>prelude</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/amethyst_renderer/prelude.rs.html#1-14' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Contains common types that can be glob-imported (<code>*</code>) for convenience.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use <a class="struct" href="../../amethyst_renderer/struct.Renderer.html" title="struct amethyst_renderer::Renderer">Renderer</a>;</code></td></tr><tr><td><code>pub use <a class="mod" href="../../amethyst_renderer/light/index.html" title="mod amethyst_renderer::light">light</a>::*;</code></td></tr><tr><td><code>pub use pipe::<a class="struct" href="../../amethyst_renderer/pipe/struct.Pipeline.html" title="struct amethyst_renderer::pipe::Pipeline">Pipeline</a>;</code></td></tr><tr><td><code>pub use pipe::<a class="struct" href="../../amethyst_renderer/pipe/struct.PipelineBuilder.html" title="struct amethyst_renderer::pipe::PipelineBuilder">PipelineBuilder</a>;</code></td></tr><tr><td><code>pub use <a class="mod" href="../../amethyst_renderer/pass/index.html" title="mod amethyst_renderer::pass">pass</a>;</code></td></tr><tr><td><code>pub use vertex::<a class="struct" href="../../amethyst_renderer/vertex/struct.PosColor.html" title="struct amethyst_renderer::vertex::PosColor">PosColor</a>;</code></td></tr><tr><td><code>pub use vertex::<a class="struct" href="../../amethyst_renderer/vertex/struct.PosNormTangTex.html" title="struct amethyst_renderer::vertex::PosNormTangTex">PosNormTangTex</a>;</code></td></tr><tr><td><code>pub use vertex::<a class="struct" href="../../amethyst_renderer/vertex/struct.PosNormTex.html" title="struct amethyst_renderer::vertex::PosNormTex">PosNormTex</a>;</code></td></tr><tr><td><code>pub use vertex::<a class="struct" href="../../amethyst_renderer/vertex/struct.PosTex.html" title="struct amethyst_renderer::vertex::PosTex">PosTex</a>;</code></td></tr><tr><td><code>pub use vertex::<a class="trait" href="../../amethyst_renderer/vertex/trait.VertexFormat.html" title="trait amethyst_renderer::vertex::VertexFormat">VertexFormat</a>;</code></td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Camera.html"
+                                  title='struct amethyst_renderer::prelude::Camera'>Camera</a></td>
+                           <td class='docblock-short'>
+                                <p>Camera struct.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Material.html"
+                                  title='struct amethyst_renderer::prelude::Material'>Material</a></td>
+                           <td class='docblock-short'>
+                                <p>Material struct.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MaterialBuilder.html"
+                                  title='struct amethyst_renderer::prelude::MaterialBuilder'>MaterialBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new materials.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Mesh.html"
+                                  title='struct amethyst_renderer::prelude::Mesh'>Mesh</a></td>
+                           <td class='docblock-short'>
+                                <p>Represents a polygonal mesh.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MeshBuilder.html"
+                                  title='struct amethyst_renderer::prelude::MeshBuilder'>MeshBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new meshes.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Model.html"
+                                  title='struct amethyst_renderer::prelude::Model'>Model</a></td>
+                           <td class='docblock-short'>
+                                <p>A renderable object in a scene.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Scene.html"
+                                  title='struct amethyst_renderer::prelude::Scene'>Scene</a></td>
+                           <td class='docblock-short'>
+                                <p>Collection of lights and meshes to render.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Stage.html"
+                                  title='struct amethyst_renderer::prelude::Stage'>Stage</a></td>
+                           <td class='docblock-short'>
+                                <p>A stage in the rendering pipeline.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.StageBuilder.html"
+                                  title='struct amethyst_renderer::prelude::StageBuilder'>StageBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Constructs a new rendering stage.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Target.html"
+                                  title='struct amethyst_renderer::prelude::Target'>Target</a></td>
+                           <td class='docblock-short'>
+                                <p>A render target.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Texture.html"
+                                  title='struct amethyst_renderer::prelude::Texture'>Texture</a></td>
+                           <td class='docblock-short'>
+                                <p>Handle to a GPU texture resource.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TextureBuilder.html"
+                                  title='struct amethyst_renderer::prelude::TextureBuilder'>TextureBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new textures.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Projection.html"
+                                  title='enum amethyst_renderer::prelude::Projection'>Projection</a></td>
+                           <td class='docblock-short'>
+                                <p>The projection mode of a <code>Camera</code>.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Pod.html"
+                                  title='trait amethyst_renderer::prelude::Pod'>Pod</a></td>
+                           <td class='docblock-short'>
+                                <p>A trait for plain-old-data types.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "amethyst_renderer";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

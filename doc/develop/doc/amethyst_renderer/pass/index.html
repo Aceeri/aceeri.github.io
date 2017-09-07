@@ -28,8 +28,8 @@
     
 
     <nav class="sidebar">
-        <a href='../../amethyst_renderer/index.html'><img src='http://tinyurl.com/hgsb45k' alt='logo' width='100'></a>
-        <p class='location'>Module pass</p><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>amethyst_renderer</a></p><script>window.sidebarCurrent = {name: 'pass', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <a href='../../amethyst_renderer/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a>
+        <p class='location'>Module pass</p><div class="block items"><ul><li><a href="#structs">Structs</a></li></ul></div><p class='location'><a href='../index.html'>amethyst_renderer</a></p><script>window.sidebarCurrent = {name: 'pass', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -48,88 +48,29 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../../src/amethyst_renderer/pass/mod.rs.html#1-184' title='goto source code'>[src]</a></span></h1>
-<h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+               </span><a class='srclink' href='../../src/amethyst_renderer/pass/mod.rs.html#1-9' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Different kinds of render passes.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="deferred/index.html"
-                                  title='mod amethyst_renderer::pass::deferred'>deferred</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="mod" href="forward/index.html"
-                                  title='mod amethyst_renderer::pass::forward'>forward</a></td>
-                           <td class='docblock-short'>
-                                
-                           </td>
-                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.BlitLayer.html"
-                                  title='struct amethyst_renderer::pass::BlitLayer'>BlitLayer</a></td>
-                           <td class='docblock-short'>
-                                <p>Blit a layer of the gbuffer into the target</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Clear.html"
-                                  title='struct amethyst_renderer::pass::Clear'>Clear</a></td>
-                           <td class='docblock-short'>
-                                <p>Clear the frame buffer</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.DepthPass.html"
-                                  title='struct amethyst_renderer::pass::DepthPass'>DepthPass</a></td>
-                           <td class='docblock-short'>
-                                <p>Render only the depth layer leaving
-all other Gbuffer layers unchanged</p>
-                           </td>
-                       </tr>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.DrawFlat.html"
                                   title='struct amethyst_renderer::pass::DrawFlat'>DrawFlat</a></td>
                            <td class='docblock-short'>
-                                <p>Render into the target without any shading applied</p>
+                                <p>Draw mesh without lighting</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawPbm.html"
+                                  title='struct amethyst_renderer::pass::DrawPbm'>DrawPbm</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh without lighting</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class="struct" href="struct.DrawShaded.html"
                                   title='struct amethyst_renderer::pass::DrawShaded'>DrawShaded</a></td>
                            <td class='docblock-short'>
-                                <p>Render into the target without a standard
-ambient/diffuse shading</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Lighting.html"
-                                  title='struct amethyst_renderer::pass::Lighting'>Lighting</a></td>
-                           <td class='docblock-short'>
-                                <p>Do a lighting pass</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="struct" href="struct.Wireframe.html"
-                                  title='struct amethyst_renderer::pass::Wireframe'>Wireframe</a></td>
-                           <td class='docblock-short'>
-                                <p>Render the scene as a wireframe</p>
-                           </td>
-                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
-<table>
-                       <tr class=' module-item'>
-                           <td><a class="trait" href="trait.Pass.html"
-                                  title='trait amethyst_renderer::pass::Pass'>Pass</a></td>
-                           <td class='docblock-short'>
-                                <p>A <code>Pass</code> is an implementation of a Pass</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class="trait" href="trait.PassDescription.html"
-                                  title='trait amethyst_renderer::pass::PassDescription'>PassDescription</a></td>
-                           <td class='docblock-short'>
-                                <p>Describes a render pass</p>
+                                <p>Draw mesh without lighting</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
