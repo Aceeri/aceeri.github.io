@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["DrawFlat","Draw mesh without lighting"],["DrawPbm","Draw mesh without lighting"],["DrawShaded","Draw mesh without lighting"]]});

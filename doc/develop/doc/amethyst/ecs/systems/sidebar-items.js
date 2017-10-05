@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["TransformSystem","Handles updating `Transform` components based on the `LocalTransform` component and parents."]]});
