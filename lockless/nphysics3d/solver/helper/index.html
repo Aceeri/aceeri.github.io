@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `helper` mod in crate `nphysics3d`."><meta name="keywords" content="rust, rustlang, rust-lang, helper"><title>nphysics3d::solver::helper - Rust</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module helper</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../../index.html'>nphysics3d</a>::<wbr><a href='../index.html'>solver</a></p><script>window.sidebarCurrent = {name: 'helper', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>nphysics3d</a>::<wbr><a href='../index.html'>solver</a>::<wbr><a class="mod" href=''>helper</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../../src/nphysics3d/solver/helper.rs.html#1-972' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Utilities for computing velocity and position constraints.</p>
+</div><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ForceDirection.html"
+                                  title='enum nphysics3d::solver::helper::ForceDirection'>ForceDirection</a></td>
+                           <td class='docblock-short'>
+                                <p>The direction of a force.</p>
+
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.align_axis.html"
+                                  title='fn nphysics3d::solver::helper::align_axis'>align_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to moved the body parts such that the given axis will become aligned.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_angular_velocity.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_angular_velocity'>cancel_relative_angular_velocity</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate velocity constraints to cancel the relative angular velocity of two bodies.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_angular_velocity_wrt_axis.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_angular_velocity_wrt_axis'>cancel_relative_angular_velocity_wrt_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate velocity constraints to cancel the relative angular velocity of two bodies wrt. the given axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_linear_velocity.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_linear_velocity'>cancel_relative_linear_velocity</a></td>
+                           <td class='docblock-short'>
+                                <p>Generates velocity constraints to cancel the relative linear velocity of two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_linear_velocity_wrt_axis.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_linear_velocity_wrt_axis'>cancel_relative_linear_velocity_wrt_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generates velocity constraints to cancel the relative linear velocity of two body parts wrt the given axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_rotation.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_rotation'>cancel_relative_rotation</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to cancel the relative rotation of two bodies.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_translation.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_translation'>cancel_relative_translation</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to cancel the relative translation of two bodies.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cancel_relative_translation_wrt_axis.html"
+                                  title='fn nphysics3d::solver::helper::cancel_relative_translation_wrt_axis'>cancel_relative_translation_wrt_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to cancel the relative translation of two bodies wrt the given axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.constraint_pair_geometry.html"
+                                  title='fn nphysics3d::solver::helper::constraint_pair_geometry'>constraint_pair_geometry</a></td>
+                           <td class='docblock-short'>
+                                <p>Fills all the jacobians (and the jacobians multiplied by the invers augmented mass matricxs) for a
+constraint applying a force at the points <code>center1, center2</code> and the direction <code>dir</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.constraint_pair_velocity.html"
+                                  title='fn nphysics3d::solver::helper::constraint_pair_velocity'>constraint_pair_velocity</a></td>
+                           <td class='docblock-short'>
+                                <p>Compute the generalized relative velocity for at the given points and along a given direction.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.constraints_are_ground_constraints.html"
+                                  title='fn nphysics3d::solver::helper::constraints_are_ground_constraints'>constraints_are_ground_constraints</a></td>
+                           <td class='docblock-short'>
+                                <p>Test sif a constraint between the two given bodies should be a ground
+constraint (a constraint between a dynamic body and one without any degree of freedom).</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.fill_constraint_geometry.html"
+                                  title='fn nphysics3d::solver::helper::fill_constraint_geometry'>fill_constraint_geometry</a></td>
+                           <td class='docblock-short'>
+                                <p>Fills all the jacobians (and the jacobians multiplied by the invers augmented mass matricxs) for a
+constraint applying a force at the point <code>center</code> (relative to the body part's center of mass) and
+the direction <code>dir</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.project_anchor_to_axis.html"
+                                  title='fn nphysics3d::solver::helper::project_anchor_to_axis'>project_anchor_to_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to project <code>anchor2</code> into the axis with direction <code>axis1</code> and passing through the <code>anchor1</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.restore_angle_between_axis.html"
+                                  title='fn nphysics3d::solver::helper::restore_angle_between_axis'>restore_angle_between_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate position constraints to ensure the two given axis are seperated by the given angle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.restrict_relative_angular_velocity_to_axis.html"
+                                  title='fn nphysics3d::solver::helper::restrict_relative_angular_velocity_to_axis'>restrict_relative_angular_velocity_to_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate velocity constraints to cancel the relative angular velocity of two bodies along all axis except the one provided.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.restrict_relative_linear_velocity_to_axis.html"
+                                  title='fn nphysics3d::solver::helper::restrict_relative_linear_velocity_to_axis'>restrict_relative_linear_velocity_to_axis</a></td>
+                           <td class='docblock-short'>
+                                <p>Generate velocity constraints to cancel the relative linear velocity of two bodies along all axis except the one provided.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../";window.currentCrate = "nphysics3d";</script><script src="../../../aliases.js"></script><script src="../../../main.js"></script><script defer src="../../../search-index.js"></script></body></html>

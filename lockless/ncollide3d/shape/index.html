@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `shape` mod in crate `ncollide3d`."><meta name="keywords" content="rust, rustlang, rust-lang, shape"><title>ncollide3d::shape - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module shape</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>ncollide3d</a></p><script>window.sidebarCurrent = {name: 'shape', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ncollide3d</a>::<wbr><a class="mod" href=''>shape</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/ncollide3d/shape/mod.rs.html#1-68' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Collision shapes supported by ncollide.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Ball.html"
+                                  title='struct ncollide3d::shape::Ball'>Ball</a></td>
+                           <td class='docblock-short'>
+                                <p>A Ball shape.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Capsule.html"
+                                  title='struct ncollide3d::shape::Capsule'>Capsule</a></td>
+                           <td class='docblock-short'>
+                                <p>SupportMap description of a capsule shape with its principal axis aligned with the <code>y</code> axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Compound.html"
+                                  title='struct ncollide3d::shape::Compound'>Compound</a></td>
+                           <td class='docblock-short'>
+                                <p>A compound shape with an aabb bounding volume.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Cone.html"
+                                  title='struct ncollide3d::shape::Cone'>Cone</a></td>
+                           <td class='docblock-short'>
+                                <p>SupportMap description of a cylinder shape with its principal axis aligned with the <code>y</code> axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ConvexHull.html"
+                                  title='struct ncollide3d::shape::ConvexHull'>ConvexHull</a></td>
+                           <td class='docblock-short'>
+                                <p>A convex polyhedron without degenerate faces.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ConvexPolygonalFeature.html"
+                                  title='struct ncollide3d::shape::ConvexPolygonalFeature'>ConvexPolygonalFeature</a></td>
+                           <td class='docblock-short'>
+                                <p>Represents a convex polygonal approximation of a face of a solid.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Cuboid.html"
+                                  title='struct ncollide3d::shape::Cuboid'>Cuboid</a></td>
+                           <td class='docblock-short'>
+                                <p>Shape of a box.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Cylinder.html"
+                                  title='struct ncollide3d::shape::Cylinder'>Cylinder</a></td>
+                           <td class='docblock-short'>
+                                <p>SupportMap description of a cylinder shape with its principal axis aligned with the <code>y</code> axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Plane.html"
+                                  title='struct ncollide3d::shape::Plane'>Plane</a></td>
+                           <td class='docblock-short'>
+                                <p>SupportMap description of a plane.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Polyline.html"
+                                  title='struct ncollide3d::shape::Polyline'>Polyline</a></td>
+                           <td class='docblock-short'>
+                                <p>Shape commonly known as a 2d line strip or a 3d segment mesh.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Segment.html"
+                                  title='struct ncollide3d::shape::Segment'>Segment</a></td>
+                           <td class='docblock-short'>
+                                <p>A segment shape.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ShapeHandle.html"
+                                  title='struct ncollide3d::shape::ShapeHandle'>ShapeHandle</a></td>
+                           <td class='docblock-short'>
+                                <p>A shared immutable handle to an abstract shape.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Tetrahedron.html"
+                                  title='struct ncollide3d::shape::Tetrahedron'>Tetrahedron</a></td>
+                           <td class='docblock-short'>
+                                <p>A tetrahedron with 4 vertices.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TriMesh.html"
+                                  title='struct ncollide3d::shape::TriMesh'>TriMesh</a></td>
+                           <td class='docblock-short'>
+                                <p>Shape commonly known as a 2d line strip or a 3d triangle mesh.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Triangle.html"
+                                  title='struct ncollide3d::shape::Triangle'>Triangle</a></td>
+                           <td class='docblock-short'>
+                                <p>A triangle shape.</p>
+
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.FeatureId.html"
+                                  title='enum ncollide3d::shape::FeatureId'>FeatureId</a></td>
+                           <td class='docblock-short'>
+                                <p>An identifier of a feature of a convex polyhedron.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.SegmentPointLocation.html"
+                                  title='enum ncollide3d::shape::SegmentPointLocation'>SegmentPointLocation</a></td>
+                           <td class='docblock-short'>
+                                <p>Logical description of the location of a point on a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TetrahedronPointLocation.html"
+                                  title='enum ncollide3d::shape::TetrahedronPointLocation'>TetrahedronPointLocation</a></td>
+                           <td class='docblock-short'>
+                                <p>Logical description of the location of a point on a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TrianglePointLocation.html"
+                                  title='enum ncollide3d::shape::TrianglePointLocation'>TrianglePointLocation</a></td>
+                           <td class='docblock-short'>
+                                <p>Description of the location of a point on a triangle.</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.CompositeShape.html"
+                                  title='trait ncollide3d::shape::CompositeShape'>CompositeShape</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by shapes composed of multiple simpler shapes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.ConvexPolyhedron.html"
+                                  title='trait ncollide3d::shape::ConvexPolyhedron'>ConvexPolyhedron</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by all convex polyhedron.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Shape.html"
+                                  title='trait ncollide3d::shape::Shape'>Shape</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by all shapes supported by ncollide.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SupportMap.html"
+                                  title='trait ncollide3d::shape::SupportMap'>SupportMap</a></td>
+                           <td class='docblock-short'>
+                                <p>Traits of convex shapes representable by a support mapping function.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "ncollide3d";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

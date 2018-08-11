@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `AUParameterMIDIMappingFlags` type in crate `coreaudio_sys`."><meta name="keywords" content="rust, rustlang, rust-lang, AUParameterMIDIMappingFlags"><title>coreaudio_sys::AUParameterMIDIMappingFlags - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc type"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Type Definition AUParameterMIDIMappingFlags</p><div class="sidebar-elems"><p class='location'><a href='index.html'>coreaudio_sys</a></p><script>window.sidebarCurrent = {name: 'AUParameterMIDIMappingFlags', ty: 'type', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Type Definition <a href='index.html'>coreaudio_sys</a>::<wbr><a class="type" href=''>AUParameterMIDIMappingFlags</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/coreaudio_sys/Users/connormccluskey/GT/repo/lockless/target/debug/build/coreaudio-sys-be8404f41bf9dc41/out/coreaudio.rs.html#3528' title='goto source code'>[src]</a></span></h1><pre class='rust typedef'>type AUParameterMIDIMappingFlags = <a class="type" href="../coreaudio_sys/type.UInt32.html" title="type coreaudio_sys::UInt32">UInt32</a>;</pre><div class='docblock'><p>@enum           ParameterMIDIMappings
+@abstract       General defined values to customize the behavior of parameter-to-MIDI mappings</p>
+<p>@constant       kAUParameterMIDIMapping_AnyChannelFlag
+@discussion         If this flag is set and the value of the mStatus field is a MIDI channel message, then
+the MIDI channel number in the status byte is ignored; the mapping is from the specified
+MIDI message on any channel.</p>
+<p>@constant       kAUParameterMIDIMapping_AnyNoteFlag
+@discussion         If this flag is set and the value of the mStatus field is a Note On, Note Off, or
+Polyphonic Pressure message, the message's note number is ignored. The mapping is from
+any note number.</p>
+<p>@constant       kAUParameterMIDIMapping_SubRange
+@discussion         Set this flag if the MIDI control should map only to a sub-range of the parameter's value.
+Then specify that range in the mSubRangeMin and mSubRangeMax member fields.</p>
+<p>@constant       kAUParameterMIDIMapping_Toggle
+@discussion         Intended for Boolean typed parameters. When this property is set, it means that the
+parameter's value should be toggled when the mapped MIDI message is received. For example,
+if the parameter's value is currently TRUE, when the mapped MIDI message is received
+the value changes to FALSE.</p>
+<p>@constant       kAUParameterMIDIMapping_Bipolar
+@discussion         This property is useful when mapping a parameter to a MIDI Controller. When set, it
+indicates that the parameter can assume only two values: on or off. For this reason, a
+parameter associated with this property is typically Boolean. For example, if this
+property is set for a parameter mapped to a sustain pedal MIDI controller, controller
+values from 0 to 64 result in the parameter switched to its &quot;off&quot; state; controller
+values from 65 to 127 result in the parameter switched to its &quot;on&quot; state.</p>
+<p>This property works in connection with the kAUParameterMIDIMapping_Bipolar_On property.
+The value of the kAUParameterMIDIMapping_Bipolar_On property</p>
+<p>@constant       kAUParameterMIDIMapping_Bipolar_On
+@discussion         Determines whether the  &quot;on&quot; state of a parameter is mapped to the &quot;on&quot; or &quot;off&quot; state
+of the associated MIDI controller. Only valid  if the  kAUParameterMIDIMapping_Bipolar
+property is set.</p>
+</div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "coreaudio_sys";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

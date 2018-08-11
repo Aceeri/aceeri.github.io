@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `joint` mod in crate `nphysics3d`."><meta name="keywords" content="rust, rustlang, rust-lang, joint"><title>nphysics3d::joint - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module joint</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>nphysics3d</a></p><script>window.sidebarCurrent = {name: 'joint', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>nphysics3d</a>::<wbr><a class="mod" href=''>joint</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/nphysics3d/joint/mod.rs.html#1-91' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Joints using the reduced-coordinates formalism or using constraints.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BallConstraint.html"
+                                  title='struct nphysics3d::joint::BallConstraint'>BallConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all relative linear motion between two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BallJoint.html"
+                                  title='struct nphysics3d::joint::BallJoint'>BallJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows only all rotational degrees of freedom between two multibody links.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CartesianConstraint.html"
+                                  title='struct nphysics3d::joint::CartesianConstraint'>CartesianConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all relative angular motion between two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CartesianJoint.html"
+                                  title='struct nphysics3d::joint::CartesianJoint'>CartesianJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows only all the translational degrees of freedom between two multibody links.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CylindricalConstraint.html"
+                                  title='struct nphysics3d::joint::CylindricalConstraint'>CylindricalConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all degrees of freedom (of one body part relative to a second one) except one translation along an axis and one rotation along the same axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.CylindricalJoint.html"
+                                  title='struct nphysics3d::joint::CylindricalJoint'>CylindricalJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows one translational and one rotational degrees of freedom along a single axis.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FixedConstraint.html"
+                                  title='struct nphysics3d::joint::FixedConstraint'>FixedConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all degrees of freedom between two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FixedJoint.html"
+                                  title='struct nphysics3d::joint::FixedJoint'>FixedJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that does not allow any relative degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FreeJoint.html"
+                                  title='struct nphysics3d::joint::FreeJoint'>FreeJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows all the relative degrees of freedom between two multibody links.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.HelicalJoint.html"
+                                  title='struct nphysics3d::joint::HelicalJoint'>HelicalJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows one degree of freedom between two multibody links.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JointMotor.html"
+                                  title='struct nphysics3d::joint::JointMotor'>JointMotor</a></td>
+                           <td class='docblock-short'>
+                                <p>Description of a motor applied to a joint.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MouseConstraint.html"
+                                  title='struct nphysics3d::joint::MouseConstraint'>MouseConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A spring-like constraint to be used to drag a body part with the mouse.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PinSlotConstraint.html"
+                                  title='struct nphysics3d::joint::PinSlotConstraint'>PinSlotConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes two translational and two rotational degrees of freedoms.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PinSlotJoint.html"
+                                  title='struct nphysics3d::joint::PinSlotJoint'>PinSlotJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows one translational and one rotational degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PlanarConstraint.html"
+                                  title='struct nphysics3d::joint::PlanarConstraint'>PlanarConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes one relative translational degree of freedom, and all but one rotational degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PlanarJoint.html"
+                                  title='struct nphysics3d::joint::PlanarJoint'>PlanarJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows 1 rotational and 2 translational degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PrismaticConstraint.html"
+                                  title='struct nphysics3d::joint::PrismaticConstraint'>PrismaticConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that remove all be one translational degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PrismaticJoint.html"
+                                  title='struct nphysics3d::joint::PrismaticJoint'>PrismaticJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A unit joint that allows only one translational degree on freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RectangularConstraint.html"
+                                  title='struct nphysics3d::joint::RectangularConstraint'>RectangularConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that remove all relative rotations and one relative translation between two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RectangularJoint.html"
+                                  title='struct nphysics3d::joint::RectangularJoint'>RectangularJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows two translational degrees of freedom.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RevoluteConstraint.html"
+                                  title='struct nphysics3d::joint::RevoluteConstraint'>RevoluteConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all relative motions except one rotation between two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RevoluteJoint.html"
+                                  title='struct nphysics3d::joint::RevoluteJoint'>RevoluteJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A unit joint that allows only one relative rotational degree of freedom between two multibody links.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.UniversalConstraint.html"
+                                  title='struct nphysics3d::joint::UniversalConstraint'>UniversalConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>A constraint that removes all but two relative rotations along distinct axii.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.UniversalJoint.html"
+                                  title='struct nphysics3d::joint::UniversalJoint'>UniversalJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>A joint that allows only two relative rotations between two multibody links.</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Joint.html"
+                                  title='trait nphysics3d::joint::Joint'>Joint</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by all joints following the reduced-coordinate formation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.JointConstraint.html"
+                                  title='trait nphysics3d::joint::JointConstraint'>JointConstraint</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by joint that operate by generating constraints to restrict the relative motion of two body parts.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.UnitJoint.html"
+                                  title='trait nphysics3d::joint::UnitJoint'>UnitJoint</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by joints using the reduced-coordinates approach and allowing only one degree of freedom.</p>
+
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unit_joint_num_velocity_constraints.html"
+                                  title='fn nphysics3d::joint::unit_joint_num_velocity_constraints'>unit_joint_num_velocity_constraints</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the maximum number of velocity constraints to be applied by the given unit joint.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unit_joint_position_constraint.html"
+                                  title='fn nphysics3d::joint::unit_joint_position_constraint'>unit_joint_position_constraint</a></td>
+                           <td class='docblock-short'>
+                                <p>Initializes and generate the position constraints applicable to the multibody links attached
+to this joint.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unit_joint_velocity_constraints.html"
+                                  title='fn nphysics3d::joint::unit_joint_velocity_constraints'>unit_joint_velocity_constraints</a></td>
+                           <td class='docblock-short'>
+                                <p>Initializes and generate the velocity constraints applicable to the multibody links attached
+to this joint.</p>
+
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.ConstraintHandle.html"
+                                  title='type nphysics3d::joint::ConstraintHandle'>ConstraintHandle</a></td>
+                           <td class='docblock-short'>
+                                <p>The handle of a consraint.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "nphysics3d";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

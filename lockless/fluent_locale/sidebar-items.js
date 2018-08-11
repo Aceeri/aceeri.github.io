@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["accepted_languages","This function parses Accept-Language string into a list of language tags that can be later passed to language negotiation functions."],["locale",""],["negotiate","Language Negotiation is a process in which locales from different sources are filtered and sorted in an effort to produce the best possible selection of them."]]});

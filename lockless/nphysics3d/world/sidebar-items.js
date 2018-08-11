@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["World","The physics world."]],"type":[["CollisionWorld","Type of the collision world used by nphysics."]]});

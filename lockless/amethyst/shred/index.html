@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `shred` mod in crate `amethyst`."><meta name="keywords" content="rust, rustlang, rust-lang, shred"><title>amethyst::shred - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../amethyst/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a><p class='location'>Module shred</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'><a href='../index.html'>amethyst</a></p><script>window.sidebarCurrent = {name: 'shred', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>amethyst</a>::<wbr><a class="mod" href=''>shred</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/shred/lib.rs.html#1-85' title='goto source code'>[src]</a></span></h1><div class='docblock'><p><strong>Sh</strong>ared <strong>re</strong>source <strong>d</strong>ispatcher</p>
+<p>This library allows to dispatch
+systems, which can have interdependencies,
+shared and exclusive resource access, in parallel.</p>
+<h1 id="examples" class="section-header"><a href="#examples">Examples</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">shred</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">shred_derive</span>;
+
+<span class="kw">use</span> <span class="ident">shred</span>::{<span class="ident">DispatcherBuilder</span>, <span class="ident">Read</span>, <span class="ident">Resource</span>, <span class="ident">Resources</span>, <span class="ident">System</span>, <span class="ident">Write</span>};
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
+<span class="kw">struct</span> <span class="ident">ResA</span>;
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Default</span>)]</span>
+<span class="kw">struct</span> <span class="ident">ResB</span>;
+
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">SystemData</span>)]</span>
+<span class="kw">struct</span> <span class="ident">Data</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="ident">a</span>: <span class="ident">Read</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ResA</span><span class="op">&gt;</span>,
+    <span class="ident">b</span>: <span class="ident">Write</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">ResB</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">struct</span> <span class="ident">EmptySystem</span>;
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">System</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">EmptySystem</span> {
+    <span class="kw">type</span> <span class="ident">SystemData</span> <span class="op">=</span> <span class="ident">Data</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>;
+
+    <span class="kw">fn</span> <span class="ident">run</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">bundle</span>: <span class="ident">Data</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) {
+        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">bundle</span>.<span class="ident">a</span>);
+        <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{:?}&quot;</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">bundle</span>.<span class="ident">b</span>);
+    }
+}
+
+
+<span class="kw">fn</span> <span class="ident">main</span>() {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">resources</span> <span class="op">=</span> <span class="ident">Resources</span>::<span class="ident">new</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dispatcher</span> <span class="op">=</span> <span class="ident">DispatcherBuilder</span>::<span class="ident">new</span>()
+        .<span class="ident">with</span>(<span class="ident">EmptySystem</span>, <span class="string">&quot;empty&quot;</span>, <span class="kw-2">&amp;</span>[])
+        .<span class="ident">build</span>();
+    <span class="ident">resources</span>.<span class="ident">insert</span>(<span class="ident">ResA</span>);
+    <span class="ident">resources</span>.<span class="ident">insert</span>(<span class="ident">ResB</span>);
+
+    <span class="ident">dispatcher</span>.<span class="ident">dispatch</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">resources</span>);
+}</pre>
+<p>Once you are more familiar with how system data and parallelization works,
+you can take look at a more flexible and performant way to dispatch: <code>ParSeq</code>.
+Using it is bit trickier, but it allows dispatching without any virtual function calls.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="cell/index.html"
+                                  title='mod amethyst::shred::cell'>cell</a></td>
+                           <td class='docblock-short'>
+                                <p>Helper module for some internals, most users don't need to interact with it.</p>
+
+                           </td>
+                       </tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.par.html"
+                                  title='macro amethyst::shred::par'>par</a></td>
+                           <td class='docblock-short'>
+                                <p>The <code>par!</code> macro may be used to easily create a structure
+which runs things in parallel.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.seq.html"
+                                  title='macro amethyst::shred::seq'>seq</a></td>
+                           <td class='docblock-short'>
+                                <p>The <code>seq!</code> macro may be used to easily create a structure
+which runs things sequentially.</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AsyncDispatcher.html"
+                                  title='struct amethyst::shred::AsyncDispatcher'>AsyncDispatcher</a></td>
+                           <td class='docblock-short'>
+                                <p>Like, <code>Dispatcher</code> but works asynchronously.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DefaultProvider.html"
+                                  title='struct amethyst::shred::DefaultProvider'>DefaultProvider</a></td>
+                           <td class='docblock-short'>
+                                <p>A <code>SetupHandler</code> that simply uses the default implementation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Dispatcher.html"
+                                  title='struct amethyst::shred::Dispatcher'>Dispatcher</a></td>
+                           <td class='docblock-short'>
+                                <p>The dispatcher struct, allowing
+systems to be executed in parallel.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DispatcherBuilder.html"
+                                  title='struct amethyst::shred::DispatcherBuilder'>DispatcherBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builder for the <a href="struct.Dispatcher.html"><code>Dispatcher</code></a>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Entry.html"
+                                  title='struct amethyst::shred::Entry'>Entry</a></td>
+                           <td class='docblock-short'>
+                                <p>An entry to a resource of the <code>Resources</code> struct.
+This is similar to the Entry API found in the standard library.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Fetch.html"
+                                  title='struct amethyst::shred::Fetch'>Fetch</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system immutably.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.FetchMut.html"
+                                  title='struct amethyst::shred::FetchMut'>FetchMut</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system mutably.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MetaIter.html"
+                                  title='struct amethyst::shred::MetaIter'>MetaIter</a></td>
+                           <td class='docblock-short'>
+                                <p>An iterator for the <code>MetaTable</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MetaIterMut.html"
+                                  title='struct amethyst::shred::MetaIterMut'>MetaIterMut</a></td>
+                           <td class='docblock-short'>
+                                <p>A mutable iterator for the <code>MetaTable</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MetaTable.html"
+                                  title='struct amethyst::shred::MetaTable'>MetaTable</a></td>
+                           <td class='docblock-short'>
+                                <p>The <code>MetaTable</code> which allows to store object-safe trait implementations for resources.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PanicHandler.html"
+                                  title='struct amethyst::shred::PanicHandler'>PanicHandler</a></td>
+                           <td class='docblock-short'>
+                                <p>A setup handler that simply does nothing and thus will cause a panic on fetching.
+The panic will provide the type name if the <code>nightly</code> feature of shred is enabled.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Par.html"
+                                  title='struct amethyst::shred::Par'>Par</a></td>
+                           <td class='docblock-short'>
+                                <p>Runs two tasks in parallel.
+These two tasks are called <code>head</code> and <code>tail</code>
+in the following documentation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ParSeq.html"
+                                  title='struct amethyst::shred::ParSeq'>ParSeq</a></td>
+                           <td class='docblock-short'>
+                                <p>A dispatcher intended to be used with
+<code>Par</code> and <code>Seq</code>  structures.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Read.html"
+                                  title='struct amethyst::shred::Read'>Read</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system immutably.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ResourceId.html"
+                                  title='struct amethyst::shred::ResourceId'>ResourceId</a></td>
+                           <td class='docblock-short'>
+                                <p>The id of a <a href="trait.Resource.html"><code>Resource</code></a>,
+which is a tuple struct with a type
+id and an additional resource id (represented with a <code>usize</code>).</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Resources.html"
+                                  title='struct amethyst::shred::Resources'>Resources</a></td>
+                           <td class='docblock-short'>
+                                <p>A resource container, which provides methods to access to
+the contained resources.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Seq.html"
+                                  title='struct amethyst::shred::Seq'>Seq</a></td>
+                           <td class='docblock-short'>
+                                <p>Runs two tasks sequentially.
+These two tasks are called <code>head</code> and <code>tail</code>
+in the following documentation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.StaticAccessor.html"
+                                  title='struct amethyst::shred::StaticAccessor'>StaticAccessor</a></td>
+                           <td class='docblock-short'>
+                                <p>The static accessor that is used for <code>SystemData</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Write.html"
+                                  title='struct amethyst::shred::Write'>Write</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system mutably.</p>
+
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.AccessorCow.html"
+                                  title='enum amethyst::shred::AccessorCow'>AccessorCow</a></td>
+                           <td class='docblock-short'>
+                                <p>Either an <code>Accessor</code> of the system <code>T</code> or a reference to it.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.RunningTime.html"
+                                  title='enum amethyst::shred::RunningTime'>RunningTime</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Accessor.html"
+                                  title='trait amethyst::shred::Accessor'>Accessor</a></td>
+                           <td class='docblock-short'>
+                                <p>A trait for accessing read/write multiple resources from a system. This can be used
+to create dynamic systems that don't specify what they fetch at compile-time.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.CastFrom.html"
+                                  title='trait amethyst::shred::CastFrom'>CastFrom</a></td>
+                           <td class='docblock-short'>
+                                <p>Helper trait for the <code>MetaTable</code>.
+This trait is required to be implemented for a trait to be compatible with the meta table.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.DynamicSystemData.html"
+                                  title='trait amethyst::shred::DynamicSystemData'>DynamicSystemData</a></td>
+                           <td class='docblock-short'>
+                                <p>A struct implementing system data indicates that it bundles some resources which are required
+for the execution.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Resource.html"
+                                  title='trait amethyst::shred::Resource'>Resource</a></td>
+                           <td class='docblock-short'>
+                                <p>A resource defines a set of data
+which can only be accessed according
+to Rust's typical borrowing model (one writer xor multiple readers).</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.RunNow.html"
+                                  title='trait amethyst::shred::RunNow'>RunNow</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait for fetching data and running systems. Automatically implemented for systems.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.RunWithPool.html"
+                                  title='trait amethyst::shred::RunWithPool'>RunWithPool</a></td>
+                           <td class='docblock-short'>
+                                <p>Similar to <code>RunNow</code> except additionally taking in a rayon::ThreadPool
+for parallelism.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SetupHandler.html"
+                                  title='trait amethyst::shred::SetupHandler'>SetupHandler</a></td>
+                           <td class='docblock-short'>
+                                <p>A setup handler performing the fetching of <code>T</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.System.html"
+                                  title='trait amethyst::shred::System'>System</a></td>
+                           <td class='docblock-short'>
+                                <p>A <code>System</code>, executed with a set of required <a href="trait.Resource.html"><code>Resource</code></a>s.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.SystemData.html"
+                                  title='trait amethyst::shred::SystemData'>SystemData</a></td>
+                           <td class='docblock-short'>
+                                <p>A static system data that can specify its dependencies at statically (at compile-time).
+Most system data is a <code>SystemData</code>, the <code>DynamicSystemData</code> type is only needed for very special
+setups.</p>
+
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.ReadExpect.html"
+                                  title='type amethyst::shred::ReadExpect'>ReadExpect</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system mutably.
+<strong>This will panic if the resource does not exist.</strong>
+Usage of <code>Read</code> or <code>Option&lt;Read&gt;</code> is therefore recommended.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.WriteExpect.html"
+                                  title='type amethyst::shred::WriteExpect'>WriteExpect</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to fetch a resource in a system mutably.
+<strong>This will panic if the resource does not exist.</strong>
+Usage of <code>Write</code> or <code>Option&lt;Write&gt;</code> is therefore recommended.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "amethyst";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

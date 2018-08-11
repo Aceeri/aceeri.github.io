@@ -1,0 +1,718 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `cgl` crate."><meta name="keywords" content="rust, rustlang, rust-lang, cgl"><title>cgl - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate cgl</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'cgl', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>cgl</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/cgl/lib.rs.html#10-18' title='goto source code'>[src]</a></span></h1><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.CORE_BOOLEAN_ATTRIBUTES.html"
+                                  title='constant cgl::CORE_BOOLEAN_ATTRIBUTES'>CORE_BOOLEAN_ATTRIBUTES</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.CORE_INTEGER_ATTRIBUTES.html"
+                                  title='constant cgl::CORE_INTEGER_ATTRIBUTES'>CORE_INTEGER_ATTRIBUTES</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCECrashOnRemovedFunctions.html"
+                                  title='constant cgl::kCGLCECrashOnRemovedFunctions'>kCGLCECrashOnRemovedFunctions</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCEDisplayListOptimization.html"
+                                  title='constant cgl::kCGLCEDisplayListOptimization'>kCGLCEDisplayListOptimization</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCEMPEngine.html"
+                                  title='constant cgl::kCGLCEMPEngine'>kCGLCEMPEngine</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCERasterization.html"
+                                  title='constant cgl::kCGLCERasterization'>kCGLCERasterization</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCEStateValidation.html"
+                                  title='constant cgl::kCGLCEStateValidation'>kCGLCEStateValidation</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCESurfaceBackingSize.html"
+                                  title='constant cgl::kCGLCESurfaceBackingSize'>kCGLCESurfaceBackingSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCESwapLimit.html"
+                                  title='constant cgl::kCGLCESwapLimit'>kCGLCESwapLimit</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCESwapRectangle.html"
+                                  title='constant cgl::kCGLCESwapRectangle'>kCGLCESwapRectangle</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPClientStorage.html"
+                                  title='constant cgl::kCGLCPClientStorage'>kCGLCPClientStorage</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPCurrentRendererID.html"
+                                  title='constant cgl::kCGLCPCurrentRendererID'>kCGLCPCurrentRendererID</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPDispatchTableSize.html"
+                                  title='constant cgl::kCGLCPDispatchTableSize'>kCGLCPDispatchTableSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPGPUFragmentProcessing.html"
+                                  title='constant cgl::kCGLCPGPUFragmentProcessing'>kCGLCPGPUFragmentProcessing</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPGPUVertexProcessing.html"
+                                  title='constant cgl::kCGLCPGPUVertexProcessing'>kCGLCPGPUVertexProcessing</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPHasDrawable.html"
+                                  title='constant cgl::kCGLCPHasDrawable'>kCGLCPHasDrawable</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPMPSwapsInFlight.html"
+                                  title='constant cgl::kCGLCPMPSwapsInFlight'>kCGLCPMPSwapsInFlight</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPReclaimResources.html"
+                                  title='constant cgl::kCGLCPReclaimResources'>kCGLCPReclaimResources</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSurfaceBackingSize.html"
+                                  title='constant cgl::kCGLCPSurfaceBackingSize'>kCGLCPSurfaceBackingSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSurfaceOpacity.html"
+                                  title='constant cgl::kCGLCPSurfaceOpacity'>kCGLCPSurfaceOpacity</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSurfaceOrder.html"
+                                  title='constant cgl::kCGLCPSurfaceOrder'>kCGLCPSurfaceOrder</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSurfaceSurfaceVolatile.html"
+                                  title='constant cgl::kCGLCPSurfaceSurfaceVolatile'>kCGLCPSurfaceSurfaceVolatile</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSurfaceTexture.html"
+                                  title='constant cgl::kCGLCPSurfaceTexture'>kCGLCPSurfaceTexture</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSwapInterval.html"
+                                  title='constant cgl::kCGLCPSwapInterval'>kCGLCPSwapInterval</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLCPSwapRectangle.html"
+                                  title='constant cgl::kCGLCPSwapRectangle'>kCGLCPSwapRectangle</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGOClearFormatCache.html"
+                                  title='constant cgl::kCGLGOClearFormatCache'>kCGLGOClearFormatCache</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGOFormatCacheSize.html"
+                                  title='constant cgl::kCGLGOFormatCacheSize'>kCGLGOFormatCacheSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGOResetLibrary.html"
+                                  title='constant cgl::kCGLGOResetLibrary'>kCGLGOResetLibrary</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGORetainRenderers.html"
+                                  title='constant cgl::kCGLGORetainRenderers'>kCGLGORetainRenderers</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGOUseBuildCache.html"
+                                  title='constant cgl::kCGLGOUseBuildCache'>kCGLGOUseBuildCache</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLGOUseErrorHandler.html"
+                                  title='constant cgl::kCGLGOUseErrorHandler'>kCGLGOUseErrorHandler</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLNoError.html"
+                                  title='constant cgl::kCGLNoError'>kCGLNoError</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAccelerated.html"
+                                  title='constant cgl::kCGLPFAAccelerated'>kCGLPFAAccelerated</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAcceleratedCompute.html"
+                                  title='constant cgl::kCGLPFAAcceleratedCompute'>kCGLPFAAcceleratedCompute</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAccumSize.html"
+                                  title='constant cgl::kCGLPFAAccumSize'>kCGLPFAAccumSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAllRenderers.html"
+                                  title='constant cgl::kCGLPFAAllRenderers'>kCGLPFAAllRenderers</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAllowOfflineRenderers.html"
+                                  title='constant cgl::kCGLPFAAllowOfflineRenderers'>kCGLPFAAllowOfflineRenderers</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAlphaSize.html"
+                                  title='constant cgl::kCGLPFAAlphaSize'>kCGLPFAAlphaSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAuxBuffers.html"
+                                  title='constant cgl::kCGLPFAAuxBuffers'>kCGLPFAAuxBuffers</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAAuxDepthStencil.html"
+                                  title='constant cgl::kCGLPFAAuxDepthStencil'>kCGLPFAAuxDepthStencil</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFABackingStore.html"
+                                  title='constant cgl::kCGLPFABackingStore'>kCGLPFABackingStore</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAClosestPolicy.html"
+                                  title='constant cgl::kCGLPFAClosestPolicy'>kCGLPFAClosestPolicy</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAColorFloat.html"
+                                  title='constant cgl::kCGLPFAColorFloat'>kCGLPFAColorFloat</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAColorSize.html"
+                                  title='constant cgl::kCGLPFAColorSize'>kCGLPFAColorSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFACompliant.html"
+                                  title='constant cgl::kCGLPFACompliant'>kCGLPFACompliant</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFADepthSize.html"
+                                  title='constant cgl::kCGLPFADepthSize'>kCGLPFADepthSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFADisplayMask.html"
+                                  title='constant cgl::kCGLPFADisplayMask'>kCGLPFADisplayMask</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFADoubleBuffer.html"
+                                  title='constant cgl::kCGLPFADoubleBuffer'>kCGLPFADoubleBuffer</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAFullScreen.html"
+                                  title='constant cgl::kCGLPFAFullScreen'>kCGLPFAFullScreen</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAMPSafe.html"
+                                  title='constant cgl::kCGLPFAMPSafe'>kCGLPFAMPSafe</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAMaximumPolicy.html"
+                                  title='constant cgl::kCGLPFAMaximumPolicy'>kCGLPFAMaximumPolicy</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAMinimumPolicy.html"
+                                  title='constant cgl::kCGLPFAMinimumPolicy'>kCGLPFAMinimumPolicy</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAMultiScreen.html"
+                                  title='constant cgl::kCGLPFAMultiScreen'>kCGLPFAMultiScreen</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAMultisample.html"
+                                  title='constant cgl::kCGLPFAMultisample'>kCGLPFAMultisample</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFANoRecovery.html"
+                                  title='constant cgl::kCGLPFANoRecovery'>kCGLPFANoRecovery</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAOffScreen.html"
+                                  title='constant cgl::kCGLPFAOffScreen'>kCGLPFAOffScreen</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAOpenGLProfile.html"
+                                  title='constant cgl::kCGLPFAOpenGLProfile'>kCGLPFAOpenGLProfile</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAPBuffer.html"
+                                  title='constant cgl::kCGLPFAPBuffer'>kCGLPFAPBuffer</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFARemotePBuffer.html"
+                                  title='constant cgl::kCGLPFARemotePBuffer'>kCGLPFARemotePBuffer</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFARendererID.html"
+                                  title='constant cgl::kCGLPFARendererID'>kCGLPFARendererID</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFARobust.html"
+                                  title='constant cgl::kCGLPFARobust'>kCGLPFARobust</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFASampleAlpha.html"
+                                  title='constant cgl::kCGLPFASampleAlpha'>kCGLPFASampleAlpha</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFASampleBuffers.html"
+                                  title='constant cgl::kCGLPFASampleBuffers'>kCGLPFASampleBuffers</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFASamples.html"
+                                  title='constant cgl::kCGLPFASamples'>kCGLPFASamples</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFASingleRenderer.html"
+                                  title='constant cgl::kCGLPFASingleRenderer'>kCGLPFASingleRenderer</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAStencilSize.html"
+                                  title='constant cgl::kCGLPFAStencilSize'>kCGLPFAStencilSize</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAStereo.html"
+                                  title='constant cgl::kCGLPFAStereo'>kCGLPFAStereo</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFASupersample.html"
+                                  title='constant cgl::kCGLPFASupersample'>kCGLPFASupersample</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAVirtualScreenCount.html"
+                                  title='constant cgl::kCGLPFAVirtualScreenCount'>kCGLPFAVirtualScreenCount</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.kCGLPFAWindow.html"
+                                  title='constant cgl::kCGLPFAWindow'>kCGLPFAWindow</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLChoosePixelFormat.html"
+                                  title='fn cgl::CGLChoosePixelFormat'>CGLChoosePixelFormat</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLCreateContext.html"
+                                  title='fn cgl::CGLCreateContext'>CGLCreateContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLDescribePixelFormat.html"
+                                  title='fn cgl::CGLDescribePixelFormat'>CGLDescribePixelFormat</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLDestroyContext.html"
+                                  title='fn cgl::CGLDestroyContext'>CGLDestroyContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLDestroyPixelFormat.html"
+                                  title='fn cgl::CGLDestroyPixelFormat'>CGLDestroyPixelFormat</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLDisable.html"
+                                  title='fn cgl::CGLDisable'>CGLDisable</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLEnable.html"
+                                  title='fn cgl::CGLEnable'>CGLEnable</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLErrorString.html"
+                                  title='fn cgl::CGLErrorString'>CGLErrorString</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetCurrentContext.html"
+                                  title='fn cgl::CGLGetCurrentContext'>CGLGetCurrentContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetGlobalOption.html"
+                                  title='fn cgl::CGLGetGlobalOption'>CGLGetGlobalOption</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetOption.html"
+                                  title='fn cgl::CGLGetOption'>CGLGetOption</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetParameter.html"
+                                  title='fn cgl::CGLGetParameter'>CGLGetParameter</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetPixelFormat.html"
+                                  title='fn cgl::CGLGetPixelFormat'>CGLGetPixelFormat</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetShareGroup.html"
+                                  title='fn cgl::CGLGetShareGroup'>CGLGetShareGroup</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLGetVersion.html"
+                                  title='fn cgl::CGLGetVersion'>CGLGetVersion</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLIsEnabled.html"
+                                  title='fn cgl::CGLIsEnabled'>CGLIsEnabled</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLLockContext.html"
+                                  title='fn cgl::CGLLockContext'>CGLLockContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLSetCurrentContext.html"
+                                  title='fn cgl::CGLSetCurrentContext'>CGLSetCurrentContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLSetGlobalOption.html"
+                                  title='fn cgl::CGLSetGlobalOption'>CGLSetGlobalOption</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLSetOption.html"
+                                  title='fn cgl::CGLSetOption'>CGLSetOption</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLSetParameter.html"
+                                  title='fn cgl::CGLSetParameter'>CGLSetParameter</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLTexImageIOSurface2D.html"
+                                  title='fn cgl::CGLTexImageIOSurface2D'>CGLTexImageIOSurface2D</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.CGLUnlockContext.html"
+                                  title='fn cgl::CGLUnlockContext'>CGLUnlockContext</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLContextEnable.html"
+                                  title='type cgl::CGLContextEnable'>CGLContextEnable</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLContextObj.html"
+                                  title='type cgl::CGLContextObj'>CGLContextObj</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLContextParameter.html"
+                                  title='type cgl::CGLContextParameter'>CGLContextParameter</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLError.html"
+                                  title='type cgl::CGLError'>CGLError</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLGlobalOption.html"
+                                  title='type cgl::CGLGlobalOption'>CGLGlobalOption</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLPixelFormatAttribute.html"
+                                  title='type cgl::CGLPixelFormatAttribute'>CGLPixelFormatAttribute</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLPixelFormatObj.html"
+                                  title='type cgl::CGLPixelFormatObj'>CGLPixelFormatObj</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.CGLShareGroupObj.html"
+                                  title='type cgl::CGLShareGroupObj'>CGLShareGroupObj</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.IOSurfaceRef.html"
+                                  title='type cgl::IOSurfaceRef'>IOSurfaceRef</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "cgl";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `cgmath` mod in crate `lockless`."><meta name="keywords" content="rust, rustlang, rust-lang, cgmath"><title>lockless::cgmath - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module cgmath</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../index.html'>lockless</a></p><script>window.sidebarCurrent = {name: 'cgmath', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>lockless</a>::<wbr><a class="mod" href=''>cgmath</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/cgmath/lib.rs.html#16-109' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>A low-dimensional linear algebra library, targeted at computer graphics.</p>
+<h1 id="trait-overview" class="section-header"><a href="#trait-overview">Trait overview</a></h1>
+<p>In order to make a clean, composable API, we divide operations into traits
+that are roughly based on mathematical properties. The main ones that we
+concern ourselves with are listed below:</p>
+<ul>
+<li><code>VectorSpace</code>: Specifies the main operators for vectors, quaternions, and
+matrices.</li>
+<li><code>MetricSpace</code>: For types that have a distance function implemented.</li>
+<li><code>InnerSpace</code>: For types that have a dot (or inner) product - ie. vectors or
+quaternions. This also allows for the definition of operations that are
+based on the dot product, like finding the magnitude or normalizing.</li>
+<li><code>EuclideanSpace</code>: Points in euclidean space, with an associated space of
+displacement vectors.</li>
+<li><code>Matrix</code>: Common operations for matrices of arbitrary dimensions.</li>
+<li><code>SquareMatrix</code>: A special trait for matrices where the number of columns
+equal the number of rows.</li>
+</ul>
+<p>Other traits are included for practical convenience, for example:</p>
+<ul>
+<li><code>Array</code>: For contiguous, indexable arrays of elements, specifically
+vectors.</li>
+<li><code>ElementWise</code>: For element-wise addition, subtraction, multiplication,
+division, and remainder operations.</li>
+</ul>
+<h1 id="the-prelude" class="section-header"><a href="#the-prelude">The prelude</a></h1>
+<p>Importing each trait individually can become a chore, so we provide a
+<code>prelude</code> module to allow you to import the main trait all at once. For
+example:</p>
+
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">cgmath</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;</pre>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="conv/index.html"
+                                  title='mod lockless::cgmath::conv'>conv</a></td>
+                           <td class='docblock-short'>
+                                <p>Constrained conversion functions for assisting in situations where type
+inference is difficult.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="mint/index.html"
+                                  title='mod lockless::cgmath::mint'>mint</a></td>
+                           <td class='docblock-short'>
+                                <p>Mint - Math interoperability standard types.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="num_traits/index.html"
+                                  title='mod lockless::cgmath::num_traits'>num_traits</a></td>
+                           <td class='docblock-short'>
+                                <p>Numeric traits for generic mathematics</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="prelude/index.html"
+                                  title='mod lockless::cgmath::prelude'>prelude</a></td>
+                           <td class='docblock-short'>
+                                <p>This module contains the most common traits used in <code>cgmath</code>. By
+glob-importing this module, you can avoid the need to import each trait
+individually, while still being selective about what types you import.</p>
+
+                           </td>
+                       </tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.assert_relative_eq.html"
+                                  title='macro lockless::cgmath::assert_relative_eq'>assert_relative_eq</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.assert_relative_ne.html"
+                                  title='macro lockless::cgmath::assert_relative_ne'>assert_relative_ne</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.assert_ulps_eq.html"
+                                  title='macro lockless::cgmath::assert_ulps_eq'>assert_ulps_eq</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.assert_ulps_ne.html"
+                                  title='macro lockless::cgmath::assert_ulps_ne'>assert_ulps_ne</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.relative_eq.html"
+                                  title='macro lockless::cgmath::relative_eq'>relative_eq</a></td>
+                           <td class='docblock-short'>
+                                <p>Predicate for testing the approximate equality of two values.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.relative_ne.html"
+                                  title='macro lockless::cgmath::relative_ne'>relative_ne</a></td>
+                           <td class='docblock-short'>
+                                <p>Predicate for testing the approximate inequality of two values.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.ulps_eq.html"
+                                  title='macro lockless::cgmath::ulps_eq'>ulps_eq</a></td>
+                           <td class='docblock-short'>
+                                <p>Predicate for testing the approximate equality of two values using a maximum ULPs (Units
+in Last Place).</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="macro" href="macro.ulps_ne.html"
+                                  title='macro lockless::cgmath::ulps_ne'>ulps_ne</a></td>
+                           <td class='docblock-short'>
+                                <p>Predicate for testing the approximate inequality of two values using a maximum ULPs (Units
+in Last Place).</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Basis2.html"
+                                  title='struct lockless::cgmath::Basis2'>Basis2</a></td>
+                           <td class='docblock-short'>
+                                <p>A two-dimensional rotation matrix.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Basis3.html"
+                                  title='struct lockless::cgmath::Basis3'>Basis3</a></td>
+                           <td class='docblock-short'>
+                                <p>A three-dimensional rotation matrix.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Decomposed.html"
+                                  title='struct lockless::cgmath::Decomposed'>Decomposed</a></td>
+                           <td class='docblock-short'>
+                                <p>A generic transformation consisting of a rotation,
+displacement vector and scale amount.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Deg.html"
+                                  title='struct lockless::cgmath::Deg'>Deg</a></td>
+                           <td class='docblock-short'>
+                                <p>An angle, in degrees.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Euler.html"
+                                  title='struct lockless::cgmath::Euler'>Euler</a></td>
+                           <td class='docblock-short'>
+                                <p>A set of <a href="https://en.wikipedia.org/wiki/Euler_angles">Euler angles</a> representing a rotation in three-dimensional space.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Matrix2.html"
+                                  title='struct lockless::cgmath::Matrix2'>Matrix2</a></td>
+                           <td class='docblock-short'>
+                                <p>A 2 x 2, column major matrix</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Matrix3.html"
+                                  title='struct lockless::cgmath::Matrix3'>Matrix3</a></td>
+                           <td class='docblock-short'>
+                                <p>A 3 x 3, column major matrix</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Matrix4.html"
+                                  title='struct lockless::cgmath::Matrix4'>Matrix4</a></td>
+                           <td class='docblock-short'>
+                                <p>A 4 x 4, column major matrix</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Ortho.html"
+                                  title='struct lockless::cgmath::Ortho'>Ortho</a></td>
+                           <td class='docblock-short'>
+                                <p>An orthographic projection with arbitrary left/right/bottom/top distances</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Perspective.html"
+                                  title='struct lockless::cgmath::Perspective'>Perspective</a></td>
+                           <td class='docblock-short'>
+                                <p>A perspective projection with arbitrary left/right/bottom/top distances</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PerspectiveFov.html"
+                                  title='struct lockless::cgmath::PerspectiveFov'>PerspectiveFov</a></td>
+                           <td class='docblock-short'>
+                                <p>A perspective projection based on a vertical field-of-view angle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Point1.html"
+                                  title='struct lockless::cgmath::Point1'>Point1</a></td>
+                           <td class='docblock-short'>
+                                <p>A point in 1-dimensional space.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Point2.html"
+                                  title='struct lockless::cgmath::Point2'>Point2</a></td>
+                           <td class='docblock-short'>
+                                <p>A point in 2-dimensional space.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Point3.html"
+                                  title='struct lockless::cgmath::Point3'>Point3</a></td>
+                           <td class='docblock-short'>
+                                <p>A point in 3-dimensional space.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Quaternion.html"
+                                  title='struct lockless::cgmath::Quaternion'>Quaternion</a></td>
+                           <td class='docblock-short'>
+                                <p>A <a href="https://en.wikipedia.org/wiki/Quaternion">quaternion</a> in scalar/vector
+form.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Rad.html"
+                                  title='struct lockless::cgmath::Rad'>Rad</a></td>
+                           <td class='docblock-short'>
+                                <p>An angle, in radians.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Relative.html"
+                                  title='struct lockless::cgmath::Relative'>Relative</a></td>
+                           <td class='docblock-short'>
+                                <p>The requisite parameters for testing for approximate equality.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Ulps.html"
+                                  title='struct lockless::cgmath::Ulps'>Ulps</a></td>
+                           <td class='docblock-short'>
+                                <p>The requisite parameters for testing for approximate equality.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Vector1.html"
+                                  title='struct lockless::cgmath::Vector1'>Vector1</a></td>
+                           <td class='docblock-short'>
+                                <p>A 1-dimensional vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Vector2.html"
+                                  title='struct lockless::cgmath::Vector2'>Vector2</a></td>
+                           <td class='docblock-short'>
+                                <p>A 2-dimensional vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Vector3.html"
+                                  title='struct lockless::cgmath::Vector3'>Vector3</a></td>
+                           <td class='docblock-short'>
+                                <p>A 3-dimensional vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Vector4.html"
+                                  title='struct lockless::cgmath::Vector4'>Vector4</a></td>
+                           <td class='docblock-short'>
+                                <p>A 4-dimensional vector.</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.ApproxEq.html"
+                                  title='trait lockless::cgmath::ApproxEq'>ApproxEq</a></td>
+                           <td class='docblock-short'>
+                                <p>Equality comparisons based on floating point tolerances.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.BaseFloat.html"
+                                  title='trait lockless::cgmath::BaseFloat'>BaseFloat</a></td>
+                           <td class='docblock-short'>
+                                <p>Base floating point types</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.BaseNum.html"
+                                  title='trait lockless::cgmath::BaseNum'>BaseNum</a></td>
+                           <td class='docblock-short'>
+                                <p>Base numeric types with partial ordering</p>
+
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.dot.html"
+                                  title='fn lockless::cgmath::dot'>dot</a></td>
+                           <td class='docblock-short'>
+                                <p>Dot product of two vectors.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.frustum.html"
+                                  title='fn lockless::cgmath::frustum'>frustum</a></td>
+                           <td class='docblock-short'>
+                                <p>Create a perspective matrix from a view frustum.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.ortho.html"
+                                  title='fn lockless::cgmath::ortho'>ortho</a></td>
+                           <td class='docblock-short'>
+                                <p>Create an orthographic projection matrix.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.perspective.html"
+                                  title='fn lockless::cgmath::perspective'>perspective</a></td>
+                           <td class='docblock-short'>
+                                <p>Create a perspective projection matrix.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.vec1.html"
+                                  title='fn lockless::cgmath::vec1'>vec1</a></td>
+                           <td class='docblock-short'>
+                                <p>The short constructor.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.vec2.html"
+                                  title='fn lockless::cgmath::vec2'>vec2</a></td>
+                           <td class='docblock-short'>
+                                <p>The short constructor.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.vec3.html"
+                                  title='fn lockless::cgmath::vec3'>vec3</a></td>
+                           <td class='docblock-short'>
+                                <p>The short constructor.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.vec4.html"
+                                  title='fn lockless::cgmath::vec4'>vec4</a></td>
+                           <td class='docblock-short'>
+                                <p>The short constructor.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "lockless";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

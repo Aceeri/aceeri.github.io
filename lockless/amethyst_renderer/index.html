@@ -1,0 +1,1071 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `amethyst_renderer` crate."><meta name="keywords" content="rust, rustlang, rust-lang, amethyst_renderer"><title>amethyst_renderer - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../amethyst_renderer/index.html'><img src='https://tinyurl.com/jtmm43a' alt='logo' width='100'></a><p class='location'>Crate amethyst_renderer</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'amethyst_renderer', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>amethyst_renderer</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/amethyst_renderer/lib.rs.html#1-136' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>A data parallel rendering engine developed by the <a href="https://www.amethyst.rs/">Amethyst</a> project.
+The source code is available for download on <a href="https://github.com/amethyst/amethyst/tree/develop/src/renderer">GitHub</a>. See the
+<a href="https://www.amethyst.rs/book/master/">online book</a> for a complete guide to using Amethyst.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="error/index.html"
+                                  title='mod amethyst_renderer::error'>error</a></td>
+                           <td class='docblock-short'>
+                                <p>Renderer error types.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="mouse/index.html"
+                                  title='mod amethyst_renderer::mouse'>mouse</a></td>
+                           <td class='docblock-short'>
+                                <p>Util functions that change how the mouse moves and looks.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="pipe/index.html"
+                                  title='mod amethyst_renderer::pipe'>pipe</a></td>
+                           <td class='docblock-short'>
+                                <p>Renderer pipeline configuration.</p>
+
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ActiveCamera.html"
+                                  title='struct amethyst_renderer::ActiveCamera'>ActiveCamera</a></td>
+                           <td class='docblock-short'>
+                                <p>Active camera resource, used by the renderer to choose which camera to get the view matrix from.
+If no active camera is found, the first camera will be used as a fallback.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ActiveCameraPrefab.html"
+                                  title='struct amethyst_renderer::ActiveCameraPrefab'>ActiveCameraPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p>Active camera prefab</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AmbientColor.html"
+                                  title='struct amethyst_renderer::AmbientColor'>AmbientColor</a></td>
+                           <td class='docblock-short'>
+                                <p>The ambient color of a scene</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.AnimatedComboMeshCreator.html"
+                                  title='struct amethyst_renderer::AnimatedComboMeshCreator'>AnimatedComboMeshCreator</a></td>
+                           <td class='docblock-short'>
+                                <p>Mesh creator for <code>VertexBufferCombination</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Blend.html"
+                                  title='struct amethyst_renderer::Blend'>Blend</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BlendChannel.html"
+                                  title='struct amethyst_renderer::BlendChannel'>BlendChannel</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.BmpFormat.html"
+                                  title='struct amethyst_renderer::BmpFormat'>BmpFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows loading of BMP files.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Camera.html"
+                                  title='struct amethyst_renderer::Camera'>Camera</a></td>
+                           <td class='docblock-short'>
+                                <p>Camera struct.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ColorBuffer.html"
+                                  title='struct amethyst_renderer::ColorBuffer'>ColorBuffer</a></td>
+                           <td class='docblock-short'>
+                                <p>Target color buffer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ColorMask.html"
+                                  title='struct amethyst_renderer::ColorMask'>ColorMask</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ComboMeshCreator.html"
+                                  title='struct amethyst_renderer::ComboMeshCreator'>ComboMeshCreator</a></td>
+                           <td class='docblock-short'>
+                                <p>Mesh creator for <code>VertexBufferCombination</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Data.html"
+                                  title='struct amethyst_renderer::Data'>Data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DepthBuffer.html"
+                                  title='struct amethyst_renderer::DepthBuffer'>DepthBuffer</a></td>
+                           <td class='docblock-short'>
+                                <p>Target depth-stencil buffer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DirectionalLight.html"
+                                  title='struct amethyst_renderer::DirectionalLight'>DirectionalLight</a></td>
+                           <td class='docblock-short'>
+                                <p>A directional light source.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DisplayConfig.html"
+                                  title='struct amethyst_renderer::DisplayConfig'>DisplayConfig</a></td>
+                           <td class='docblock-short'>
+                                <p>Structure for holding the renderer configuration.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawFlat.html"
+                                  title='struct amethyst_renderer::DrawFlat'>DrawFlat</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh without lighting
+<code>V</code> is <code>VertexFormat</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawFlatSeparate.html"
+                                  title='struct amethyst_renderer::DrawFlatSeparate'>DrawFlatSeparate</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh without lighting</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawPbm.html"
+                                  title='struct amethyst_renderer::DrawPbm'>DrawPbm</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh with physically based lighting
+<code>V</code> is <code>VertexFormat</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawPbmSeparate.html"
+                                  title='struct amethyst_renderer::DrawPbmSeparate'>DrawPbmSeparate</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh with physically based lighting</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawShaded.html"
+                                  title='struct amethyst_renderer::DrawShaded'>DrawShaded</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh with simple lighting technique
+<code>V</code> is <code>VertexFormat</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DrawShadedSeparate.html"
+                                  title='struct amethyst_renderer::DrawShadedSeparate'>DrawShadedSeparate</a></td>
+                           <td class='docblock-short'>
+                                <p>Draw mesh with simple lighting technique</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Effect.html"
+                                  title='struct amethyst_renderer::Effect'>Effect</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.EffectBuilder.html"
+                                  title='struct amethyst_renderer::EffectBuilder'>EffectBuilder</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GraphicsPrefab.html"
+                                  title='struct amethyst_renderer::GraphicsPrefab'>GraphicsPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p><code>PrefabData</code> for loading graphics, ie <code>Mesh</code> + <code>Material</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ImageData.html"
+                                  title='struct amethyst_renderer::ImageData'>ImageData</a></td>
+                           <td class='docblock-short'>
+                                <p>ImageData provided by formats, can be interpreted as a texture.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Init.html"
+                                  title='struct amethyst_renderer::Init'>Init</a></td>
+                           <td class='docblock-short'>
+                                <p>FIXME: Cannot <code>Deserialize</code> for some reason.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.InternalShape.html"
+                                  title='struct amethyst_renderer::InternalShape'>InternalShape</a></td>
+                           <td class='docblock-short'>
+                                <p>Internal Shape, used for transformation from <code>genmesh</code> to <code>MeshData</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JointTransforms.html"
+                                  title='struct amethyst_renderer::JointTransforms'>JointTransforms</a></td>
+                           <td class='docblock-short'>
+                                <p>Transform storage for the skin, should be attached to all mesh entities that use a skin</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JointTransformsPrefab.html"
+                                  title='struct amethyst_renderer::JointTransformsPrefab'>JointTransformsPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p>Prefab for <code>JointTransforms</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.JpgFormat.html"
+                                  title='struct amethyst_renderer::JpgFormat'>JpgFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows loading of jpg or jpeg files.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.KeyboardInput.html"
+                                  title='struct amethyst_renderer::KeyboardInput'>KeyboardInput</a></td>
+                           <td class='docblock-short'>
+                                <p>Describes a keyboard input event.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.LightPrefab.html"
+                                  title='struct amethyst_renderer::LightPrefab'>LightPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p>Prefab for lighting</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Material.html"
+                                  title='struct amethyst_renderer::Material'>Material</a></td>
+                           <td class='docblock-short'>
+                                <p>Material struct.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MaterialDefaults.html"
+                                  title='struct amethyst_renderer::MaterialDefaults'>MaterialDefaults</a></td>
+                           <td class='docblock-short'>
+                                <p>A resource providing default textures for <code>Material</code>.
+These will be be used by the renderer in case a texture
+handle points to a texture which is not loaded already.
+Additionally, you can use it to fill up the fields of
+<code>Material</code> you don't want to specify.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MaterialPrefab.html"
+                                  title='struct amethyst_renderer::MaterialPrefab'>MaterialPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p><code>PrefabData</code> for loading <code>Material</code>s</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MaterialTextureSet.html"
+                                  title='struct amethyst_renderer::MaterialTextureSet'>MaterialTextureSet</a></td>
+                           <td class='docblock-short'>
+                                <p>Textures used by texture animations</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Mesh.html"
+                                  title='struct amethyst_renderer::Mesh'>Mesh</a></td>
+                           <td class='docblock-short'>
+                                <p>Represents a polygonal mesh.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.MeshBuilder.html"
+                                  title='struct amethyst_renderer::MeshBuilder'>MeshBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new meshes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Meta.html"
+                                  title='struct amethyst_renderer::Meta'>Meta</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.NewEffect.html"
+                                  title='struct amethyst_renderer::NewEffect'>NewEffect</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ObjFormat.html"
+                                  title='struct amethyst_renderer::ObjFormat'>ObjFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows loading from Wavefront files
+see: https://en.wikipedia.org/wiki/Wavefront_.obj_file</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Pipeline.html"
+                                  title='struct amethyst_renderer::Pipeline'>Pipeline</a></td>
+                           <td class='docblock-short'>
+                                <p>Defines how the rendering pipeline should be configured.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PipelineBuilder.html"
+                                  title='struct amethyst_renderer::PipelineBuilder'>PipelineBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Constructs a new pipeline with the given render targets and layers.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PngFormat.html"
+                                  title='struct amethyst_renderer::PngFormat'>PngFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows loading of PNG files.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PointLight.html"
+                                  title='struct amethyst_renderer::PointLight'>PointLight</a></td>
+                           <td class='docblock-short'>
+                                <p>A point light source. Uses the <code>Transform</code> set of components for
+positioning, and requires a <code>GlobalTransform</code> component to be included
+in rendering.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PosColor.html"
+                                  title='struct amethyst_renderer::PosColor'>PosColor</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex format with position and RGBA8 color attributes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PosNormTangTex.html"
+                                  title='struct amethyst_renderer::PosNormTangTex'>PosNormTangTex</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex format with position, normal, and UV texture coordinate attributes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PosNormTex.html"
+                                  title='struct amethyst_renderer::PosNormTex'>PosNormTex</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex format with position, normal, and UV texture coordinate attributes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.PosTex.html"
+                                  title='struct amethyst_renderer::PosTex'>PosTex</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex format with position and UV texture coordinate attributes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RenderBundle.html"
+                                  title='struct amethyst_renderer::RenderBundle'>RenderBundle</a></td>
+                           <td class='docblock-short'>
+                                <p>Rendering bundle</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RenderSystem.html"
+                                  title='struct amethyst_renderer::RenderSystem'>RenderSystem</a></td>
+                           <td class='docblock-short'>
+                                <p>Rendering system.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Renderer.html"
+                                  title='struct amethyst_renderer::Renderer'>Renderer</a></td>
+                           <td class='docblock-short'>
+                                <p>Generic renderer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Rgba.html"
+                                  title='struct amethyst_renderer::Rgba'>Rgba</a></td>
+                           <td class='docblock-short'>
+                                <p>An RGBA color value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ScreenDimensions.html"
+                                  title='struct amethyst_renderer::ScreenDimensions'>ScreenDimensions</a></td>
+                           <td class='docblock-short'>
+                                <p>World resource that stores screen dimensions.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Separate.html"
+                                  title='struct amethyst_renderer::Separate'>Separate</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex format for attributes in separate buffers</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ShapePrefab.html"
+                                  title='struct amethyst_renderer::ShapePrefab'>ShapePrefab</a></td>
+                           <td class='docblock-short'>
+                                <p>Prefab for generating <code>Mesh</code> from basic shapes</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.ShapeUpload.html"
+                                  title='struct amethyst_renderer::ShapeUpload'>ShapeUpload</a></td>
+                           <td class='docblock-short'>
+                                <p><code>SystemData</code> needed to upload a <code>Shape</code> directly to create a <code>MeshHandle</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SpotLight.html"
+                                  title='struct amethyst_renderer::SpotLight'>SpotLight</a></td>
+                           <td class='docblock-short'>
+                                <p>A spot light source.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Sprite.html"
+                                  title='struct amethyst_renderer::Sprite'>Sprite</a></td>
+                           <td class='docblock-short'>
+                                <p>A description of a frame in a sprite sheet.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SpriteRenderData.html"
+                                  title='struct amethyst_renderer::SpriteRenderData'>SpriteRenderData</a></td>
+                           <td class='docblock-short'>
+                                <p>SystemData containing the data necessary to handle new rendered sprites</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SpriteSheet.html"
+                                  title='struct amethyst_renderer::SpriteSheet'>SpriteSheet</a></td>
+                           <td class='docblock-short'>
+                                <p>Meta data for a sprite sheet texture.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Stage.html"
+                                  title='struct amethyst_renderer::Stage'>Stage</a></td>
+                           <td class='docblock-short'>
+                                <p>A stage in the rendering pipeline.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.StageBuilder.html"
+                                  title='struct amethyst_renderer::StageBuilder'>StageBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Constructs a new rendering stage.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SunLight.html"
+                                  title='struct amethyst_renderer::SunLight'>SunLight</a></td>
+                           <td class='docblock-short'>
+                                <p>A realistic disk-shaped sun light source.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Target.html"
+                                  title='struct amethyst_renderer::Target'>Target</a></td>
+                           <td class='docblock-short'>
+                                <p>A render target.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TargetBuilder.html"
+                                  title='struct amethyst_renderer::TargetBuilder'>TargetBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new render targets.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Texture.html"
+                                  title='struct amethyst_renderer::Texture'>Texture</a></td>
+                           <td class='docblock-short'>
+                                <p>Handle to a GPU texture resource.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TextureBuilder.html"
+                                  title='struct amethyst_renderer::TextureBuilder'>TextureBuilder</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds new textures.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TextureMetadata.html"
+                                  title='struct amethyst_renderer::TextureMetadata'>TextureMetadata</a></td>
+                           <td class='docblock-short'>
+                                <p>Texture metadata, used while loading</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.TextureOffset.html"
+                                  title='struct amethyst_renderer::TextureOffset'>TextureOffset</a></td>
+                           <td class='docblock-short'>
+                                <p>Material reference this part of the texture</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Transparent.html"
+                                  title='struct amethyst_renderer::Transparent'>Transparent</a></td>
+                           <td class='docblock-short'>
+                                <p>Transparent mesh component</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.VertexBuffer.html"
+                                  title='struct amethyst_renderer::VertexBuffer'>VertexBuffer</a></td>
+                           <td class='docblock-short'>
+                                <p>Raw buffer with its attributes</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Visibility.html"
+                                  title='struct amethyst_renderer::Visibility'>Visibility</a></td>
+                           <td class='docblock-short'>
+                                <p>Resource for controlling what entities should be rendered, and whether to draw them ordered or
+not, which is useful for transparent surfaces.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.VisibilitySortingSystem.html"
+                                  title='struct amethyst_renderer::VisibilitySortingSystem'>VisibilitySortingSystem</a></td>
+                           <td class='docblock-short'>
+                                <p>Determine what entities are visible to the camera, and which are not. Will also sort transparent
+entities back to front based on distance from camera.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.WindowMessages.html"
+                                  title='struct amethyst_renderer::WindowMessages'>WindowMessages</a></td>
+                           <td class='docblock-short'>
+                                <p>This specs resource with id 0 permits sending commands to the
+renderer internal window.</p>
+
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.BlendValue.html"
+                                  title='enum amethyst_renderer::BlendValue'>BlendValue</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.CameraPrefab.html"
+                                  title='enum amethyst_renderer::CameraPrefab'>CameraPrefab</a></td>
+                           <td class='docblock-short'>
+                                <p>Projection prefab</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Color.html"
+                                  title='enum amethyst_renderer::Color'>Color</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for color attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.DepthMode.html"
+                                  title='enum amethyst_renderer::DepthMode'>DepthMode</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ElementState.html"
+                                  title='enum amethyst_renderer::ElementState'>ElementState</a></td>
+                           <td class='docblock-short'>
+                                <p>Describes the input state of a key.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Equation.html"
+                                  title='enum amethyst_renderer::Equation'>Equation</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Event.html"
+                                  title='enum amethyst_renderer::Event'>Event</a></td>
+                           <td class='docblock-short'>
+                                <p>Describes a generic event.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Factor.html"
+                                  title='enum amethyst_renderer::Factor'>Factor</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.ImageError.html"
+                                  title='enum amethyst_renderer::ImageError'>ImageError</a></td>
+                           <td class='docblock-short'>
+                                <p>Error.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.JointIds.html"
+                                  title='enum amethyst_renderer::JointIds'>JointIds</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for joint ids attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.JointWeights.html"
+                                  title='enum amethyst_renderer::JointWeights'>JointWeights</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for joint weights attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Light.html"
+                                  title='enum amethyst_renderer::Light'>Light</a></td>
+                           <td class='docblock-short'>
+                                <p>A light source.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.MeshData.html"
+                                  title='enum amethyst_renderer::MeshData'>MeshData</a></td>
+                           <td class='docblock-short'>
+                                <p>Mesh data for loading</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.MouseButton.html"
+                                  title='enum amethyst_renderer::MouseButton'>MouseButton</a></td>
+                           <td class='docblock-short'>
+                                <p>Describes a button of a mouse controller.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Normal.html"
+                                  title='enum amethyst_renderer::Normal'>Normal</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for texture coord attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Position.html"
+                                  title='enum amethyst_renderer::Position'>Position</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for position attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Projection.html"
+                                  title='enum amethyst_renderer::Projection'>Projection</a></td>
+                           <td class='docblock-short'>
+                                <p>The projection mode of a <code>Camera</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Shape.html"
+                                  title='enum amethyst_renderer::Shape'>Shape</a></td>
+                           <td class='docblock-short'>
+                                <p>Shape generators</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.Tangent.html"
+                                  title='enum amethyst_renderer::Tangent'>Tangent</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for tangent attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TexCoord.html"
+                                  title='enum amethyst_renderer::TexCoord'>TexCoord</a></td>
+                           <td class='docblock-short'>
+                                <p>Type for texture coord attribute of vertex</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TextureData.html"
+                                  title='enum amethyst_renderer::TextureData'>TextureData</a></td>
+                           <td class='docblock-short'>
+                                <p>Texture data for loading</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TextureFormat.html"
+                                  title='enum amethyst_renderer::TextureFormat'>TextureFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Aggregate texture format</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.TexturePrefab.html"
+                                  title='enum amethyst_renderer::TexturePrefab'>TexturePrefab</a></td>
+                           <td class='docblock-short'>
+                                <p><code>PrefabData</code> for loading <code>Texture</code>s.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.VirtualKeyCode.html"
+                                  title='enum amethyst_renderer::VirtualKeyCode'>VirtualKeyCode</a></td>
+                           <td class='docblock-short'>
+                                <p>Symbolic name for a keyboard key.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.WindowEvent.html"
+                                  title='enum amethyst_renderer::WindowEvent'>WindowEvent</a></td>
+                           <td class='docblock-short'>
+                                <p>Describes an event from a <code>Window</code>.</p>
+
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.ALPHA.html"
+                                  title='constant amethyst_renderer::ALPHA'>ALPHA</a></td>
+                           <td class='docblock-short'>
+                                <p>When combining two fragments, add the value of the source times its alpha channel with the
+value of the destination multiplied by the inverse of the source alpha channel. Has the
+usual transparency effect: mixes the two colors using a fraction of each one specified by
+the alpha of the source.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.REPLACE.html"
+                                  title='constant amethyst_renderer::REPLACE'>REPLACE</a></td>
+                           <td class='docblock-short'>
+                                <p>When combining two fragments, choose the source value</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Attribute.html"
+                                  title='trait amethyst_renderer::Attribute'>Attribute</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait for vertex attributes to implement</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.MeshCreator.html"
+                                  title='trait amethyst_renderer::MeshCreator'>MeshCreator</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait used by the asset processor to convert any user supplied mesh representation into an
+actual <code>Mesh</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.PipelineBuild.html"
+                                  title='trait amethyst_renderer::PipelineBuild'>PipelineBuild</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.PipelineData.html"
+                                  title='trait amethyst_renderer::PipelineData'>PipelineData</a></td>
+                           <td class='docblock-short'>
+                                <p>The data requested from the <code>specs::World</code> by the Pipeline.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.PolyPipeline.html"
+                                  title='trait amethyst_renderer::PolyPipeline'>PolyPipeline</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait used for the pipeline.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.PolyStage.html"
+                                  title='trait amethyst_renderer::PolyStage'>PolyStage</a></td>
+                           <td class='docblock-short'>
+                                <p>A stage in the rendering.  Contains multiple passes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.PolyStages.html"
+                                  title='trait amethyst_renderer::PolyStages'>PolyStages</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.Query.html"
+                                  title='trait amethyst_renderer::Query'>Query</a></td>
+                           <td class='docblock-short'>
+                                <p>Allows to query specific <code>Attribute</code>s of <code>VertexFormat</code></p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.VertexFormat.html"
+                                  title='trait amethyst_renderer::VertexFormat'>VertexFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by all valid vertex formats.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.With.html"
+                                  title='trait amethyst_renderer::With'>With</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait implemented by all valid vertex formats for each field</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.WithSpriteRender.html"
+                                  title='trait amethyst_renderer::WithSpriteRender'>WithSpriteRender</a></td>
+                           <td class='docblock-short'>
+                                <p>An easy way to attach and display a sprite when building an entity</p>
+
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.build_mesh_with_combo.html"
+                                  title='fn amethyst_renderer::build_mesh_with_combo'>build_mesh_with_combo</a></td>
+                           <td class='docblock-short'>
+                                <p>Build Mesh with vertex buffer combination</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.create_mesh_asset.html"
+                                  title='fn amethyst_renderer::create_mesh_asset'>create_mesh_asset</a></td>
+                           <td class='docblock-short'>
+                                <p>Create mesh</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.create_texture_asset.html"
+                                  title='fn amethyst_renderer::create_texture_asset'>create_texture_asset</a></td>
+                           <td class='docblock-short'>
+                                <p>Create a texture asset.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.vertex_data.html"
+                                  title='fn amethyst_renderer::vertex_data'>vertex_data</a></td>
+                           <td class='docblock-short'>
+                                <p>Construct new vertex data from raw data and vertex format</p>
+
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.AnimatedVertexBufferCombination.html"
+                                  title='type amethyst_renderer::AnimatedVertexBufferCombination'>AnimatedVertexBufferCombination</a></td>
+                           <td class='docblock-short'>
+                                <p>Animation vertex combo</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.AttributeFormat.html"
+                                  title='type amethyst_renderer::AttributeFormat'>AttributeFormat</a></td>
+                           <td class='docblock-short'>
+                                <p>Format for vertex attribute</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Attributes.html"
+                                  title='type amethyst_renderer::Attributes'>Attributes</a></td>
+                           <td class='docblock-short'>
+                                <p>Slice of attributes</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Encoder.html"
+                                  title='type amethyst_renderer::Encoder'>Encoder</a></td>
+                           <td class='docblock-short'>
+                                <p>Command buffer encoder type.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Factory.html"
+                                  title='type amethyst_renderer::Factory'>Factory</a></td>
+                           <td class='docblock-short'>
+                                <p>Graphics factory type.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.MeshHandle.html"
+                                  title='type amethyst_renderer::MeshHandle'>MeshHandle</a></td>
+                           <td class='docblock-short'>
+                                <p>A handle to a mesh.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.PipelineState.html"
+                                  title='type amethyst_renderer::PipelineState'>PipelineState</a></td>
+                           <td class='docblock-short'>
+                                <p>Statically-typed pipeline state object (PSO).</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Resources.html"
+                                  title='type amethyst_renderer::Resources'>Resources</a></td>
+                           <td class='docblock-short'>
+                                <p>Graphics resource type.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.SpriteSheetHandle.html"
+                                  title='type amethyst_renderer::SpriteSheetHandle'>SpriteSheetHandle</a></td>
+                           <td class='docblock-short'>
+                                <p>An asset handle to sprite sheet metadata.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.Targets.html"
+                                  title='type amethyst_renderer::Targets'>Targets</a></td>
+                           <td class='docblock-short'>
+                                <p>A hash map containing named render targets.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.TextureHandle.html"
+                                  title='type amethyst_renderer::TextureHandle'>TextureHandle</a></td>
+                           <td class='docblock-short'>
+                                <p>A handle to a <code>Texture</code> asset.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="type" href="type.VertexBufferCombination.html"
+                                  title='type amethyst_renderer::VertexBufferCombination'>VertexBufferCombination</a></td>
+                           <td class='docblock-short'>
+                                <p>Vertex combo</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "amethyst_renderer";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

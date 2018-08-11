@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `utils` mod in crate `ncollide3d`."><meta name="keywords" content="rust, rustlang, rust-lang, utils"><title>ncollide3d::utils - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Module utils</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../index.html'>ncollide3d</a></p><script>window.sidebarCurrent = {name: 'utils', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>ncollide3d</a>::<wbr><a class="mod" href=''>utils</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/ncollide3d/utils/mod.rs.html#1-44' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Various unsorted geometrical and logical operators.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.DeterministicState.html"
+                                  title='struct ncollide3d::utils::DeterministicState'>DeterministicState</a></td>
+                           <td class='docblock-short'>
+                                <p>A hasher builder that creates <code>DefaultHasher</code> with default keys.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.GenerationalId.html"
+                                  title='struct ncollide3d::utils::GenerationalId'>GenerationalId</a></td>
+                           <td class='docblock-short'>
+                                <p>A unique idetifier given by a usize id and a generation number.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.HashablePartialEq.html"
+                                  title='struct ncollide3d::utils::HashablePartialEq'>HashablePartialEq</a></td>
+                           <td class='docblock-short'>
+                                <p>A structure that implements <code>Eq</code> and is hashable even if the wrapped data implements only
+<code>PartialEq</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.IdAllocator.html"
+                                  title='struct ncollide3d::utils::IdAllocator'>IdAllocator</a></td>
+                           <td class='docblock-short'>
+                                <p>An identifiers allocator.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.RefWithCost.html"
+                                  title='struct ncollide3d::utils::RefWithCost'>RefWithCost</a></td>
+                           <td class='docblock-short'>
+                                <p>A reference packed with a cost value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.SortedPair.html"
+                                  title='struct ncollide3d::utils::SortedPair'>SortedPair</a></td>
+                           <td class='docblock-short'>
+                                <p>A pair of elements sorted in increasing order.</p>
+
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.AsBytes.html"
+                                  title='trait ncollide3d::utils::AsBytes'>AsBytes</a></td>
+                           <td class='docblock-short'>
+                                <p>Trait that transforms thing to a slice of u8.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="trait" href="trait.IsometryOps.html"
+                                  title='trait ncollide3d::utils::IsometryOps'>IsometryOps</a></td>
+                           <td class='docblock-short'>
+                                <p>Extra operations with isometries.</p>
+
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.ccw_face_normal.html"
+                                  title='fn ncollide3d::utils::ccw_face_normal'>ccw_face_normal</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the normal of a counter-clock-wise triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.center.html"
+                                  title='fn ncollide3d::utils::center'>center</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the center of a set of point.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.circumcircle.html"
+                                  title='fn ncollide3d::utils::circumcircle'>circumcircle</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the circumcircle of a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.is_affinely_dependent_triangle.html"
+                                  title='fn ncollide3d::utils::is_affinely_dependent_triangle'>is_affinely_dependent_triangle</a></td>
+                           <td class='docblock-short'>
+                                <p>Tests if three 3D points are approximately aligned.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.is_point_in_triangle.html"
+                                  title='fn ncollide3d::utils::is_point_in_triangle'>is_point_in_triangle</a></td>
+                           <td class='docblock-short'>
+                                <p>Tests if a point is inside of a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.median.html"
+                                  title='fn ncollide3d::utils::median'>median</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the median of a set of values.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.point_cloud_support_point.html"
+                                  title='fn ncollide3d::utils::point_cloud_support_point'>point_cloud_support_point</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the support point of a cloud of points.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.point_cloud_support_point_id.html"
+                                  title='fn ncollide3d::utils::point_cloud_support_point_id'>point_cloud_support_point_id</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the index of the support point of a cloud of points.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.point_in_poly2d.html"
+                                  title='fn ncollide3d::utils::point_in_poly2d'>point_in_poly2d</a></td>
+                           <td class='docblock-short'>
+                                <p>Tests if the given point is inside of a polygon with arbitrary orientation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.remove_unused_points.html"
+                                  title='fn ncollide3d::utils::remove_unused_points'>remove_unused_points</a></td>
+                           <td class='docblock-short'>
+                                <p>Given an index buffer, remove from <code>points</code> every point that is not indexed.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.sort3.html"
+                                  title='fn ncollide3d::utils::sort3'>sort3</a></td>
+                           <td class='docblock-short'>
+                                <p>Sorts a set of three values in increasing order.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.tetrahedron_center.html"
+                                  title='fn ncollide3d::utils::tetrahedron_center'>tetrahedron_center</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the center of a tetrahedron.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.tetrahedron_signed_volume.html"
+                                  title='fn ncollide3d::utils::tetrahedron_signed_volume'>tetrahedron_signed_volume</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the signed volume of a tetrahedron.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.tetrahedron_volume.html"
+                                  title='fn ncollide3d::utils::tetrahedron_volume'>tetrahedron_volume</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the volume of a tetrahedron.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.triangle_area.html"
+                                  title='fn ncollide3d::utils::triangle_area'>triangle_area</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the area of a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.triangle_center.html"
+                                  title='fn ncollide3d::utils::triangle_center'>triangle_center</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the center of a triangle.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.triangle_perimeter.html"
+                                  title='fn ncollide3d::utils::triangle_perimeter'>triangle_perimeter</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes the perimeter of a triangle.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "ncollide3d";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

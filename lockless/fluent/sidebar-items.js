@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["context","`MessageContext` is a collection of localization messages in Fluent."],["intl",""],["resolve","The `ResolveValue` trait resolves Fluent AST nodes to [`FluentValues`]."],["syntax","AST, parser and serializer operations"],["types","The `FluentValue` enum represents values which can be formatted to a String."]]});

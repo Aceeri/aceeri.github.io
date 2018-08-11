@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `IntegrationParameters` struct in crate `nphysics3d`."><meta name="keywords" content="rust, rustlang, rust-lang, IntegrationParameters"><title>nphysics3d::solver::IntegrationParameters - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc struct"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Struct IntegrationParameters</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.dt">dt</a><a href="#structfield.erp">erp</a><a href="#structfield.warmstart_coeff">warmstart_coeff</a><a href="#structfield.restitution_velocity_threshold">restitution_velocity_threshold</a><a href="#structfield.allowed_linear_error">allowed_linear_error</a><a href="#structfield.allowed_angular_error">allowed_angular_error</a><a href="#structfield.max_linear_correction">max_linear_correction</a><a href="#structfield.max_angular_correction">max_angular_correction</a><a href="#structfield.max_stabilization_multiplier">max_stabilization_multiplier</a><a href="#structfield.max_velocity_iterations">max_velocity_iterations</a><a href="#structfield.max_position_iterations">max_position_iterations</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.new">new</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Default">Default</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a></div></div><p class='location'><a href='../index.html'>nphysics3d</a>::<wbr><a href='index.html'>solver</a></p><script>window.sidebarCurrent = {name: 'IntegrationParameters', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>nphysics3d</a>::<wbr><a href='index.html'>solver</a>::<wbr><a class="struct" href=''>IntegrationParameters</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/nphysics3d/solver/integration_parameters.rs.html#4-33' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'>pub struct IntegrationParameters&lt;N:&nbsp;<a class="trait" href="../../alga/general/real/trait.Real.html" title="trait alga::general::real::Real">Real</a>&gt; {
+    pub dt: N,
+    pub erp: N,
+    pub warmstart_coeff: N,
+    pub restitution_velocity_threshold: N,
+    pub allowed_linear_error: N,
+    pub allowed_angular_error: N,
+    pub max_linear_correction: N,
+    pub max_angular_correction: N,
+    pub max_stabilization_multiplier: N,
+    pub max_velocity_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+    pub max_position_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>,
+}</pre></div><div class='docblock'><p>Parameters for a time-step of the physics engine.</p>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.dt" class="structfield small-section-header">
+                           <a href="#structfield.dt" class="anchor field"></a>
+                           <span id="dt.v" class='invisible'>
+                           <code>dt: N</code>
+                           </span></span><div class='docblock'><p>The timestep (default: <code>1.0 / 60.0</code>)</p>
+</div><span id="structfield.erp" class="structfield small-section-header">
+                           <a href="#structfield.erp" class="anchor field"></a>
+                           <span id="erp.v" class='invisible'>
+                           <code>erp: N</code>
+                           </span></span><div class='docblock'><p>The Error Reduction Parameter in <code>[0, 1]</code> is the proportion of
+the positional error to be corrected at each time step (default: <code>0.2</code>).</p>
+</div><span id="structfield.warmstart_coeff" class="structfield small-section-header">
+                           <a href="#structfield.warmstart_coeff" class="anchor field"></a>
+                           <span id="warmstart_coeff.v" class='invisible'>
+                           <code>warmstart_coeff: N</code>
+                           </span></span><div class='docblock'><p>Each cached impulse are multiplied by this coefficient in <code>[0, 1]</code>
+when they are re-used to initialize the solver (default <code>1.0</code>).</p>
+</div><span id="structfield.restitution_velocity_threshold" class="structfield small-section-header">
+                           <a href="#structfield.restitution_velocity_threshold" class="anchor field"></a>
+                           <span id="restitution_velocity_threshold.v" class='invisible'>
+                           <code>restitution_velocity_threshold: N</code>
+                           </span></span><div class='docblock'><p>Contacts at points where the involved bodies have a relative
+velocity smaller than this threshold wont be affected by the restitution force (default: <code>1.0</code>).</p>
+</div><span id="structfield.allowed_linear_error" class="structfield small-section-header">
+                           <a href="#structfield.allowed_linear_error" class="anchor field"></a>
+                           <span id="allowed_linear_error.v" class='invisible'>
+                           <code>allowed_linear_error: N</code>
+                           </span></span><div class='docblock'><p>Ammount of penetration the engine wont attempt to correct (default: <code>0.001m</code>).</p>
+</div><span id="structfield.allowed_angular_error" class="structfield small-section-header">
+                           <a href="#structfield.allowed_angular_error" class="anchor field"></a>
+                           <span id="allowed_angular_error.v" class='invisible'>
+                           <code>allowed_angular_error: N</code>
+                           </span></span><div class='docblock'><p>Ammount of angular drift of joint limits the engine wont
+attempt to correct (default: <code>0.001rad</code>).</p>
+</div><span id="structfield.max_linear_correction" class="structfield small-section-header">
+                           <a href="#structfield.max_linear_correction" class="anchor field"></a>
+                           <span id="max_linear_correction.v" class='invisible'>
+                           <code>max_linear_correction: N</code>
+                           </span></span><div class='docblock'><p>Maximum linear correction during one step of the non-linear position solver (default: <code>100.0</code>).</p>
+</div><span id="structfield.max_angular_correction" class="structfield small-section-header">
+                           <a href="#structfield.max_angular_correction" class="anchor field"></a>
+                           <span id="max_angular_correction.v" class='invisible'>
+                           <code>max_angular_correction: N</code>
+                           </span></span><div class='docblock'><p>Maximum angular correction during one step of the non-linear position solver (default: <code>0.2</code>).</p>
+</div><span id="structfield.max_stabilization_multiplier" class="structfield small-section-header">
+                           <a href="#structfield.max_stabilization_multiplier" class="anchor field"></a>
+                           <span id="max_stabilization_multiplier.v" class='invisible'>
+                           <code>max_stabilization_multiplier: N</code>
+                           </span></span><div class='docblock'><p>Maximum nonlinera SOR-prox scaling parameter when the constraint
+correction direction is close to the kernel of the involved multibody's
+jacobian (default: <code>0.2</code>).</p>
+</div><span id="structfield.max_velocity_iterations" class="structfield small-section-header">
+                           <a href="#structfield.max_velocity_iterations" class="anchor field"></a>
+                           <span id="max_velocity_iterations.v" class='invisible'>
+                           <code>max_velocity_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of iterations performed by the velocity constraints solver.</p>
+</div><span id="structfield.max_position_iterations" class="structfield small-section-header">
+                           <a href="#structfield.max_position_iterations" class="anchor field"></a>
+                           <span id="max_position_iterations.v" class='invisible'>
+                           <code>max_position_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code>
+                           </span></span><div class='docblock'><p>Maximum number of iterations performed by the position-based constraints solver.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;N:&nbsp;<a class="trait" href="../../alga/general/real/trait.Real.html" title="trait alga::general::real::Real">Real</a>&gt; <a class="struct" href="../../nphysics3d/solver/struct.IntegrationParameters.html" title="struct nphysics3d::solver::IntegrationParameters">IntegrationParameters</a>&lt;N&gt;</code><a href='#impl' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/nphysics3d/solver/integration_parameters.rs.html#35-64' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.new' class='fnname'>new</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;dt: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;erp: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;warmstart_coeff: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;restitution_velocity_threshold: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;allowed_linear_error: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;allowed_angular_error: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;max_linear_correction: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;max_angular_correction: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;max_stabilization_multiplier: N, <br>&nbsp;&nbsp;&nbsp;&nbsp;max_velocity_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;max_position_iterations: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a><br>) -&gt; Self</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/nphysics3d/solver/integration_parameters.rs.html#37-63' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Creates a set of integration parameters with the given values.</p>
+</div></div>
+                <h2 id='implementations' class='small-section-header'>
+                  Trait Implementations<a href='#implementations' class='anchor'></a>
+                </h2>
+                <div id='implementations-list'><h3 id='impl-Default' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;N:&nbsp;<a class="trait" href="../../alga/general/real/trait.Real.html" title="trait alga::general::real::Real">Real</a>&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../../nphysics3d/solver/struct.IntegrationParameters.html" title="struct nphysics3d::solver::IntegrationParameters">IntegrationParameters</a>&lt;N&gt;</code><a href='#impl-Default' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/nphysics3d/solver/integration_parameters.rs.html#66-82' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><table class='table-display'><tbody><tr><td><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/nphysics3d/solver/integration_parameters.rs.html#67-81' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div></div>
+                <h2 id='synthetic-implementations' class='small-section-header'>
+                  Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>
+                </h2>
+                <div id='synthetic-implementations-list'>
+            <h3 id='impl-Send' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;N&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="../../nphysics3d/solver/struct.IntegrationParameters.html" title="struct nphysics3d::solver::IntegrationParameters">IntegrationParameters</a>&lt;N&gt;</code><a href='#impl-Send' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div><h3 id='impl-Sync' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;N&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="../../nphysics3d/solver/struct.IntegrationParameters.html" title="struct nphysics3d::solver::IntegrationParameters">IntegrationParameters</a>&lt;N&gt;</code><a href='#impl-Sync' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div></div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "nphysics3d";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

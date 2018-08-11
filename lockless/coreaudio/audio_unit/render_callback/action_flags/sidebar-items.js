@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ActionFlags",""],["Handle","A safe handle around the `AudioUnitRenderActionFlags` pointer provided by the render callback."]]});

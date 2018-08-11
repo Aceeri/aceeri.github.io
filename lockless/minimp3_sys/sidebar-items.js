@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["MINIMP3_MAX_SAMPLES_PER_FRAME",""]],"fn":[["mp3dec_decode_frame",""],["mp3dec_init",""]],"struct":[["mp3dec_frame_info_t",""],["mp3dec_t",""]]});

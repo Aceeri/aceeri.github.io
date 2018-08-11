@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `ncollide3d` crate."><meta name="keywords" content="rust, rustlang, rust-lang, ncollide3d"><title>ncollide3d - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate ncollide3d</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'ncollide3d', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>ncollide3d</a></span><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/ncollide3d/lib.rs.html#1-139' title='goto source code'>[src]</a></span></h1><div class='docblock'><h1 id="ncollide" class="section-header"><a href="#ncollide">ncollide</a></h1>
+<p><strong>ncollide</strong> is a 2 and 3-dimensional collision detection library written with
+the rust programming language.</p>
+<p>As its name suggests, it is generic wrt the dimension: it works with both
+2-dimensional and 3-dimensional shapes. It might work with higher
+dimensions (never tried).</p>
+<p>The official user guide is available <a href="http://ncollide.org">here</a>.
+The rustdoc documentation is available <a href="http://ncollide.org/rustdoc/ncollide">here</a>.</p>
+<h2 id="compilation" class="section-header"><a href="#compilation">Compilation</a></h2>
+<p>You will need the last stable build of the <a href="http://www.rust-lang.org">rust compiler</a>
+and the official package manager: <a href="https://github.com/rust-lang/cargo">cargo</a>.</p>
+<p>Simply add the following to your <code>Cargo.toml</code> file:</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
+[<span class="ident">dependencies</span>]
+<span class="ident">ncollide</span> <span class="op">=</span> <span class="string">&quot;0.13&quot;</span></pre>
+<h2 id="features" class="section-header"><a href="#features">Features</a></h2>
+<ul>
+<li>dynamic bounding volume tree based broad phase</li>
+<li>ball vs. ball collision detection,</li>
+<li>plane vs. any convex object collision detection.</li>
+<li>collision detection between arbitrary convex objects</li>
+<li>compound shapes</li>
+<li>ray-casting</li>
+<li>time of impact computation  for objects without rotational movement (compound vs. compound is not
+yet implemented)</li>
+</ul>
+<p>And various traits for collision detectors and broad phase collision detection.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="bounding_volume/index.html"
+                                  title='mod ncollide3d::bounding_volume'>bounding_volume</a></td>
+                           <td class='docblock-short'>
+                                <p>Bounding volumes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="broad_phase/index.html"
+                                  title='mod ncollide3d::broad_phase'>broad_phase</a></td>
+                           <td class='docblock-short'>
+                                <p>Broad phases.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="events/index.html"
+                                  title='mod ncollide3d::events'>events</a></td>
+                           <td class='docblock-short'>
+                                <p>Structures for describing and storing collision-related events.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="math/index.html"
+                                  title='mod ncollide3d::math'>math</a></td>
+                           <td class='docblock-short'>
+                                <p>Compilation flags dependent aliases for mathematical types.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="narrow_phase/index.html"
+                                  title='mod ncollide3d::narrow_phase'>narrow_phase</a></td>
+                           <td class='docblock-short'>
+                                <p>Persistent collision detection algorithms to compute contact points.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="partitioning/index.html"
+                                  title='mod ncollide3d::partitioning'>partitioning</a></td>
+                           <td class='docblock-short'>
+                                <p>Spatial partitioning tools.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="procedural/index.html"
+                                  title='mod ncollide3d::procedural'>procedural</a></td>
+                           <td class='docblock-short'>
+                                <p>Procedural mesh generation.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="query/index.html"
+                                  title='mod ncollide3d::query'>query</a></td>
+                           <td class='docblock-short'>
+                                <p>Non-persistant pairwise geometric queries.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="shape/index.html"
+                                  title='mod ncollide3d::shape'>shape</a></td>
+                           <td class='docblock-short'>
+                                <p>Collision shapes supported by ncollide.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="transformation/index.html"
+                                  title='mod ncollide3d::transformation'>transformation</a></td>
+                           <td class='docblock-short'>
+                                <p>Transformation, simplification and decomposition of meshes.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="utils/index.html"
+                                  title='mod ncollide3d::utils'>utils</a></td>
+                           <td class='docblock-short'>
+                                <p>Various unsorted geometrical and logical operators.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="world/index.html"
+                                  title='mod ncollide3d::world'>world</a></td>
+                           <td class='docblock-short'>
+                                <p>High level API to detect collisions in large, complex scenes.</p>
+
+                           </td>
+                       </tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "ncollide3d";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

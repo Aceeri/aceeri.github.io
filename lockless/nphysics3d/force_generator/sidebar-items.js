@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ConstantAcceleration","Force generator adding a constant acceleration at the center of mass of a set of body parts."],["Spring","Generator of a force proportional to the distance separating two bodies."]],"trait":[["ForceGenerator","A persistant force generator."]],"type":[["ForceGeneratorHandle","The handle of a force generator."]]});

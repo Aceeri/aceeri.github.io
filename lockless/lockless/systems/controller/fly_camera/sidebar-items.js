@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FlyCameraSystem","The system that manages the view rotation. Controlled by the mouse."]]});

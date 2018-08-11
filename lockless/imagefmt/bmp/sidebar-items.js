@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["detect",""],["read","Reads an image and converts it to requested format."],["read_info","Returns width, height and color type of the image."],["write","Writes an image and converts it to requested color type (grayscale not supported)."]]});

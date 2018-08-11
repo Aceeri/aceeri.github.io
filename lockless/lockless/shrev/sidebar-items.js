@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EventChannel","Event channel"],["EventIterator","Iterator over a slice of data in `RingBufferStorage`."],["ReaderId","The reader id is used by readers to tell the storage where the last read ended."]],"trait":[["Event","Marker trait for data to use with the EventChannel."]]});

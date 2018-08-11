@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["epa3","Three-dimensional penetration depth queries using the Expanding Polytope Algorithm."],["gjk","The Gilbert–Johnson–Keerthi distance algorithm."]],"struct":[["CSOPoint","A point of a Configuration-Space Obstacle."],["VoronoiSimplex","A simplex of dimension up to 3 that uses Voronoï regions for computing point projections."]]});

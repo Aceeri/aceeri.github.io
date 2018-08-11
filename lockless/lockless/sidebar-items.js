@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["cgmath","A low-dimensional linear algebra library, targeted at computer graphics."],["client",""],["error",""],["shred","Shared resource dispatcher"],["shrev","Event channel, pull based, that use a ringbuffer for internal storage, to make it possible to do immutable reads."],["specs","SPECS Parallel ECS"],["systems",""],["world",""]]});
