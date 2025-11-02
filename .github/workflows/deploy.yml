@@ -15,7 +15,7 @@ jobs:
 
       - name: "Build and deploy website"
         if: github.repository_owner == 'aceeri'
-        uses: shalzz/zola-deploy-action@70a101a14bbdeed13e7a42a9ed06b35c9e9e826e
+        uses: shalzz/zola-deploy-action@b992dddf113fb8a5ed34f2cb4cce94334a55f637
         env:
           PAGES_BRANCH: gh-pages
           BUILD_DIR: .
