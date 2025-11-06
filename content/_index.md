@@ -24,14 +24,13 @@ recent_more_text = "more »"
 date_format = "%b %-d, %Y"
 +++
 
-Hi! I'm a software engineer who enjoys optimization and tricky problems. This is my blog where I'll occasionally share projects I'm working on.
+Hi! I'm a software engineer who enjoys solving tricky problems. This is my blog where I'll occasionally share projects I'm working on.
 
-Recently I've been making 3d cellular automata fast enough to run on the CPU and be networked across clients with eventual consistency. I'd like to write a
-bit about some of the optimizations I've figured out (margolus neighborhoods for CPUs, dirty bitsets and spreading bits, etc.) but for now I'll share some
-videos here of the current state of the project.
+Recently I've been working towards a 3d [falling sands](https://en.wikipedia.org/wiki/Falling-sand_game) simulation capable of running at >60fps over a large area.
 
-Basic cell types in 3d
+I'd like to write a bit about some of the tricks I've figured out ([margolus neighborhoods](https://en.wikipedia.org/wiki/Block_cellular_automaton) optimized for CPUs, spreading dirty bitsets, etc.) but for now I'll just share some videos here of the current state of the project.
+
+# Basic cell types in 3d
 {{ youtube(id="iGvCgEm7Ymk") }}
-
-Larger scale sand digging to stress test remeshing/simulation
+# Stress testing remeshing/simulation
 {{ youtube(id="ZRCCBHKRMpw") }}
