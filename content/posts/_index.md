@@ -11,7 +11,7 @@ generate_feeds = true
 lang = "en"
 
 title = "Posts"
-subtitle = "I write about Rust, games, optimization, and more"
+subtitle = "Cellular automata, games, etc."
 
 date_format = "%b %-d, %Y"
 
