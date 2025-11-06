@@ -29,3 +29,9 @@ Hi, I'm Connor and I'm a software engineer who enjoys optimization. This is my b
 Recently I've been working on 3d cellular automata, getting it fast enough to run on the CPU and be networked across clients with eventual consistency. I'd
 like to write a bit about some of the optimizations I've figured out (margolus neighborhoods for CPUs, dirty bitsets and spreading bits, etc.) but for now I'll
 share some videos here of the current state of the project.
+
+Basic cell types in 3d
+{{ youtube(id="iGvCgEm7Ymk") }}
+
+Larger scale sand digging to stress test remeshing/simulation
+{{ youtube(id="ZRCCBHKRMpw") }}
