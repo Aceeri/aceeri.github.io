@@ -1,6 +1,8 @@
 <div {% if class %}class="{{class}}" {% endif %}>
     <iframe
-        src="https://www.youtube.com/embed/{{id}}{% if autoplay %}?autoplay=1{% endif %}"
+        src="https://www.youtube-nocookie.com/embed/{{id}}{% if autoplay %}?autoplay=1{% endif %}"
+        frameborder="0"
+        style="width: 100%; height: auto; aspect-ratio: 16 / 9"
         webkitallowfullscreen
         mozallowfullscreen
         allowfullscreen
