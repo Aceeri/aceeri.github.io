@@ -10,7 +10,7 @@ footer = false
 name = "Connor McCluskey"
 id = "aceeri"
 bio = "experimentor and optimizer"
-avatar = "img/avatar.webp"
+avatar = "images/nyoomfinch.webp"
 links = [
     { name = "GitHub", icon = "github", url = "https://github.com/aceeri" },
     { name = "LinkedIn", icon = "linkedin", url = "https://linkedin.com/conmcclusk" },
