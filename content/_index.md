@@ -13,7 +13,7 @@ bio = "experimentor and optimizer"
 avatar = "images/nyoomfinch.webp"
 links = [
     { name = "GitHub", icon = "github", url = "https://github.com/aceeri" },
-    { name = "LinkedIn", icon = "linkedin", url = "https://linkedin.com/conmcclusk" },
+    { name = "LinkedIn", icon = "linkedin", url = "https://linkedin.com/in/conmcclusk" },
     { name = "Email", icon = "email", url = "mailto:conmcclusk@gmail.com" },
 ]
 
