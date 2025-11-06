@@ -24,7 +24,7 @@ recent_more_text = "more »"
 date_format = "%b %-d, %Y"
 +++
 
-Hi, I'm Connor and I'm a software engineer who enjoys optimization. This is my blog where I'll occasionally share projects I'm working on.
+Hi! I'm a software engineer who enjoys optimization and tricky problems. This is my blog where I'll occasionally share projects I'm working on.
 
 Recently I've been making 3d cellular automata fast enough to run on the CPU and be networked across clients with eventual consistency. I'd like to write a
 bit about some of the optimizations I've figured out (margolus neighborhoods for CPUs, dirty bitsets and spreading bits, etc.) but for now I'll share some
