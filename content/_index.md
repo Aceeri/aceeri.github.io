@@ -34,3 +34,5 @@ I'd like to write a bit about some of the tricks I've figured out ([margolus nei
 {{ youtube(id="iGvCgEm7Ymk") }}
 # Stress testing remeshing/simulation
 {{ youtube(id="ZRCCBHKRMpw") }}
+# Fire
+{{ youtube(id="xIfyRvy1Wo8 ") }}
