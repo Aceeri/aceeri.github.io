@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>Connor&#x27;s Blog</title>
+	<subtitle>Experimentations</subtitle>
+	<link rel="self" type="application/atom+xml" href="https://aceeri.dev/posts/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://aceeri.dev/posts/"/>
+  
+	<updated>2025-11-02T00:00:00+00:00</updated>
+	
+	<id>https://aceeri.dev/posts/feed.xml</id>
+	<entry xml:lang="en">
+		<title>Chunk-level margolus neighborhoods</title>
+		<published>2025-11-02T00:00:00+00:00</published>
+		<updated>2025-11-02T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/margolus-neighborhoods/"/>
+		<id>https://aceeri.dev/posts/margolus-neighborhoods/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/margolus-neighborhoods/">&lt;h2 id=&quot;falling-sands-performance&quot;&gt;Falling sands performance&lt;a class=&quot;zola-anchor&quot; href=&quot;#falling-sands-performance&quot; aria-label=&quot;Anchor link for: falling-sands-performance&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;When we are thinking about how to push falling sands to its limits, we have 2 priorities: cache friendliness and parallelism.&lt;&#x2F;p&gt;
+&lt;p&gt;The first is simpler, we place cells that are close together spatially close together in memory as well, which just means... arrays! I&#x27;d go into this in more detail but that&#x27;s not really the focus of this post. The short of it:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;4096 element arrays (64x64 in 2d, 16x16x16 in 3d) seemed to be the sweet spot of linearization (2d&#x2F;3d points -&amp;gt; index) performance and cache locality for modern hardware. You can tile these together to make &quot;chunks&quot;, so you can simulate larger grids. If you want &lt;em&gt;really&lt;&#x2F;em&gt; large grids you&#x27;ll need to start looking into &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Sparse_voxel_octree&quot;&gt;sparse voxel quad&#x2F;octrees&lt;&#x2F;a&gt; or my favorite: 64trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Z-order_curve&quot;&gt;Morton&#x2F;Z-order encoding&lt;&#x2F;a&gt;, while overall putting cells closer to their neighbors, is shot down by the overhead of calculating the index, even while using special instructions like &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;orlp.net&#x2F;blog&#x2F;extracting-depositing-bits&#x2F;&quot;&gt;pdep&#x2F;pext&lt;&#x2F;a&gt; (not true on GPUs though!).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Instead we are going to be looking into ways we segment up this memory so that we can process it in parallel!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;parallelism&quot;&gt;Parallelism&lt;a class=&quot;zola-anchor&quot; href=&quot;#parallelism&quot; aria-label=&quot;Anchor link for: parallelism&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;How do we break up these arrays of cells so we can throw them onto other threads?&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Noita_(video_game)&quot;&gt;Noita&lt;&#x2F;a&gt; takes the approach of having 4 passes over chunks. Taking every other chunk in each direction so that there is a buffer zone of about 1&#x2F;2 the size of a chunk that you can play around with on separate threads.&lt;&#x2F;p&gt;
+&lt;p&gt;Atomic compare and swaps are another approach I&#x27;ve seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods. You still need to segment up your grid into work groups but it can be done in any shape or way you&#x27;d want. Typically you might reserve a bit for each cell to indicate whether or not the cell has already been updated. I mainly don&#x27;t like this due to the overhead of atomics plus the fact that it isn&#x27;t deterministic, which destroys any chance of this being networked. This also seems to be a better choice on the GPU.&lt;&#x2F;p&gt;
+&lt;p&gt;In this last approach we divide up the grid into a bunch of blocks and only allow each block to interact within itself. After one run you shift the blocks to overlap for the next run. This is called &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Block_cellular_automaton&quot;&gt;block cellular automata&lt;&#x2F;a&gt; with the
+simplest method being &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Margolus_neighborhood&quot;&gt;margolus neighborhoods&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This sounds &lt;em&gt;very&lt;&#x2F;em&gt; similar to Noita&#x27;s approach, so what&#x27;s the difference?&lt;&#x2F;p&gt;
+&lt;p&gt;Well, Noita only processes 1 out of 4 chunks at a time and then repeats the process again after a shift. Block cellular automata processes all blocks at the same time, which helps with reducing the overhead of using something like work stealing since we don&#x27;t need to wait for the last pass to finish up.&lt;&#x2F;p&gt;
+&lt;p&gt;We run into a couple of issues with margolus neighborhoods fairly fast though:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The artifacts from the boundaries of the blocks is &lt;em&gt;very&lt;&#x2F;em&gt; evident.&lt;&#x2F;li&gt;
+&lt;li&gt;CPUs &lt;em&gt;hate&lt;&#x2F;em&gt; this. When one core writes to a piece of memory, it will evict it from all other cores&#x27; caches, leading to cache misses everywhere.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;How do we fix these issues? Scale it up! Instead of 2x2 blocks of &lt;em&gt;cells&lt;&#x2F;em&gt;, we do 2x2 blocks of &lt;em&gt;chunks&lt;&#x2F;em&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;This means we aren&#x27;t processing data in the same cacheline (typically 64 bytes on modern CPUs) as other cores. Artifacts still exist, but will be diminished heavily, you&#x27;ll only notice it with fast movement getting a bit slowed down at chunk boundaries. But we have entirely fixed our problems with thrashing the cache.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tl-dr&quot;&gt;TL;DR&lt;a class=&quot;zola-anchor&quot; href=&quot;#tl-dr&quot; aria-label=&quot;Anchor link for: tl-dr&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Atomics are overall slower while being non-deterministic, but they are valuable for simplicity and flexibility in implementing cell types.&lt;&#x2F;li&gt;
+&lt;li&gt;Noita&#x27;s approach works very well, but might be sacrificing a bit of time waiting on each pass if only one or two chunks need to be processed. Fast moving cells will be slowed down much less than margolus neighborhoods.&lt;&#x2F;li&gt;
+&lt;li&gt;Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can largely be ignored by shifting the blocks on chunks rather than cells. Artifacts are more present here than Noita&#x27;s approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1&#x2F;2 of a chunk size.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;next-steps&quot;&gt;Next steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#next-steps&quot; aria-label=&quot;Anchor link for: next-steps&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>
