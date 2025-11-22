@@ -1,0 +1,10 @@
+<div {% if class %}class="{{class}}" {% endif %}>
+    <img
+        src="{{ get_url(path=src) }}"
+        alt="{{alt}}"
+        style="aspect-ratio: 16 / 9"
+    />
+    {% if caption %}
+    <div style="font-size: 12px">{{caption}}</div>
+    {% endif %}
+</div>
