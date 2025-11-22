@@ -1,19 +1,23 @@
 +++
-title = "Chunk-level margolus neighborhoods"
+title = "Chunked Margolus Neighborhoods"
 date = "2025-11-02"
 draft = false
 +++
 
 ## Falling sands performance
-When we are thinking about how to push falling sands to its limits, we have 2 priorities: cache friendliness and parallelism.
+When we are thinking about how to optimize falling sands, we have 2 priorities: cache friendliness and parallelism.
 
 The first is simpler, we place cells that are close together spatially close together in memory as well, which just means... arrays!
 
-`4096` element arrays (64x64 in 2d, 16x16x16 in 3d) seemed to be the sweet spot of linearization (2d/3d points -> index) performance and cache locality for modern hardware. You can tile these together to make "chunks", so you can simulate larger grids.
+`4096` element arrays (`64x64` in 2d, `16x16x16` in 3d) seemed to be the sweet spot of linearization (2d/3d points -> index) performance and cache locality for modern hardware. Each of these arrays we call "chunks".
 
-If you want *really* large grids you'll need to start looking into [sparse voxel quad/octrees](https://en.wikipedia.org/wiki/Sparse_voxel_octree) or my favorite: 64trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).
+The simplest linearization scheme is taking strides for each dimension. For example, in 2D, if your chunk is `64x64` we would just use `x + 64 * y`. In 3d the equivalent (for `16x16x16`) is `z + 16 * x + 256 * y`. You might notice something here though: The order of which dimensions matters. Z elements are placed right next to eachother in memory, while y elements are *256* elements apart. This is something we'll need to keep in mind for later.
 
-When looking at types of linearization I was very optimistic about there being a more optimal layout for the memory, since the simplest method of linearization doesn't optimize for spatial locality. I came across [Morton/Z-order encoding](https://en.wikipedia.org/wiki/Z-order_curve), and while overall putting cells closer to their neighbors, it is shot down by the overhead of calculating the index, even while using special instructions like [pdep/pext](https://orlp.net/blog/extracting-depositing-bits/) (doesn't seem to be true on GPUs though?).
+Seeing this I started looking at different types of linearization since I was very optimistic about there being a more optimal layout for the memory. And lo-and-behold I come across [Morton/Z-order encoding](https://en.wikipedia.org/wiki/Z-order_curve).
+
+Unfortunately while we did become more optimal in spatial locality, calculating the index ends up having too much overhead. Even while using special instructions like [pdep/pext](https://orlp.net/blog/extracting-depositing-bits/) (this doesn't seem to be true on GPUs though?). Or the CPU is doing some magical prefetching/pipelining. So back to the simple way we go for now.
+
+If we want large grids we'll need to start looking at [sparse voxel quad/octrees](https://en.wikipedia.org/wiki/Sparse_voxel_octree) or my favorite variation: 64-trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).
 
 So, now that we have our data laid out... how do we parallelize it?
 
@@ -62,7 +66,9 @@ The boundary artifacts will still exist, but are much less perceptible, you'll o
 ## TL;DR
 - Atomics are overall slower while being non-deterministic, but they are valuable for simplicity and flexibility in implementing cell types.
 - Noita's approach works very well, but might be sacrificing a bit of time waiting on each pass if only one or two chunks need to be processed. Fast moving cells will be slowed down much less than margolus neighborhoods.
-- Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can largely be ignored by shifting the blocks on chunks rather than cells. Artifacts are more present here than Noita's approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1/2 of a chunk size.
+- Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can be largely ignored by shifting the scale to chunks rather than cells. Artifacts are more present here than Noita's approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1/2 of a chunk's width.
 
 ## Next steps
 We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.
+
+{{ next_post(text="Next: Dirty Bitsets", post="dirty-bitsets") }}
