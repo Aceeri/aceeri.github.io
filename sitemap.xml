@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://aceeri.dev/</loc>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/categories/</loc>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/posts/</loc>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/posts/dirty-bitsets/</loc>
+        <lastmod>2025-11-22</lastmod>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/posts/interpretation/</loc>
+        <lastmod>2025-11-22</lastmod>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/posts/margolus-neighborhoods/</loc>
+        <lastmod>2025-11-02</lastmod>
+    </url>
+    <url>
+        <loc>https://aceeri.dev/tags/</loc>
+    </url>
+</urlset>

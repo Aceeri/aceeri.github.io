@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>Connor&#x27;s Blog</title>
+	<subtitle>Experimentations</subtitle>
+	<link rel="self" type="application/atom+xml" href="https://aceeri.dev/posts/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://aceeri.dev/posts/"/>
+  
+	<updated>2025-11-22T00:00:00+00:00</updated>
+	
+	<id>https://aceeri.dev/posts/feed.xml</id>
+	<entry xml:lang="en">
+		<title>Dirty Bitsets</title>
+		<published>2025-11-22T00:00:00+00:00</published>
+		<updated>2025-11-22T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/dirty-bitsets/"/>
+		<id>https://aceeri.dev/posts/dirty-bitsets/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/dirty-bitsets/">&lt;p&gt;WIP&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Interpretation vs Compiled</title>
+		<published>2025-11-22T00:00:00+00:00</published>
+		<updated>2025-11-22T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/interpretation/"/>
+		<id>https://aceeri.dev/posts/interpretation/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/interpretation/">&lt;p&gt;This is gonna be a bit of a silly one.&lt;&#x2F;p&gt;
+&lt;p&gt;There are two terms we use to describe how far away a programming language is from the output: interpreted and compiled.&lt;&#x2F;p&gt;
+&lt;p&gt;But this makes me think... This is a &lt;em&gt;spectrum&lt;&#x2F;em&gt;. Python and Lua are commonly given interpretted, but what about Java? Java is compiled to an intermediary bytecode before then being INTERPRETTED to the native machine&#x27;s instructions.&lt;&#x2F;p&gt;
+&lt;p&gt;How far can we go with this definition?&lt;&#x2F;p&gt;
+&lt;p&gt;Well, let&#x27;s first think of the extremes:&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;compiled&quot;&gt;Compiled&lt;a class=&quot;zola-anchor&quot; href=&quot;#compiled&quot; aria-label=&quot;Anchor link for: compiled&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;First thought that comes to mind is CPU instructions are the most compiled. But then you wonder, the CPU still has a lot of roundabout ways to execute your instructions in order to get a result.&lt;&#x2F;p&gt;
+&lt;p&gt;Therefore mechanical linkage is &lt;em&gt;more&lt;&#x2F;em&gt; &quot;compiled&quot; than a CPU, there is less indirection between your input and the outputs. But now we have to think, mechanical linkage isn&#x27;t always the most direct either. Do we get molecular with this? Or are we now just describing all of chemistry and physics?&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;interpretted&quot;&gt;Interpretted&lt;a class=&quot;zola-anchor&quot; href=&quot;#interpretted&quot; aria-label=&quot;Anchor link for: interpretted&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;So Python clearly isn&#x27;t the most interpretted, even of the programming languages we have. But what about human language? Isn&#x27;t someone telling someone else to write a program in Java that is then interpretted in a virtual machine into CPU instructions more &quot;interpretted&quot;? But now we get into the problem of human thought, nurture vs nature, etc.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;I don&#x27;t know where I was going with this.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Chunked Margolus Neighborhoods</title>
+		<published>2025-11-02T00:00:00+00:00</published>
+		<updated>2025-11-02T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/margolus-neighborhoods/"/>
+		<id>https://aceeri.dev/posts/margolus-neighborhoods/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/margolus-neighborhoods/">&lt;h2 id=&quot;falling-sands-performance&quot;&gt;Falling sands performance&lt;a class=&quot;zola-anchor&quot; href=&quot;#falling-sands-performance&quot; aria-label=&quot;Anchor link for: falling-sands-performance&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;When we are thinking about how to optimize falling sands, we have 2 priorities: cache friendliness and parallelism.&lt;&#x2F;p&gt;
+&lt;p&gt;The first is simpler, we place cells that are close together spatially close together in memory as well, which just means... arrays!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;4096&lt;&#x2F;code&gt; element arrays (&lt;code&gt;64x64&lt;&#x2F;code&gt; in 2d, &lt;code&gt;16x16x16&lt;&#x2F;code&gt; in 3d) seemed to be the sweet spot of linearization (2d&#x2F;3d points -&amp;gt; index) performance and cache locality for modern hardware. Each of these arrays we call &quot;chunks&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;The simplest linearization scheme is taking strides for each dimension. For example, in 2D, if your chunk is &lt;code&gt;64x64&lt;&#x2F;code&gt; we would just use &lt;code&gt;x + 64 * y&lt;&#x2F;code&gt;. In 3d the equivalent (for &lt;code&gt;16x16x16&lt;&#x2F;code&gt;) is &lt;code&gt;z + 16 * x + 256 * y&lt;&#x2F;code&gt;. You might notice something here though: The order of which dimensions matters. Z elements are placed right next to eachother in memory, while y elements are &lt;em&gt;256&lt;&#x2F;em&gt; elements apart. This is something we&#x27;ll need to keep in mind for later.&lt;&#x2F;p&gt;
+&lt;p&gt;Seeing this I started looking at different types of linearization since I was very optimistic about there being a more optimal layout for the memory. And lo-and-behold I come across &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Z-order_curve&quot;&gt;Morton&#x2F;Z-order encoding&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Unfortunately while we did become more optimal in spatial locality, calculating the index ends up having too much overhead. Even while using special instructions like &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;orlp.net&#x2F;blog&#x2F;extracting-depositing-bits&#x2F;&quot;&gt;pdep&#x2F;pext&lt;&#x2F;a&gt; (this doesn&#x27;t seem to be true on GPUs though?). Or the CPU is doing some magical prefetching&#x2F;pipelining. So back to the simple way we go for now.&lt;&#x2F;p&gt;
+&lt;p&gt;If we want large grids we&#x27;ll need to start looking at &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Sparse_voxel_octree&quot;&gt;sparse voxel quad&#x2F;octrees&lt;&#x2F;a&gt; or my favorite variation: 64-trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).&lt;&#x2F;p&gt;
+&lt;p&gt;So, now that we have our data laid out... how do we parallelize it?&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;noita&quot;&gt;Noita&lt;a class=&quot;zola-anchor&quot; href=&quot;#noita&quot; aria-label=&quot;Anchor link for: noita&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Noita_(video_game)&quot;&gt;Noita&lt;&#x2F;a&gt; takes the approach of having 4 passes over chunks. Taking every other chunk in each direction so that there is a buffer zone of about 1&#x2F;2 the size of a chunk that you can play around with on separate threads.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;img
+        src=&quot;https:&#x2F;&#x2F;aceeri.dev&#x2F;images&#x2F;noita_parallel.webp&quot;
+        alt=&quot;One pass of noita chunks being chopped up for parallel processing&quot;
+        style=&quot;aspect-ratio: 16 &#x2F; 9&quot;
+    &#x2F;&gt;
+    
+&lt;&#x2F;div&gt;
+&lt;p&gt;Next we move the area that we are processing over by 1 chunk in a Z pattern.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;img
+        src=&quot;https:&#x2F;&#x2F;aceeri.dev&#x2F;images&#x2F;noita_parallel_passes.gif&quot;
+        alt=&quot;One pass of noita chunks being chopped up for parallel processing&quot;
+        style=&quot;aspect-ratio: 16 &#x2F; 9&quot;
+    &#x2F;&gt;
+    
+&lt;&#x2F;div&gt;
+&lt;p&gt;And we&#x27;ve done it! We can throw each of these chunks into a separate thread and not worry about aliasing the same data.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;atomic-compare-and-swap&quot;&gt;Atomic Compare-and-Swap&lt;a class=&quot;zola-anchor&quot; href=&quot;#atomic-compare-and-swap&quot; aria-label=&quot;Anchor link for: atomic-compare-and-swap&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;Atomic compare and swaps are another approach I&#x27;ve seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods.&lt;&#x2F;p&gt;
+&lt;p&gt;The non-determinism made it a non-starter for my project though, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency much more noticeable.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;chunked-margolus-neighborhoods&quot;&gt;Chunked Margolus Neighborhoods&lt;a class=&quot;zola-anchor&quot; href=&quot;#chunked-margolus-neighborhoods&quot; aria-label=&quot;Anchor link for: chunked-margolus-neighborhoods&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;In this last approach we divide up the grid into a bunch of blocks and only allow each block to interact within itself. After one run you shift the blocks to overlap for the next run. This is called &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Block_cellular_automaton&quot;&gt;block cellular automata&lt;&#x2F;a&gt; with the
+simplest method being &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Margolus_neighborhood&quot;&gt;margolus neighborhoods&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This sounds &lt;em&gt;very&lt;&#x2F;em&gt; similar to Noita&#x27;s approach, so what&#x27;s the difference?&lt;&#x2F;p&gt;
+&lt;p&gt;Well, Noita only processes 1 out of 4 chunks at a time and then repeats the process again after a shift. Block cellular automata processes all chunks in a single pass, which helps with reducing the overhead of using something like work stealing since we don&#x27;t need to wait for the last pass to finish up.&lt;&#x2F;p&gt;
+&lt;p&gt;We run into a couple of issues with margolus neighborhoods fairly fast though:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The artifacts from the boundaries of the blocks is &lt;em&gt;very&lt;&#x2F;em&gt; evident.&lt;&#x2F;li&gt;
+&lt;li&gt;CPUs caches &lt;em&gt;hate&lt;&#x2F;em&gt; this. When one core writes to a piece of memory, it will evict it from all other cores&#x27; caches, leading to cache misses everywhere.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;How do we fix these issues? Scale it up! Instead of 2x2 blocks of &lt;em&gt;cells&lt;&#x2F;em&gt;, we do 2x2 blocks of &lt;em&gt;chunks&lt;&#x2F;em&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;This means we aren&#x27;t processing data in the same cacheline (64 bytes on modern CPUs) as other cores and boundaries of the blocks are less frequent&#x2F;further apart.&lt;&#x2F;p&gt;
+&lt;p&gt;The boundary artifacts will still exist, but are much less perceptible, you&#x27;ll only notice it with fast movement getting a bit slowed down at chunk boundaries. But we have entirely fixed our problems with thrashing the cache.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tl-dr&quot;&gt;TL;DR&lt;a class=&quot;zola-anchor&quot; href=&quot;#tl-dr&quot; aria-label=&quot;Anchor link for: tl-dr&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Atomics are overall slower while being non-deterministic, but they are valuable for simplicity and flexibility in implementing cell types.&lt;&#x2F;li&gt;
+&lt;li&gt;Noita&#x27;s approach works very well, but might be sacrificing a bit of time waiting on each pass if only one or two chunks need to be processed. Fast moving cells will be slowed down much less than margolus neighborhoods.&lt;&#x2F;li&gt;
+&lt;li&gt;Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can be largely ignored by shifting the scale to chunks rather than cells. Artifacts are more present here than Noita&#x27;s approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1&#x2F;2 of a chunk&#x27;s width.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;next-steps&quot;&gt;Next steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#next-steps&quot; aria-label=&quot;Anchor link for: next-steps&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.&lt;&#x2F;p&gt;
+&lt;div style=&quot;text-align: right; font-size: 20px;&quot;&gt;
+    &lt;a href=&quot;&#x2F;posts&#x2F;dirty-bitsets&quot;&gt;Next: Dirty Bitsets&lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+</content>
+	</entry>
+</feed>
