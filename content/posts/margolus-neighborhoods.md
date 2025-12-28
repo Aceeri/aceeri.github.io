@@ -40,7 +40,7 @@ And we've done it! We can throw each of these chunks into a separate thread and 
 
 Atomic compare and swaps are another approach I've seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods.
 
-The non-determinism made it a non-starter for my project though, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency much more noticeable.
+The non-determinism made it a non-starter for my project though{{ cite(id="1") }}, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency and artifacts from eventual consistency much more noticeable.
 
 ---
 
@@ -70,5 +70,9 @@ The boundary artifacts will still exist, but are much less perceptible, you'll o
 
 ## Next steps
 We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.
+
+{% citation(id="1") %}
+You could *maybe* make it deterministic by using the starting location of the "operation" as an ordering for the change? I'm not entirely sure.
+{% end %}
 
 {{ next_post(text="Dirty Bitsets", post="dirty-bitsets") }}
