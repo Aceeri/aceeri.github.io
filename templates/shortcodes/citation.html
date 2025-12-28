@@ -1,4 +1,9 @@
 <div class="citation" style="font-size: 12px" id="note-{{ id }}">
-    <sup style="color: var(--primary-color)">{{ id }}</sup> {{ body | safe }}
-    <!--<a href="#ref-{{ id }}">↩</a>-->
+    <a
+        href="#ref-{{ id }}"
+        style="color: var(--text-pale-color); border-bottom: 0"
+    >
+        <sup style="color: var(--primary-color)">{{ id }}</sup> {{ body | safe
+        }}
+    </a>
 </div>
