@@ -71,4 +71,4 @@ The boundary artifacts will still exist, but are much less perceptible, you'll o
 ## Next steps
 We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.
 
-{{ next_post(text="Next: Dirty Bitsets", post="dirty-bitsets") }}
+{{ next_post(text="Dirty Bitsets", post="dirty-bitsets") }}
