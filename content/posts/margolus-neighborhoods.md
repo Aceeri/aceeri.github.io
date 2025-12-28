@@ -38,9 +38,9 @@ And we've done it! We can throw each of these chunks into a separate thread and 
 
 ### Atomic Compare-and-Swap
 
-Atomic compare and swaps are another approach I've seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods.
+Atomic compare and swaps are another approach I've seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods. This is something I'd recommend mainly for the GPU, otherwise you'll probably end up thrashing your cache with writes.
 
-The non-determinism made it a non-starter for my project though{{ cite(id="1") }}, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency and artifacts from eventual consistency much more noticeable.
+The non-determinism made it a non-starter for my project{{ cite(id="1") }}, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency and artifacts from eventual consistency much more noticeable.
 
 ---
 
@@ -64,12 +64,12 @@ This means we aren't processing data in the same cacheline (64 bytes on modern C
 The boundary artifacts will still exist, but are much less perceptible, you'll only notice it with fast movement getting a bit slowed down at chunk boundaries. But we have entirely fixed our problems with thrashing the cache.
 
 ## TL;DR
-- Atomics are overall slower while being non-deterministic, but they are valuable for simplicity and flexibility in implementing cell types.
+- Atomics are an interesting solution that provides simplicity and flexibility in implementing cell types, but is non-deterministic and likely destroys the cache on the CPU.
 - Noita's approach works very well, but might be sacrificing a bit of time waiting on each pass if only one or two chunks need to be processed. Fast moving cells will be slowed down much less than margolus neighborhoods.
-- Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can be largely ignored by shifting the scale to chunks rather than cells. Artifacts are more present here than Noita's approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1/2 of a chunk's width.
+- Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can be largely ignored by shifting the scale of the blocks to chunks rather than cells. Artifacts are more present here than Noita's approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1/2 of a chunk's width.
 
 ## Next steps
-We have something that can fully utilize modern CPUs, now we need to cut down on the amount of work we are doing in the first place.
+We have something that can fully utilize modern CPUs, scaling linearly with the amount of work, now we need to cut down on the amount of work we are doing in the first place.
 
 {% citation(id="1") %}
 You could *maybe* make it deterministic by using the starting location of the "operation" as an ordering for the change? I'm not entirely sure.
