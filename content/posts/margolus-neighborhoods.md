@@ -15,7 +15,7 @@ The simplest linearization scheme is taking strides for each dimension. For exam
 
 Seeing this I started looking at different types of linearization since I was very optimistic about there being a more optimal layout for the memory. And lo-and-behold I come across [Morton/Z-order encoding](https://en.wikipedia.org/wiki/Z-order_curve).
 
-Unfortunately while we did become more optimal in spatial locality, calculating the index ends up having too much overhead. Even while using special instructions like [pdep/pext](https://orlp.net/blog/extracting-depositing-bits/) (this doesn't seem to be true on GPUs though?). Or the CPU is doing some magical prefetching/pipelining. So back to the simple way we go for now.
+Unfortunately while we did become more optimal in spatial locality, calculating the index ends up having too much overhead. Even while using special instructions like [pdep/pext](https://orlp.net/blog/extracting-depositing-bits/) (this doesn't seem to be true on GPUs though, more parallelization eliminates this overhead it seems). Or the CPU is doing some magical prefetching/pipelining. So back to the simple way we go for now.
 
 If we want large grids we'll need to start looking at [sparse voxel quad/octrees](https://en.wikipedia.org/wiki/Sparse_voxel_octree) or my favorite variation: 64-trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).
 
