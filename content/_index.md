@@ -24,7 +24,7 @@ recent_more_text = "more »"
 date_format = "%b %-d, %Y"
 +++
 
-Hi! I'm a software engineer who enjoys solving tricky problems. This is my blog where I'll occasionally share projects I'm working on.
+Hi! I'm a software engineer who enjoys solving tricky problems and optimizing. This is my blog where I'll occasionally share projects I'm working on.
 
 Recently I've been working towards a 3d [falling sands](https://en.wikipedia.org/wiki/Falling-sand_game) simulation capable of running at >60fps over a large area.
 
