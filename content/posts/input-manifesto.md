@@ -16,7 +16,7 @@ Let's say I'm throwing together a basic character controller and I'm wanting the
 
 It should ***CANCEL THE MOVEMENT OUT***.
 
-A large majority of games seem to implement it in this fashion:
+A majority of games implement it like this:
 ```rust
 let mut movement = Vec2::new(0.0, 0.0);
 if buttons.pressed(KeyCode::KeyA) {
@@ -25,9 +25,9 @@ if buttons.pressed(KeyCode::KeyA) {
     movement.x = 1.0;
 }
 ```
-This code ends up prioritizing left over right.
+This prioritizes the left over the right.
 
-Transitioning this to the *sane* option is just separating the conditions and adding/subtracting 1 instead of assigning:
+Transitioning this to the correct way is separating the conditions and adding/subtracting 1 instead of assigning:
 ```rust
 let mut movement = Vec2::new(0.0, 0.0);
 if buttons.pressed(KeyCode::KeyA) {
@@ -42,7 +42,7 @@ if buttons.pressed(KeyCode::KeyD) {
 // D     -> [1.0, 0.0]
 // A & D -> [0.0, 0.0]
 ```
-Last key wins is another sane option, but harder to implement and in my opinion debatable on whether it is even better.
+Last key wins is another sane option, but harder to implement and debatable on whether it is better or desirable.
 
 # STOP MULTIPLYING MOUSE DELTAS BY DELTA TIME!
 
