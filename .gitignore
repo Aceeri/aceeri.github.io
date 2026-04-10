@@ -1,1 +1,10 @@
-.DS_Store
+# Ignore all hidden directories, e.g. vscode/zed/DS_Store
+.*
+
+# Allow specific hidden
+!.github/
+!.gitignore
+!.gitmodules
+!.gitattributes
+
+public/
