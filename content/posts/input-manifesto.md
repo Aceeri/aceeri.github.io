@@ -1,16 +1,14 @@
 +++
-title = "The Bird's Input Manifesto"
+title = "The Bird's Input Sins"
 date = "2026-03-10"
 draft = false
 +++
 
-I have some rants to file with the game development community, but I'd like to start off with this one.
-
-Inputs are some of the most important things to making a game feel responsive, but *so* many games get 
+Inputs are one of the most important things to making a game feel responsive, but *so* many games get 
 extremely basic inputs wrong. Even if a player doesn't consciously recognize the discrepancies, they will 
 feel it in gameplay and it will feel *bad*.
 
-# STOP PRIORITIZING MOVEMENT DIRECTIONS
+# STOP PRIORITIZING MOVEMENT DIRECTIONS!
 
 Let's say I'm throwing together a basic character controller and I'm wanting the character to move left with `A` and right with `D`. What should happen when I press both at the same time?
 
@@ -57,8 +55,8 @@ camera_yaw += mouse_delta.x * settings.mouse_sensitivity;
 
 Why? Because mouse deltas are measurements of distance the mouse has traveled.
 
-If I move my mouse 1 inch to right, I am expecting that to rotate my camera the same amount regardless of whether my game is running at 30fps or 60fps. If you multiply that by the delta time, the same exact input will give you different results depending on your games runtime speed.
+If I move my mouse 1 inch to right, I am expecting that to rotate my camera the same amount regardless of whether the game is running at 30fps or 60fps. If you multiply that by the delta time, the same exact input will give you different results depending on the runtime.
 
-This amplifies stutters and variance in framerates. Even if the user can't directly see the variance from 120<->180 fps, they will ***feel it*** when they try to look around.
+This amplifies stutters and variance in framerates. Even if the user can't directly see the variance from 120<->180 fps, they *will* feel it when they try to look around.
 
-I get that mouse dots don't translate that well to radians. But please, just use a constant value like `1.0 / 180.0` to make it smaller, not your frame times.
+I think the reason it is so prevalent is that mouse deltas when directly translated to rotation are much too large. But please, just use a constant value like `1.0 / 180.0` to make it smaller, not your frame times.
