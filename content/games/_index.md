@@ -82,8 +82,8 @@ copy = false
 
 <div class="game-grid">
   <div class="game-card">
-    <a href="https://aceeri.itch.io/rat-pit"><img src="/images/ratpit.png" alt="RAT PIT"></a>
-    <a class="jam-badge" href="https://itch.io/jam/bavy-jam-1" title="Bavy Jam #1"><img src="/images/bavy-jam-48.png" alt="Bavy Jam #1"></a>
+    <a href="https://aceeri.itch.io/rat-pit"><img class="no-lightense" src="/images/ratpit.png" alt="RAT PIT"></a>
+    <a class="jam-badge" href="https://itch.io/jam/bavy-jam-1" title="Bavy Jam #1"><img class="no-lightense" src="/images/bavy-jam-48.png" alt="Bavy Jam #1"></a>
     <div class="game-info">
       <h3><a href="https://aceeri.itch.io/rat-pit">RAT PIT</a></h3>
       <p>RATS IN THE PIT, INTO THE PIT, GROW THE PIT.</p>
@@ -91,8 +91,8 @@ copy = false
     </div>
   </div>
   <div class="game-card">
-    <a href="https://aceeri.itch.io/the-lob"><img src="/images/thelob.png" alt="The Lob"></a>
-    <a class="jam-badge" href="https://itch.io/jam/bevy-jam-7" title="Bevy Jam #7"><img src="/images/bevy-jam-48.png" alt="Bevy Jam #7"></a>
+    <a href="https://aceeri.itch.io/the-lob"><img class="no-lightense" src="/images/thelob.png" alt="The Lob"></a>
+    <a class="jam-badge" href="https://itch.io/jam/bevy-jam-7" title="Bevy Jam #7"><img class="no-lightense" src="/images/bevy-jam-48.png" alt="Bevy Jam #7"></a>
     <div class="game-info">
       <h3><a href="https://aceeri.itch.io/the-lob">The Lob</a></h3>
       <p>You are a cleaner snail in the Lob.</p>
@@ -100,8 +100,8 @@ copy = false
     </div>
   </div>
   <div class="game-card">
-    <a href="https://aceeri.itch.io/brewalized"><img src="/images/brewalized.png" alt="Brewalized"></a>
-    <a class="jam-badge" href="https://itch.io/jam/bevy-jam-2" title="Bevy Jam #2"><img src="/images/bevy-jam-48.png" alt="Bevy Jam #2"></a>
+    <a href="https://aceeri.itch.io/brewalized"><img class="no-lightense" src="/images/brewalized.png" alt="Brewalized"></a>
+    <a class="jam-badge" href="https://itch.io/jam/bevy-jam-2" title="Bevy Jam #2"><img class="no-lightense" src="/images/bevy-jam-48.png" alt="Bevy Jam #2"></a>
     <div class="game-info">
       <h3><a href="https://aceeri.itch.io/brewalized">Brewalized</a></h3>
       <p>Physics-based potion brewing game.</p>
