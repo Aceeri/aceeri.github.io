@@ -44,12 +44,10 @@ Last key wins is another sane option, but harder to implement and debatable on w
 
 # STOP MULTIPLYING MOUSE DELTAS BY DELTA TIME!
 
-I've seen this one too many times to the point that I've almost come to expect this one in any project I pull open.
-
 ```rust
 // STOP DOING THIS. PLEASE
 camera_yaw += mouse_delta.x * settings.mouse_sensitivity * time.delta_secs(); 
-// DO THIS
+// JUST DO THIS
 camera_yaw += mouse_delta.x * settings.mouse_sensitivity; 
 ```
 
