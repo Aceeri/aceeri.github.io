@@ -1,5 +1,5 @@
 +++
-title = "The Bird's Input Sins"
+title = "The Bird's Input Manifesto"
 date = "2026-03-10"
 draft = false
 +++
@@ -48,7 +48,8 @@ Last key wins is another sane option, but harder to implement and debatable on w
 // STOP DOING THIS. PLEASE
 camera_yaw += mouse_delta.x * settings.mouse_sensitivity * time.delta_secs(); 
 // JUST DO THIS
-camera_yaw += mouse_delta.x * settings.mouse_sensitivity; 
+const BASE_SENSITIVITY: f32 = 1.0 / 180.0;
+camera_yaw += mouse_delta.x * settings.mouse_sensitivity * BASE_SENSITIVITY; 
 ```
 
 Why? Because mouse deltas are measurements of distance the mouse has traveled.
@@ -57,4 +58,4 @@ If I move my mouse 1 inch to right, I am expecting that to rotate my camera the 
 
 This amplifies stutters and variance in framerates. Even if the user can't directly see the variance from 120<->180 fps, they *will* feel it when they try to look around.
 
-I think the reason it is so prevalent is that mouse deltas when directly translated to rotation are much too large. But please, just use a constant value like `1.0 / 180.0` to make it smaller, not your frame times.
+I think the reason it is so prevalent is that mouse deltas when directly translated to rotation are much too large and frametimes generally get it to a nicer to work with amount. But please, just use a constant value like `1.0 / 180.0` to make it smaller, not your frame times.
