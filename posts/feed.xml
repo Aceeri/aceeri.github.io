@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>Connor&#x27;s Blog</title>
+	<subtitle>Experimentations</subtitle>
+	<link rel="self" type="application/atom+xml" href="https://aceeri.dev/posts/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://aceeri.dev/posts/"/>
+  
+	<updated>2026-03-10T00:00:00+00:00</updated>
+	
+	<id>https://aceeri.dev/posts/feed.xml</id>
+	<entry xml:lang="en">
+		<title>The Bird&#x27;s Input Manifesto</title>
+		<published>2026-03-10T00:00:00+00:00</published>
+		<updated>2026-03-10T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/input-manifesto/"/>
+		<id>https://aceeri.dev/posts/input-manifesto/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/input-manifesto/">&lt;p&gt;Inputs are one of the most important things to making a game feel responsive, but &lt;em&gt;so&lt;&#x2F;em&gt; many games get
+extremely basic inputs wrong. Even if a player doesn&#x27;t consciously recognize the discrepancies, they will
+feel it in gameplay and it will feel &lt;em&gt;bad&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;stop-prioritizing-movement-directions&quot;&gt;STOP PRIORITIZING MOVEMENT DIRECTIONS!&lt;a class=&quot;zola-anchor&quot; href=&quot;#stop-prioritizing-movement-directions&quot; aria-label=&quot;Anchor link for: stop-prioritizing-movement-directions&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;Let&#x27;s say I&#x27;m throwing together a basic character controller and I&#x27;m wanting the character to move left with &lt;code&gt;A&lt;&#x2F;code&gt; and right with &lt;code&gt;D&lt;&#x2F;code&gt;. What should happen when I press both at the same time?&lt;&#x2F;p&gt;
+&lt;p&gt;It should &lt;em&gt;&lt;strong&gt;CANCEL THE MOVEMENT OUT&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;A majority of games implement it like this:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; movement &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Vec2&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;new&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;if&lt;&#x2F;span&gt; buttons&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;pressed&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;KeyCode&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;KeyA&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    movement&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;1.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;else&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;if&lt;&#x2F;span&gt; buttons&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;pressed&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;KeyCode&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;KeyD&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    movement&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;1.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This prioritizes the left over the right.&lt;&#x2F;p&gt;
+&lt;p&gt;Transitioning this to the correct way is separating the conditions and adding&#x2F;subtracting 1 instead of assigning:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; movement &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Vec2&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;new&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;if&lt;&#x2F;span&gt; buttons&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;pressed&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;KeyCode&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;KeyA&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    movement&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;-=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;1.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;if&lt;&#x2F;span&gt; buttons&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;pressed&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;KeyCode&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;KeyD&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    movement&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;+=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;1.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; A     -&amp;gt; [-1.0, 0.0]
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; D     -&amp;gt; [1.0, 0.0]
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; A &amp;amp; D -&amp;gt; [0.0, 0.0]
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Last key wins is another sane option, but harder to implement and debatable on whether it is better or desirable.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;stop-multiplying-mouse-deltas-by-delta-time&quot;&gt;STOP MULTIPLYING MOUSE DELTAS BY DELTA TIME!&lt;a class=&quot;zola-anchor&quot; href=&quot;#stop-multiplying-mouse-deltas-by-delta-time&quot; aria-label=&quot;Anchor link for: stop-multiplying-mouse-deltas-by-delta-time&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; STOP DOING THIS. PLEASE
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;camera_yaw &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;+=&lt;&#x2F;span&gt; mouse_delta&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; settings&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;mouse_sensitivity &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; time&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;delta_secs&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt; 
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; JUST DO THIS
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;const&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-rust&quot;&gt;BASE_SENSITIVITY&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;f32&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;1.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;180.&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-float z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;camera_yaw &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;+=&lt;&#x2F;span&gt; mouse_delta&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; settings&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;mouse_sensitivity &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-rust&quot;&gt;BASE_SENSITIVITY&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt; 
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Why? Because mouse deltas are measurements of distance the mouse has traveled.&lt;&#x2F;p&gt;
+&lt;p&gt;If I move my mouse 1 inch to right, I am expecting that to rotate my camera the same amount regardless of whether the game is running at 30fps or 60fps. If you multiply that by the delta time, the same exact input will give you different results depending on the runtime.&lt;&#x2F;p&gt;
+&lt;p&gt;This amplifies stutters and variance in framerates. Even if the user can&#x27;t directly see the variance from 120&amp;lt;-&amp;gt;180 fps, they &lt;em&gt;will&lt;&#x2F;em&gt; feel it when they try to look around.&lt;&#x2F;p&gt;
+&lt;p&gt;I think the reason it is so prevalent is that mouse deltas when directly translated to rotation are much too large and frametimes generally get it to a nicer to work with amount. But please, just use a constant value like &lt;code&gt;1.0 &#x2F; 180.0&lt;&#x2F;code&gt; to make it smaller, not your frame times.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Dirty Bitsets</title>
+		<published>2025-12-27T00:00:00+00:00</published>
+		<updated>2025-12-27T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/dirty-bitsets/"/>
+		<id>https://aceeri.dev/posts/dirty-bitsets/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/dirty-bitsets/">&lt;p&gt;WIP&lt;&#x2F;p&gt;
+&lt;p&gt;We don&#x27;t want or even need to process every single voxel in a simulation every single frame. Why would we expect a different result from a sand cell that couldn&#x27;t do
+anything in the last simulation and none of the directions it could move changed either?&lt;&#x2F;p&gt;
+&lt;p&gt;This is where we steal something from Minecraft: block updates.&lt;&#x2F;p&gt;
+&lt;p&gt;You only need to process voxels around the ones that have changed the last frame&lt;sup id=&quot;ref-1&quot;&gt;
+    &lt;a href=&quot;#note-1&quot; style=&quot;text-decoration: none; border-bottom: 0&quot;
+        &gt;1&lt;&#x2F;a
+    &gt;
+&lt;&#x2F;sup&gt;
+.  Therefore, we maintain a list of &quot;dirty&quot; voxel positions and we add all of the neighbors of any modified voxel, as well as the modified voxel itself. This gives us a list of voxels that need to be processed on the next frame, which should be a significant subset of all of the voxels in the world.&lt;&#x2F;p&gt;
+&lt;p&gt;But now we have a different problem: maintaining this list. Naively we could store an &lt;code&gt;IVec3&lt;&#x2F;code&gt; or an index in the chunk of which voxels are dirty, but this balloons in memory fast and also creates a lot more cache misses when reading from it for processing. Having a variable sized list is also not ideal, since this might end up in stutters depending on how allocation timing lines up (hint: usually poorly).&lt;&#x2F;p&gt;
+&lt;p&gt;The solution? A bitset!&lt;&#x2F;p&gt;
+&lt;p&gt;Each bit represents whether or not a single voxel in a chunk needs to be processed. Setting these is a little bit more annoying than pushing to a &lt;code&gt;Vec&lt;&#x2F;code&gt;&#x2F;list or setting a &lt;code&gt;HashSet&lt;&#x2F;code&gt;, but not too much more:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; 64 bit words in this bitset, which is ideal for most modern CPUs.
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; masks&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-support z-type z-rust&quot;&gt;Vec&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;u64&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;vec!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;16&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;16&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;*&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;16&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;64&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; 16^3 &#x2F; 64
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; mask_index &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; voxel_index &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;64&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; bit_index &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; voxel_index &lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;%&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;64&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;masks&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;mask_index&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;|=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;1&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; bit_index&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; set
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;masks&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;mask_index&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;&amp;amp;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-rust&quot;&gt;!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;1&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; bit_index&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; unset
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is all well and good, but there&#x27;s a small note about the above that shows a couple of inefficiencies in practice when setting the 26 neighbors and the 1 that changed:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;We re-set the same index &lt;em&gt;very&lt;&#x2F;em&gt; often in common cellular automata, usually updates trigger a cascade of effects that are all local to the same area.&lt;&#x2F;li&gt;
+&lt;li&gt;Everytime we set a voxel, we might be triggering a second cache miss, not necessarily because of jumping between the neighbors, but because we aren&#x27;t batching these neighbor sets.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This might seem small, but the cost adds up when running this over thousands of simulated voxels. To mitigate this, lets split it up:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Setting a voxel only sets a single bit in the bitset.&lt;&#x2F;li&gt;
+&lt;li&gt;Propagating to the neighbors is done all together.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&#x2F;&#x2F; TODO:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show example of propagation to neighbors&lt;&#x2F;li&gt;
+&lt;li&gt;Show bitshifting optimizations on top of that.&lt;&#x2F;li&gt;
+&lt;li&gt;Edge cases &amp;amp; propagating to neighboring chunks&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;div class=&quot;citation&quot; style=&quot;font-size: 12px&quot; id=&quot;note-1&quot;&gt;
+    &lt;a
+        href=&quot;#ref-1&quot;
+        style=&quot;color: var(--text-pale-color); border-bottom: 0&quot;
+    &gt;
+        &lt;sup style=&quot;color: var(--primary-color)&quot;&gt;1&lt;&#x2F;sup&gt; Technically you could get more specific and each voxel could have &quot;subscriber&quot; directions, but I think that amount of management leads to too much overhead that is defeats most of the purpose.
+    &lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+&lt;br&gt;
+&lt;div style=&quot;text-align: left; font-size: 14;&quot;&gt;
+    &lt;a href=&quot;&#x2F;posts&#x2F;margolus-neighborhoods&quot; style=&quot;border-bottom: 0&quot;&gt;← Margolus Neighborhoods&lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Interpreted vs Compiled</title>
+		<published>2025-11-22T00:00:00+00:00</published>
+		<updated>2025-11-22T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/interpretation/"/>
+		<id>https://aceeri.dev/posts/interpretation/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/interpretation/">&lt;p&gt;Very dumb post.&lt;&#x2F;p&gt;
+&lt;p&gt;We typically use to describe how far away a programming language is from the output: interpreted and compiled.&lt;&#x2F;p&gt;
+&lt;p&gt;But this makes me think this is a &lt;em&gt;spectrum&lt;&#x2F;em&gt;. Python and Lua are commonly called interpreted, while C or Rust are considered compiled. But what about Java? Java is compiled to an intermediary bytecode before then being interpreted to the native machine&#x27;s instructions.&lt;&#x2F;p&gt;
+&lt;p&gt;How do we place these things on this spectrum?&lt;&#x2F;p&gt;
+&lt;p&gt;Well, let&#x27;s first think of the extremes:&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;compiled&quot;&gt;Compiled&lt;a class=&quot;zola-anchor&quot; href=&quot;#compiled&quot; aria-label=&quot;Anchor link for: compiled&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;First for now CPU instructions are the most compiled. But then we consider, the CPU still goes through a lot of roundabout ways to execute your instructions in order to get a result. Transistors are far from the most direct path to the output.&lt;&#x2F;p&gt;
+&lt;p&gt;Mechanical linkage is &lt;em&gt;more&lt;&#x2F;em&gt; compiled than any CPU, since there is less indirection between your input and the outputs. But now that we&#x27;ve broken this box, mechanical linkage is far from the most direct. Chemical reactions could turn one state of matter to another to give you a result more directly.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;interpreted&quot;&gt;Interpreted&lt;a class=&quot;zola-anchor&quot; href=&quot;#interpreted&quot; aria-label=&quot;Anchor link for: interpreted&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;Now Python isn&#x27;t even close to the most interpreted. What about human language? Isn&#x27;t someone telling someone else or an LLM to write a program in Java that is then interpreted in a virtual machine into CPU instructions more &quot;interpreted&quot;? I guess now this just comes down to layering more and more indirection between yourself and the output and you&#x27;ve become the CEO of a dysfunctionally large corporation.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h1&gt;
+&lt;p&gt;I don&#x27;t know where I was going with this.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Chunked Margolus Neighborhoods</title>
+		<published>2025-11-02T00:00:00+00:00</published>
+		<updated>2025-11-02T00:00:00+00:00</updated>
+		<link rel="alternate" type="text/html" href="https://aceeri.dev/posts/margolus-neighborhoods/"/>
+		<id>https://aceeri.dev/posts/margolus-neighborhoods/</id>
+    
+		<content type="html" xml:base="https://aceeri.dev/posts/margolus-neighborhoods/">&lt;h2 id=&quot;falling-sands-performance&quot;&gt;Falling sands performance&lt;a class=&quot;zola-anchor&quot; href=&quot;#falling-sands-performance&quot; aria-label=&quot;Anchor link for: falling-sands-performance&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;When we are thinking about how to optimize falling sands, we have 2 priorities: cache friendliness and parallelism.&lt;&#x2F;p&gt;
+&lt;p&gt;The first is simpler, we place cells that are close together spatially close together in memory as well, which just means... arrays!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;4096&lt;&#x2F;code&gt; element arrays (&lt;code&gt;64x64&lt;&#x2F;code&gt; in 2d, &lt;code&gt;16x16x16&lt;&#x2F;code&gt; in 3d) seemed to be the sweet spot of linearization (2d&#x2F;3d points -&amp;gt; index) performance and cache locality for modern hardware. Each of these arrays we call &quot;chunks&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;The simplest linearization scheme is taking strides for each dimension. For example, in 2D, if your chunk is &lt;code&gt;64x64&lt;&#x2F;code&gt; we would just use &lt;code&gt;x + 64 * y&lt;&#x2F;code&gt;. In 3d the equivalent (for &lt;code&gt;16x16x16&lt;&#x2F;code&gt;) is &lt;code&gt;z + 16 * x + 256 * y&lt;&#x2F;code&gt;. You might notice something here though: The order of which dimensions matters. Z elements are placed right next to eachother in memory, while y elements are &lt;em&gt;256&lt;&#x2F;em&gt; elements apart. This is something we&#x27;ll need to keep in mind for later.&lt;&#x2F;p&gt;
+&lt;p&gt;Seeing this I started looking at different types of linearization since I was very optimistic about there being a more optimal layout for the memory. And lo-and-behold I come across &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Z-order_curve&quot;&gt;Morton&#x2F;Z-order encoding&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Unfortunately while we did become more optimal in spatial locality, calculating the index ends up having too much overhead. Even while using special instructions like &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;orlp.net&#x2F;blog&#x2F;extracting-depositing-bits&#x2F;&quot;&gt;pdep&#x2F;pext&lt;&#x2F;a&gt; (this doesn&#x27;t seem to be true on GPUs though, more parallelization eliminates this overhead it seems). Or the CPU is doing some magical prefetching&#x2F;pipelining. So back to the simple way we go for now.&lt;&#x2F;p&gt;
+&lt;p&gt;If we want large grids we&#x27;ll need to start looking at &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Sparse_voxel_octree&quot;&gt;sparse voxel quad&#x2F;octrees&lt;&#x2F;a&gt; or my favorite variation: 64-trees (trees that are 4-ary instead of 2-ary, so you have 64 children instead of 8 per node, this gives you half the depth in the tree and improves cache locality when traversing).&lt;&#x2F;p&gt;
+&lt;p&gt;So, now that we have our data laid out... how do we parallelize it?&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;noita&quot;&gt;Noita&lt;a class=&quot;zola-anchor&quot; href=&quot;#noita&quot; aria-label=&quot;Anchor link for: noita&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Noita_(video_game)&quot;&gt;Noita&lt;&#x2F;a&gt; takes the approach of having 4 passes over chunks. Taking every other chunk in each direction so that there is a buffer zone of about 1&#x2F;2 the size of a chunk that you can play around with on separate threads.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;img
+        src=&quot;https:&#x2F;&#x2F;aceeri.dev&#x2F;images&#x2F;noita_parallel.webp&quot;
+        alt=&quot;One pass of noita chunks being chopped up for parallel processing&quot;
+        style=&quot;aspect-ratio: 16 &#x2F; 9&quot;
+    &#x2F;&gt;
+    
+&lt;&#x2F;div&gt;
+&lt;p&gt;Next we move the area that we are processing over by 1 chunk in a Z pattern.&lt;&#x2F;p&gt;
+&lt;div &gt;
+    &lt;img
+        src=&quot;https:&#x2F;&#x2F;aceeri.dev&#x2F;images&#x2F;noita_parallel_passes.gif&quot;
+        alt=&quot;One pass of noita chunks being chopped up for parallel processing&quot;
+        style=&quot;aspect-ratio: 16 &#x2F; 9&quot;
+    &#x2F;&gt;
+    
+&lt;&#x2F;div&gt;
+&lt;p&gt;And we&#x27;ve done it! We can throw each of these chunks into a separate thread and not worry about aliasing the same data.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;atomic-compare-and-swap&quot;&gt;Atomic Compare-and-Swap&lt;a class=&quot;zola-anchor&quot; href=&quot;#atomic-compare-and-swap&quot; aria-label=&quot;Anchor link for: atomic-compare-and-swap&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;Atomic compare and swaps are another approach I&#x27;ve seen done on both the CPU and GPU. This is a non-deterministic and potentially lossy approach, but it gives more flexibility than other methods. This is something I&#x27;d recommend mainly for the GPU, otherwise you&#x27;ll probably end up thrashing your cache with writes.&lt;&#x2F;p&gt;
+&lt;p&gt;The non-determinism made it a non-starter for my project&lt;sup id=&quot;ref-1&quot;&gt;
+    &lt;a href=&quot;#note-1&quot; style=&quot;text-decoration: none; border-bottom: 0&quot;
+        &gt;1&lt;&#x2F;a
+    &gt;
+&lt;&#x2F;sup&gt;
+, as I want to eventually network the simulation and having things desynchronize locally all the time makes latency and artifacts from eventual consistency much more noticeable.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h3 id=&quot;chunked-margolus-neighborhoods&quot;&gt;Chunked Margolus Neighborhoods&lt;a class=&quot;zola-anchor&quot; href=&quot;#chunked-margolus-neighborhoods&quot; aria-label=&quot;Anchor link for: chunked-margolus-neighborhoods&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h3&gt;
+&lt;p&gt;In this last approach we divide up the grid into a bunch of blocks and only allow each block to interact within itself. After one run you shift the blocks to overlap for the next run. This is called &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Block_cellular_automaton&quot;&gt;block cellular automata&lt;&#x2F;a&gt; with the
+simplest method being &lt;a rel=&quot;nofollow noreferrer&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Margolus_neighborhood&quot;&gt;margolus neighborhoods&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This sounds &lt;em&gt;very&lt;&#x2F;em&gt; similar to Noita&#x27;s approach, so what&#x27;s the difference?&lt;&#x2F;p&gt;
+&lt;p&gt;Well, Noita only processes 1 out of 4 chunks at a time and then repeats the process again after a shift. Block cellular automata processes all chunks in a single pass, which helps with reducing the overhead of using something like work stealing since we don&#x27;t need to wait for the last pass to finish up.&lt;&#x2F;p&gt;
+&lt;p&gt;We run into a couple of issues with margolus neighborhoods fairly fast though:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The artifacts from the boundaries of the blocks is &lt;em&gt;very&lt;&#x2F;em&gt; evident.&lt;&#x2F;li&gt;
+&lt;li&gt;CPUs caches &lt;em&gt;hate&lt;&#x2F;em&gt; this. When one core writes to a piece of memory, it will evict it from all other cores&#x27; caches, leading to cache misses everywhere.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;How do we fix these issues? Scale it up! Instead of 2x2 blocks of &lt;em&gt;cells&lt;&#x2F;em&gt;, we do 2x2 blocks of &lt;em&gt;chunks&lt;&#x2F;em&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;This means we aren&#x27;t processing data in the same cacheline (64 bytes on modern CPUs) as other cores and boundaries of the blocks are less frequent&#x2F;further apart.&lt;&#x2F;p&gt;
+&lt;p&gt;The boundary artifacts will still exist, but are much less perceptible, you&#x27;ll only notice it with fast movement getting a bit slowed down at chunk boundaries. But we have entirely fixed our problems with thrashing the cache.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tl-dr&quot;&gt;TL;DR&lt;a class=&quot;zola-anchor&quot; href=&quot;#tl-dr&quot; aria-label=&quot;Anchor link for: tl-dr&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Atomics are an interesting solution that provides simplicity and flexibility in implementing cell types, but is non-deterministic and likely destroys the cache on the CPU.&lt;&#x2F;li&gt;
+&lt;li&gt;Noita&#x27;s approach works very well, but might be sacrificing a bit of time waiting on each pass if only one or two chunks need to be processed. Fast moving cells will be slowed down much less than margolus neighborhoods.&lt;&#x2F;li&gt;
+&lt;li&gt;Margolus neighborhoods limit how you can implement cells and destroys your cache if used on a CPU. However these issues can be largely ignored by shifting the scale of the blocks to chunks rather than cells. Artifacts are more present here than Noita&#x27;s approach, mainly because the buffer zone is only 1-2 voxels wide at the block boundaries, instead of 1&#x2F;2 of a chunk&#x27;s width.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;next-steps&quot;&gt;Next steps&lt;a class=&quot;zola-anchor&quot; href=&quot;#next-steps&quot; aria-label=&quot;Anchor link for: next-steps&quot; style=&quot;visibility: hidden;&quot;&gt;&lt;&#x2F;a&gt;
+&lt;&#x2F;h2&gt;
+&lt;p&gt;We have something that can fully utilize modern CPUs, scaling linearly with the amount of work, now we need to cut down on the amount of work we are doing in the first place.&lt;&#x2F;p&gt;
+&lt;div class=&quot;citation&quot; style=&quot;font-size: 12px&quot; id=&quot;note-1&quot;&gt;
+    &lt;a
+        href=&quot;#ref-1&quot;
+        style=&quot;color: var(--text-pale-color); border-bottom: 0&quot;
+    &gt;
+        &lt;sup style=&quot;color: var(--primary-color)&quot;&gt;1&lt;&#x2F;sup&gt; You could *maybe* make it deterministic by using the starting location of the &quot;operation&quot; as an ordering for the change? I&#x27;m not entirely sure.
+    &lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+&lt;div style=&quot;text-align: right; font-size: 14;&quot;&gt;
+    &lt;a href=&quot;&#x2F;posts&#x2F;dirty-bitsets&quot;, style=&quot;border-bottom: 0&quot;&gt;Dirty Bitsets →&lt;&#x2F;a&gt;
+&lt;&#x2F;div&gt;
+</content>
+	</entry>
+</feed>
